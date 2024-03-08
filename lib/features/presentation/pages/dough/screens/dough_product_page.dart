@@ -1,8 +1,10 @@
-import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
+import 'dart:async';
+
 import 'package:bakery_app/core/utils/toast_message.dart';
+import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
 import 'package:bakery_app/features/data/models/dough_added_product.dart';
-import 'package:bakery_app/features/data/models/product_not_added.dart';
 import 'package:bakery_app/features/data/models/dough_product_to_add.dart';
+import 'package:bakery_app/features/data/models/product_not_added.dart';
 import 'package:bakery_app/features/presentation/widgets/added_product.dart';
 import 'package:bakery_app/features/presentation/widgets/available_product.dart';
 import 'package:bakery_app/features/presentation/widgets/custom_app_bar.dart';
@@ -31,9 +33,10 @@ class DoughProductPage extends StatelessWidget {
       required this.date});
 
   final List<DoughProductToAddModel> listToPost = List.empty(growable: true);
-
+ 
   @override
   Widget build(BuildContext context) {
+     print("List id: $listId");
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -240,9 +243,7 @@ class DoughProductPage extends StatelessWidget {
     if (listToPost.isNotEmpty) {
       var user = await UserPreferences.getUser();
       if (user != null) {
-        context.read<DoughAddedProductsBloc>().add(
-            DoughPostAddedProductRequested(
-                products: listToPost, userId: user.id!, date: date));
+        context.read<DoughAddedProductsBloc>().add(DoughPostAddedProductRequested(products: listToPost, userId: user.id!, date: date));
       }
     } else {
       showToastMessage("Yeni ürün eklemelisiniz!");
@@ -345,4 +346,5 @@ class DoughProductPage extends StatelessWidget {
         doughFactoryListId: listId,
         quantity: quantity));
   }
+  
 }

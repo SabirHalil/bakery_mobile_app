@@ -24,6 +24,7 @@ class ProductFailure extends ProductState {
 }
 
 class ProductSuccess extends ProductState {
+  @override
   final List<ProductModel>? products;
   const ProductSuccess({this.products});
   

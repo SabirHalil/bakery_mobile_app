@@ -1,7 +1,6 @@
 import 'package:bakery_app/features/data/models/service_to_receive_stale.dart';
 import 'package:bakery_app/features/domain/usecases/service_stale_usecase.dart';
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_stale_received/service_stale_received_bloc.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class ServiceStaleLeftBloc
     emit(const ServiceStaleLeftLoading());
     final dataState =
         await _serviceStaleUseCase.getServiceNotReceivedStaleByDate(event.date);
-    print("data state: ${dataState.data}");
+    
     if (dataState is DataSuccess && dataState.data != null) {
       emit(ServiceStaleLeftSuccess(
           serviceStaleLeft: dataState.data as List<ServiceStaleModel>));

@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 
 import 'package:bakery_app/features/domain/entities/bread_counting.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/bread_counting_repository.dart';
 
 class BreadCountingRepositoryImpl extends BreadCountingRepository {
@@ -29,7 +30,8 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -49,7 +51,8 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -72,7 +75,8 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
             requestOptions: httpResponse.response.requestOptions),
       );
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -93,7 +97,8 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

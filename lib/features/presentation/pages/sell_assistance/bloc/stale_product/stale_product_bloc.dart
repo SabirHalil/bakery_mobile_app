@@ -1,7 +1,7 @@
 import 'package:bakery_app/features/data/models/stale_product_added.dart';
 import 'package:bakery_app/features/data/models/stale_product_to_add.dart';
 import 'package:bakery_app/features/domain/usecases/stale_product_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 

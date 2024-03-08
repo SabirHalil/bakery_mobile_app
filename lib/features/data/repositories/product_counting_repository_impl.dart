@@ -10,6 +10,7 @@ import 'package:bakery_app/features/domain/entities/product_counting_to_add.dart
 
 import 'package:bakery_app/features/domain/entities/product_not_added.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/product_counting_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -33,7 +34,8 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -52,7 +54,8 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -71,7 +74,8 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -92,7 +96,8 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -112,7 +117,8 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 }

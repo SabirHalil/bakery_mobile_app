@@ -2,7 +2,7 @@ import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/core/utils/toast_message.dart';
 import 'package:bakery_app/features/data/models/expense.dart';
 import 'package:bakery_app/features/domain/usecases/expense_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

@@ -11,6 +11,8 @@ import 'package:bakery_app/features/domain/entities/product_to_add.dart';
 import 'package:bakery_app/features/domain/repositories/product_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class ProductRepositoryImpl extends ProductRepository {
   final ProductApiService _apiService;
   ProductRepositoryImpl(this._apiService);
@@ -33,7 +35,8 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -52,7 +55,8 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -72,7 +76,8 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -92,7 +97,8 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -111,7 +117,8 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

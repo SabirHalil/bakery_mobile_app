@@ -2,14 +2,13 @@ import 'package:bakery_app/features/data/models/service_received_stale.dart';
 import 'package:bakery_app/features/data/models/service_to_receive_stale.dart';
 import 'package:bakery_app/features/domain/usecases/service_stale_usecase.dart';
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_stale_left/service_stale_left_bloc.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/resources/data_state.dart';
-import '../../../../../../core/utils/toast_message.dart';
+import '../../../../../../core/utils/show_snake_bar.dart';
 
 part 'service_stale_received_event.dart';
 part 'service_stale_received_state.dart';
@@ -50,8 +49,8 @@ class ServiceStaleReceivedBloc
         .deleteServiceReceivedStale(event.serviceReceivedStaleModel.id);
 
     if (dataState is DataSuccess) {
-      print("Silenecek model: ${event.serviceReceivedStaleModel}");
-      print("var olan liste: ${state.serviceReceivedStale}");
+      
+      
       emit(ServiceStaleReceivedSuccess(
           serviceReceivedStale: [...?state.serviceReceivedStale]
             ..remove(event.serviceReceivedStaleModel)));
@@ -76,7 +75,7 @@ class ServiceStaleReceivedBloc
             quantity: event.serviceReceivedStaleModel.quantity,
             marketId: event.serviceReceivedStaleModel.marketId,
             date: DateTime.now());
-        print("ServiceStaleReceived $serviceStaleReceived");
+        
         final dataState = await _serviceStaleUseCase
             .updateServiceReceivedStale(serviceStaleReceived);
         if (dataState is DataSuccess) {
@@ -92,8 +91,9 @@ class ServiceStaleReceivedBloc
           emit(ServiceStaleReceivedFailure(error: dataState.error!));
         }
       } catch (e) {
-        print(e.toString());
-        showToastMessage(e.toString());
+        
+      showSnakeBar(e.toString(),null,null);
+      rethrow;
       }
     }
   }

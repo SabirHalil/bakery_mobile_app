@@ -7,6 +7,7 @@ import 'package:bakery_app/features/data/data_sources/remote/cash_counting_servi
 
 import 'package:bakery_app/features/domain/entities/cash_counting.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/cash_counting_repository.dart';
 import '../models/cash_counting.dart';
 
@@ -28,7 +29,8 @@ class CashCountingRepositoryImpl extends CashCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -49,7 +51,8 @@ class CashCountingRepositoryImpl extends CashCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -71,7 +74,8 @@ class CashCountingRepositoryImpl extends CashCountingRepository {
         );
      
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -91,7 +95,8 @@ class CashCountingRepositoryImpl extends CashCountingRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 }

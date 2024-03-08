@@ -11,6 +11,8 @@ import 'package:bakery_app/features/domain/entities/user.dart';
 import 'package:bakery_app/features/domain/repositories/auth_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class AuthRepositoryImpl implements AuthRepository {
   final AuthApiService _authApiService;
   AuthRepositoryImpl(this._authApiService);
@@ -23,13 +25,10 @@ class AuthRepositoryImpl implements AuthRepository {
           userName: userLoginParams!.userName,
           password: userLoginParams.password);
 
-  print("auth request response: ${httpResponse.response.statusCode}");
-
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         UserPreferences.saveUser(httpResponse.data!);
         return DataSuccess(httpResponse.data!);
       } else {
-      
         return DataFailed(
           DioException(
               error: httpResponse.response.statusMessage,
@@ -38,7 +37,8 @@ class AuthRepositoryImpl implements AuthRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 

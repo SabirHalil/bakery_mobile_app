@@ -1,11 +1,11 @@
-// ignore_for_file: depend_on_referenced_packages
+
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/dough_added_product.dart';
 import 'package:bakery_app/features/data/models/dough_product_to_add.dart';
 import 'package:bakery_app/features/domain/entities/dough_product_to_add.dart';
 import 'package:bakery_app/features/domain/usecases/dough_factory_usecases.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +43,8 @@ class DoughAddedProductsBloc
 
   void onPostProductsToServer(DoughPostAddedProductRequested event,
       Emitter<DoughAddedProductsState> emit) async {
-    print("userID: ${event.userId}");
-    print("products: ${event.products}");
+    
+    
     emit(const DoughAddedProductsLoading());
     final dataState =
         await _doughUseCase.addDoughProducts(event.userId, event.products,event.date);
@@ -71,8 +71,7 @@ class DoughAddedProductsBloc
     final state = this.state;
     if (state is DoughAddedProductsSuccess) {
       try {
-        emit(DoughAddedProductsSuccess(
-            doughAddedProducts: [...?state.doughAddedProducts, event.product]));
+        emit(DoughAddedProductsSuccess(doughAddedProducts: [...?state.doughAddedProducts, event.product]));
       } catch (_) {
         emit(DoughAddedProductsFailure(
             error: DioException.requestCancelled(

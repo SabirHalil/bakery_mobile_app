@@ -8,6 +8,8 @@ import 'package:bakery_app/features/domain/entities/service_debt_total.dart';
 import 'package:bakery_app/features/domain/repositories/service_debt_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
   final ServiceDebtApiService _serviceDebtApiService;
   ServiceDebtRepositoryImpl(this._serviceDebtApiService);
@@ -27,7 +29,8 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -47,7 +50,8 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -66,7 +70,8 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -90,7 +95,8 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -114,7 +120,8 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

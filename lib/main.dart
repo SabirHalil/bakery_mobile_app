@@ -5,7 +5,8 @@ import 'package:bakery_app/config/theme/app_theme.dart';
 import 'package:bakery_app/core/utils/http_overrides.dart';
 import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
 import 'package:bakery_app/features/data/models/user.dart';
-import 'package:bakery_app/features/presentation/pages/admin/pages/admin_page.dart';
+import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/admin_page.dart';
 
 import 'package:bakery_app/features/presentation/pages/auth/screens/login_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
@@ -29,7 +30,7 @@ import 'features/presentation/pages/dough/bloc/dough_lists/dough_factory_bloc.da
 import 'features/presentation/pages/dough/bloc/dough_products/dough_products_bloc.dart';
 import 'features/presentation/pages/production/bloc/added_products/added_product_bloc.dart';
 import 'features/presentation/pages/production/bloc/products/product_bloc.dart';
-import 'features/presentation/pages/sell_assistance/bloc/bloc/cash_counting_bloc.dart';
+import 'features/presentation/pages/sell_assistance/bloc/cash_counting/cash_counting_bloc.dart';
 import 'features/presentation/pages/sell_assistance/bloc/expense/expense_bloc.dart';
 import 'features/presentation/pages/sell_assistance/bloc/product_counting_added/product_counting_added_bloc.dart';
 import 'features/presentation/pages/sell_assistance/bloc/product_counting_not_added/product_counting_not_added_bloc.dart';
@@ -142,6 +143,9 @@ class MyApp extends StatelessWidget {
         ),
              BlocProvider<CashCountingBloc>(
           create: (context) => CashCountingBloc(sl()),
+        ),
+              BlocProvider<PdfBloc>(
+          create: (context) => PdfBloc(sl()),
         ),
       ],
       child: MaterialApp(

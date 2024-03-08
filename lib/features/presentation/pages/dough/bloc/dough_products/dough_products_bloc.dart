@@ -1,9 +1,9 @@
-// ignore_for_file: depend_on_referenced_packages
+
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/product_not_added.dart';
 import 'package:bakery_app/features/domain/usecases/dough_factory_usecases.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +22,7 @@ class DoughProductsBloc extends Bloc<DoughProductsEvent, DoughProductsState> {
   void onGetDoughProducts(
       DoughGetProductsRequested event, Emitter<DoughProductsState> emit) async {
     emit(const DoughProductsLoading());
-    final dataState =
-        await _doughUseCase.getAvailableDoughProducts(event.listId);
+    final dataState = await _doughUseCase.getAvailableDoughProducts(event.listId);
 
     if (dataState is DataSuccess && dataState.data != null) {
       emit(DoughProductsSuccess(
@@ -55,14 +54,14 @@ class DoughProductsBloc extends Bloc<DoughProductsEvent, DoughProductsState> {
     final state = this.state;
     if (state is DoughProductsSuccess) {
       try {
-        print("onRemoveProductFromList: ${state.doughProducts}");
+        
         emit(DoughProductsSuccess(
             doughProducts: [...?state.doughProducts]..remove(event.product)));
       } catch (_) {
         emit(DoughProductsFailure(
             error: DioException.requestCancelled(
                 requestOptions: RequestOptions(), reason: "Faild!")));
-        print("catch remove ${_.toString()}");
+        
       }
     }
   }

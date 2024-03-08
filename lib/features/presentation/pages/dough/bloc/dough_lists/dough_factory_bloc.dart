@@ -1,10 +1,10 @@
-// ignore_for_file: depend_on_referenced_packages
+
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/dough_list.dart';
 
 import 'package:bakery_app/features/domain/usecases/dough_factory_usecases.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:dio/dio.dart';

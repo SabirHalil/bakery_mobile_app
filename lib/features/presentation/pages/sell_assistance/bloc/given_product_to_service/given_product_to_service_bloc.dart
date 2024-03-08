@@ -1,5 +1,5 @@
 import 'package:bakery_app/features/domain/usecases/given_product_to_service_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -26,7 +26,7 @@ class GivenProductToServiceBloc
       GivenProductToServiceGetListRequested event,
       Emitter<GivenProductToServiceState> emit) async {
     emit(const GivenProductToServiceLoading());
-    print('event service type: ${event.servisTypeId}');
+    
     final dataState = await _givenProductToServiceUseCase
         .getGivenProductToServiceListByDateAndServiceType(
             event.date, event.servisTypeId);

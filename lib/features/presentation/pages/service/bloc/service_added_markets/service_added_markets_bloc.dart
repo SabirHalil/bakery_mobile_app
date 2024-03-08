@@ -1,6 +1,6 @@
 import 'package:bakery_app/features/data/models/service_added_market.dart';
 import 'package:bakery_app/features/data/models/service_market_to_add.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -42,8 +42,8 @@ class ServiceAddedMarketsBloc
 
   void onPostMarketsToServer(ServicePostAddedMarketRequested event,
       Emitter<ServiceAddedMarketsState> emit) async {
-    print("userID: ${event.userId}");
-    print("Markets: ${event.markets}");
+    
+    
     emit(const ServiceAddedMarketsLoading());
     final dataState = await _serviceMarketssUseCase.addServiceMarkets(
         event.userId, event.markets);
@@ -123,7 +123,7 @@ class ServiceAddedMarketsBloc
       emit(const ServiceAddedMarketsLoading());
       try {
         if (event.market.id == 0) {
-          print("if statement");
+          
           state.serviceAddedMarkets![event.index] = event.market;
           emit(ServiceAddedMarketsSuccess(
               serviceAddedMarkets: state.serviceAddedMarkets!));
@@ -147,7 +147,7 @@ class ServiceAddedMarketsBloc
           }
         }
       } catch (_) {
-        print("error while updating: ${_.toString()}");
+        
         emit(ServiceAddedMarketsFailure(
             error: DioException.requestCancelled(
                 requestOptions: RequestOptions(), reason: "Faild!")));

@@ -1,7 +1,7 @@
 import 'package:bakery_app/features/data/models/product_counting_to_add.dart';
 import 'package:bakery_app/features/data/models/product_not_added.dart';
 import 'package:bakery_app/features/domain/usecases/product_counting_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 

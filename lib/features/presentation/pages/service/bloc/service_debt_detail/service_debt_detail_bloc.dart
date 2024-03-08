@@ -1,5 +1,4 @@
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_debt/service_debt_bloc.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -50,6 +49,7 @@ class ServiceDebtDetailBloc
       emit(ServiceDebtDetailSuccess(
           serviceDebtDetailList: [...?state.serviceDebtDetailList]
             ..remove(event.serviceDebtDetail)));
+            
       event.context.read<ServiceDebtBloc>().add(ServiceGetTotalDebtList());
     }
 

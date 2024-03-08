@@ -1,5 +1,5 @@
 import 'package:bakery_app/features/data/models/user.dart';
-import 'package:bakery_app/features/presentation/pages/admin/pages/admin_page.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/admin_page.dart';
 import 'package:bakery_app/features/presentation/pages/auth/screens/login_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_product_page.dart';
@@ -11,15 +11,21 @@ import 'package:bakery_app/features/presentation/pages/service/screens/service_l
 import 'package:bakery_app/features/presentation/pages/service/screens/service_markets_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/presentation/pages/admin/screens/pdf_view_page.dart';
 import '../../features/presentation/pages/service/screens/service_stale_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
     case LoginPage.routeName:
-      return MaterialPageRoute(settings: routeSettings, builder: (_) => const LoginPage());
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => const LoginPage());
     case SellAssistancePage.routeName:
-     var args = routeSettings.arguments as UserModel;
-      return MaterialPageRoute(settings: routeSettings, builder: (_) =>  SellAssistancePage(user: args,));
+      var args = routeSettings.arguments as UserModel;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => SellAssistancePage(
+                user: args,
+              ));
     case ProductionPage.routeName:
       var args = routeSettings.arguments as Map<int, dynamic>;
       return MaterialPageRoute(
@@ -44,19 +50,36 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
                 canEdit: args[1],
               ));
     case ServiceAccountPage.routeName:
-    var args = routeSettings.arguments as DateTime;
-      return MaterialPageRoute(settings: routeSettings, builder: (_) => ServiceAccountPage(date: args,));
+      var args = routeSettings.arguments as DateTime;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => ServiceAccountPage(
+                date: args,
+              ));
     case ServiceListPage.routeName:
       var args = routeSettings.arguments as UserModel;
-      return MaterialPageRoute(settings: routeSettings, builder: (_) =>  ServiceListPage(user: args,));
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => ServiceListPage(
+                user: args,
+              ));
     case ServiceStalePage.routeName:
-    var args = routeSettings.arguments as DateTime;
-      return MaterialPageRoute(settings: routeSettings, builder: (_) =>  ServiceStalePage(date: args,));  
+      var args = routeSettings.arguments as DateTime;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => ServiceStalePage(
+                date: args,
+              ));
     case ServiceDebtPage.routeName:
-      return MaterialPageRoute(settings: routeSettings, builder: (_) => const ServiceDebtPage());  
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => const ServiceDebtPage());
     case DoughListPage.routeName:
-    var args = routeSettings.arguments as UserModel;
-    return MaterialPageRoute(settings: routeSettings, builder: (_) =>  DoughListPage(user: args,));
+      var args = routeSettings.arguments as UserModel;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => DoughListPage(
+                user: args,
+              ));
     case DoughProductPage.routeName:
       var args = routeSettings.arguments as Map<int, dynamic>;
       return MaterialPageRoute(
@@ -65,6 +88,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
                 listId: args[0],
                 canEdit: args[1],
                 date: args[2],
+              ));
+    case PdfViewPage.routeName:
+      var args = routeSettings.arguments as Map<int, dynamic>;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => PdfViewPage(
+                path: args[0],
+                titlePage: args[1],
               ));
     default:
       return MaterialPageRoute(

@@ -4,6 +4,7 @@ import 'package:bakery_app/features/domain/entities/received_money_from_service.
 import 'package:dio/dio.dart';
 import 'dart:io';
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/received_money_from_service_repository.dart';
 import '../models/received_money_from_service.dart';
 
@@ -27,7 +28,8 @@ class ReceivedMoneyFromServiceRepositoryImpl
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -48,7 +50,8 @@ class ReceivedMoneyFromServiceRepositoryImpl
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -71,7 +74,8 @@ try {
         );
      
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -92,7 +96,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

@@ -11,6 +11,7 @@ import 'package:bakery_app/features/domain/entities/stale_bread_added.dart';
 
 import 'package:bakery_app/features/domain/entities/stale_bread_to_add.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/stale_bread_repository.dart';
 
 class StaleBreadRepositoryImpl extends StaleBreadRepository {
@@ -34,7 +35,8 @@ class StaleBreadRepositoryImpl extends StaleBreadRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -55,7 +57,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+       showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -75,7 +78,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -96,7 +100,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -118,7 +123,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

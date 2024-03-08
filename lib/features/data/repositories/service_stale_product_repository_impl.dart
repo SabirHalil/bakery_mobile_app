@@ -7,6 +7,7 @@ import 'package:bakery_app/features/domain/entities/service_stale_product.dart';
 import 'package:dio/dio.dart';
 
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/service_stale_product_repository.dart';
 import '../data_sources/remote/service_stale_product_service.dart';
 
@@ -32,7 +33,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -53,7 +55,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -76,7 +79,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -99,7 +103,8 @@ try {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

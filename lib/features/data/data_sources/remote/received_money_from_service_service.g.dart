@@ -50,8 +50,7 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null
-        ? null
+    final value = _result.data == null? null
         : ReceivedMoneyFromServiceModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;

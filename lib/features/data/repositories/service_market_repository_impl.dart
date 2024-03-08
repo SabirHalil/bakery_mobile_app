@@ -11,6 +11,8 @@ import 'package:bakery_app/features/domain/repositories/service_market_repositor
 
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
   final ServiceServicesApiService _serviceServicesApiService;
   ServiceMarketRepositoryImpl(this._serviceServicesApiService);
@@ -38,7 +40,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
     
   }
@@ -58,7 +61,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -79,7 +83,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -101,7 +106,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -121,7 +127,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -142,7 +149,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

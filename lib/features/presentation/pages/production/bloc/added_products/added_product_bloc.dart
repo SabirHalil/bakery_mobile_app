@@ -1,10 +1,9 @@
-// ignore_for_file: depend_on_referenced_packages
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/product_added.dart';
 
 import 'package:bakery_app/features/domain/usecases/product_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +27,8 @@ class AddedProductBloc extends Bloc<AddedProductsEvent, AddedProductState> {
   void onGetProducts(
       GetAddedProductsRequested event, Emitter<AddedProductState> emit) async {
     emit(const AddedProductLoading());
-    print('Date: ${event.date}');
-    print('Category Id:${event.categoryId}');
+    
+    
     final dataState = await _productUseCase.getAddedProductsByDateAndCategoryId(
         event.date, event.categoryId);
 

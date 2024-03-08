@@ -1,11 +1,11 @@
-// ignore_for_file: depend_on_referenced_packages
+
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/core/utils/user_login_params.dart';
 import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
 import 'package:bakery_app/features/data/models/user.dart';
 import 'package:bakery_app/features/domain/usecases/user_login_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -23,9 +23,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void onUserLogin(AuthLoginRequested event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
-        print('event data:${event.userLoginParams}');
+        
     final dataState = await _authUseCase.userLogin(params: event.userLoginParams);
-    print('data state : ${dataState.data}');
+    
 
     if (dataState is DataSuccess && dataState.data != null) {
       emit(AuthSuccess(user: UserModel.fromEntity(dataState.data!)));

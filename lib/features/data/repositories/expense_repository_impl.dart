@@ -8,6 +8,8 @@ import 'package:bakery_app/features/domain/entities/expense.dart';
 import 'package:bakery_app/features/domain/repositories/expense_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class ExpenseRepositoryImpl extends ExpenseRepository{
   final ExpenseService _expenseService;
   ExpenseRepositoryImpl(this._expenseService);
@@ -26,7 +28,8 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -45,7 +48,8 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -64,7 +68,8 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
 
@@ -83,7 +88,8 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+rethrow;
     }
   }
   

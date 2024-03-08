@@ -28,6 +28,7 @@ import 'package:bakery_app/features/domain/usecases/service_account_usecases.dar
 import 'package:bakery_app/features/domain/usecases/service_market_usecase.dart';
 import 'package:bakery_app/features/domain/usecases/stale_product_usecase.dart';
 import 'package:bakery_app/features/domain/usecases/user_login_usecase.dart';
+import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/sell_assistance/bloc/bread_counting/bread_counting_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/sell_assistance/bloc/given_product_to_service/given_product_to_service_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/sell_assistance/bloc/service_stale_product/service_stale_product_bloc.dart';
@@ -37,12 +38,14 @@ import 'package:bakery_app/features/presentation/pages/service/bloc/service_list
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_markets/service_markets_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_stale_left/service_stale_left_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_stale_received/service_stale_received_bloc.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 
 import 'features/data/data_sources/remote/bread_counting_service.dart';
 import 'features/data/data_sources/remote/cash_counting_service.dart';
+import 'features/data/data_sources/remote/pdf_service.dart';
 import 'features/data/data_sources/remote/product_counting_service.dart';
 import 'features/data/data_sources/remote/received_money_from_service_service.dart';
 import 'features/data/data_sources/remote/service_stale_product_service.dart';
@@ -52,6 +55,7 @@ import 'features/data/repositories/bread_counting_repository_impl.dart';
 import 'features/data/repositories/cash_counting_repository_impl.dart';
 import 'features/data/repositories/expense_repository_impl.dart';
 import 'features/data/repositories/given_product_to_service_repository_impl.dart';
+import 'features/data/repositories/pdf_repository_impl.dart';
 import 'features/data/repositories/product_counting_repository_impl.dart';
 import 'features/data/repositories/received_money_from_service_repository_impl.dart';
 import 'features/data/repositories/service_debt_repository_impl.dart';
@@ -63,6 +67,7 @@ import 'features/data/repositories/stale_product_repository_impl.dart';
 import 'features/domain/repositories/bread_counting_repository.dart';
 import 'features/domain/repositories/cash_counting_repository.dart';
 import 'features/domain/repositories/given_product_to_service_repository.dart';
+import 'features/domain/repositories/pdf_repository.dart';
 import 'features/domain/repositories/product_counting_repository.dart';
 import 'features/domain/repositories/received_money_from_service_repository.dart';
 import 'features/domain/repositories/service_debt_repository.dart';
@@ -72,6 +77,7 @@ import 'features/domain/repositories/stale_bread_repository.dart';
 import 'features/domain/repositories/stale_product_repository.dart';
 import 'features/domain/usecases/bread_counting_usecase.dart';
 import 'features/domain/usecases/cash_counting_usecase.dart';
+import 'features/domain/usecases/pdf_usecase.dart';
 import 'features/domain/usecases/product_counting_usecase.dart';
 import 'features/domain/usecases/received_money_from_service_usecase.dart';
 import 'features/domain/usecases/service_debt_usecase.dart';
@@ -101,10 +107,10 @@ Future<void> initializeDependencies() async {
   // Dio
   sl.registerSingleton<Dio>(Dio());
   sl.registerSingleton<String>(baseUrl);
-
+  sl.registerLazySingleton(() => GlobalKey<NavigatorState>());
   // Dependencies
   //sl.registerSingleton<Api>(Api());
-  sl.registerSingleton<AuthApiService>(AuthApiService(sl(),sl()));
+  sl.registerSingleton<AuthApiService>(AuthApiService(sl(), sl()));
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
   sl.registerSingleton<DoughApiService>(DoughApiService(sl(), sl()));
   sl.registerSingleton<DoughRepository>(DoughRepositoryImpl(sl()));
@@ -143,12 +149,17 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ReceivedMoneyFromServiceRepository>(
       ReceivedMoneyFromServiceRepositoryImpl(sl()));
   sl.registerSingleton<BreadCountingService>(BreadCountingService(sl(), sl()));
-  sl.registerSingleton<BreadCountingRepository>(BreadCountingRepositoryImpl(sl()));
-    sl.registerSingleton<ProductCountingService>(ProductCountingService(sl(), sl()));
-  sl.registerSingleton<ProductCountingRepository>(ProductCountingRepositoryImpl(sl()));
- sl.registerSingleton<CashCountingService>(CashCountingService(sl(), sl()));
-  sl.registerSingleton<CashCountingRepository>(CashCountingRepositoryImpl(sl()));
-
+  sl.registerSingleton<BreadCountingRepository>(
+      BreadCountingRepositoryImpl(sl()));
+  sl.registerSingleton<ProductCountingService>(
+      ProductCountingService(sl(), sl()));
+  sl.registerSingleton<ProductCountingRepository>(
+      ProductCountingRepositoryImpl(sl()));
+  sl.registerSingleton<CashCountingService>(CashCountingService(sl(), sl()));
+  sl.registerSingleton<CashCountingRepository>(
+      CashCountingRepositoryImpl(sl()));
+  sl.registerSingleton<PdfService>(PdfService(sl(), sl()));
+  sl.registerSingleton<PdfRepository>(PdfRepositoryImpl(sl()));
 
   // Usecases
   sl.registerSingleton<AuthUseCase>(AuthUseCase(sl()));
@@ -168,9 +179,9 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ReceivedMoneyFromServiceUseCase>(
       ReceivedMoneyFromServiceUseCase(sl()));
   sl.registerSingleton<BreadCountingUseCase>(BreadCountingUseCase(sl()));
-   sl.registerSingleton<ProductCountingUseCase>(ProductCountingUseCase(sl()));
-   sl.registerSingleton<CashCountingUseCase>(CashCountingUseCase(sl()));
-
+  sl.registerSingleton<ProductCountingUseCase>(ProductCountingUseCase(sl()));
+  sl.registerSingleton<CashCountingUseCase>(CashCountingUseCase(sl()));
+  sl.registerSingleton<PdfUseCase>(PdfUseCase(sl()));
 
   // Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl()));
@@ -202,11 +213,14 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<StaleBreadProductsBloc>(
       () => StaleBreadProductsBloc(sl()));
   sl.registerFactory<StaleProductBloc>(() => StaleProductBloc(sl()));
-  sl.registerFactory<StaleProductProductsBloc>( () => StaleProductProductsBloc(sl()));
-  sl.registerFactory<ReceivedMoneyFromServiceBloc>(() => ReceivedMoneyFromServiceBloc(sl()));
+  sl.registerFactory<StaleProductProductsBloc>(
+      () => StaleProductProductsBloc(sl()));
+  sl.registerFactory<ReceivedMoneyFromServiceBloc>(
+      () => ReceivedMoneyFromServiceBloc(sl()));
   sl.registerFactory<BreadCountingBloc>(() => BreadCountingBloc(sl()));
-  sl.registerFactory<ProductCountingAddedBloc>(() => ProductCountingAddedBloc(sl()));
-  sl.registerFactory<ProductCountingNotAddedBloc>(() => ProductCountingNotAddedBloc(sl()));
-
-
+  sl.registerFactory<ProductCountingAddedBloc>(
+      () => ProductCountingAddedBloc(sl()));
+  sl.registerFactory<ProductCountingNotAddedBloc>(
+      () => ProductCountingNotAddedBloc(sl()));
+  sl.registerFactory<PdfBloc>(() => PdfBloc(sl()));
 }

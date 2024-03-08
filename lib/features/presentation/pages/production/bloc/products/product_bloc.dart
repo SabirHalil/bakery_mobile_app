@@ -1,9 +1,9 @@
-// ignore_for_file: depend_on_referenced_packages
+
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/product.dart';
 import 'package:bakery_app/features/domain/usecases/product_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +51,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     final state = this.state;
     if (state is ProductSuccess) {
       try {
-        print("onRemoveProductFromList: ${state.products}");
+        
         emit(ProductSuccess(products:
             [...?state.products]..remove(event.product)));
       } catch (_) {
         emit(ProductFailure(error:DioException.requestCancelled(
             requestOptions: RequestOptions(), reason: "Faild!")));
-        print("catch remove ${_.toString()}");
+        
       }
     }
   }

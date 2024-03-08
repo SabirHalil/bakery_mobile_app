@@ -23,6 +23,7 @@ final class AuthLoading extends AuthState {
 }
 
 final class AuthSuccess extends AuthState {
+  @override
   final UserModel? user;
   const AuthSuccess({this.user});
   

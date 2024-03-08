@@ -1,7 +1,11 @@
+import 'package:bakery_app/core/utils/toast_message.dart';
+import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/pdf_view_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
 import 'package:bakery_app/features/presentation/pages/production/screens/production_page.dart';
 import 'package:bakery_app/features/presentation/pages/service/screens/service_lists_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/global_variables.dart';
 import '../../../../../core/utils/is_today_check.dart';
@@ -9,6 +13,8 @@ import '../../../../data/models/user.dart';
 import '../../../widgets/custom_app_bar_with_date.dart';
 import '../../../widgets/custom_report_list_tile.dart';
 import '../../../widgets/custom_sell_list_tile.dart';
+import '../../../widgets/error_animation.dart';
+import '../../../widgets/loading_indicator.dart';
 
 class AdminPage extends StatefulWidget {
   static const String routeName = "admin-page";
@@ -23,7 +29,7 @@ class _AdminPageState extends State<AdminPage> {
   static DateTime? selectedDate = DateTime.now();
   static String date = "Bugün";
   static bool todayDate = true;
-
+  String remotePDFpath = "";
   @override
   void initState() {
     super.initState();
@@ -34,7 +40,22 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppbar(),
-      body: _buildBody(),
+      body: BlocListener<PdfBloc, PdfState>(
+        listener: (context, state) {
+          switch (state) {
+            case PdfLoading():
+              const LoadingIndicator();
+            case PdfFailure():
+              const ErrorAnimation();
+            case PdfSuccess():
+              state.pdfPath != null
+                  ? _navigateToPage(PdfViewPage.routeName,
+                      {0: state.pdfPath, 1: state.pageTitle})
+                  : showToastMessage('Rapor şuan hazır değil');
+          }
+        },
+        child: _buildBody(),
+      ),
     );
   }
 
@@ -58,7 +79,7 @@ class _AdminPageState extends State<AdminPage> {
     return PreferredSize(
       preferredSize: const Size.fromHeight(70),
       child: CustomAppBarWithDate(
-        title: "Tezgah",
+        title: "Yönetim",
         date: date,
         //  onTap: _selectDate,
         additionalMenuItems: const [
@@ -93,11 +114,13 @@ class _AdminPageState extends State<AdminPage> {
           CustomReportListTile(
               title: 'Günsonu',
               onShowPdf: () {
-                // _updateBreadCounting(selectedDate!);
+                // _showEndOfTheDayPdf();
+                _navigateToPage(PdfViewPage.routeName, remotePDFpath);
               },
               onSharePdf: todayDate
                   ? () {
-                      //   _addBreadCountingDialog(selectedDate!);
+                      context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(
+                          date: selectedDate!, pageTitle: "Gün Sonu Raporu"));
                     }
                   : null),
           const Divider(
@@ -282,7 +305,7 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Servis'),
             trailing: IconButton(
               onPressed: () {
-                _navigateToPage(ServiceListPage.routeName,widget.user);
+                _navigateToPage(ServiceListPage.routeName, widget.user);
               },
               icon: const Icon(Icons.navigate_next),
               color: GlobalVariables.secondaryColor,
@@ -298,7 +321,7 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Hamurhane'),
             trailing: IconButton(
               onPressed: () {
-                _navigateToPage(DoughListPage.routeName,widget.user);
+                _navigateToPage(DoughListPage.routeName, widget.user);
               },
               icon: const Icon(Icons.navigate_next),
               color: GlobalVariables.secondaryColor,
@@ -314,7 +337,8 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Pastane'),
             trailing: IconButton(
               onPressed: () {
-                _navigateToPage(ProductionPage.routeName,{0:widget.user,1:1});
+                _navigateToPage(
+                    ProductionPage.routeName, {0: widget.user, 1: 1});
               },
               icon: const Icon(Icons.navigate_next),
               color: GlobalVariables.secondaryColor,
@@ -330,7 +354,8 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Börek'),
             trailing: IconButton(
               onPressed: () {
-                _navigateToPage(ProductionPage.routeName,{0:widget.user,1:2});
+                _navigateToPage(
+                    ProductionPage.routeName, {0: widget.user, 1: 2});
               },
               icon: const Icon(Icons.navigate_next),
               color: GlobalVariables.secondaryColor,
@@ -347,7 +372,8 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Dışardan alınan'),
             trailing: IconButton(
               onPressed: () {
-                _navigateToPage(ProductionPage.routeName,{0:widget.user,1:3});
+                _navigateToPage(
+                    ProductionPage.routeName, {0: widget.user, 1: 3});
               },
               icon: const Icon(Icons.navigate_next),
               color: GlobalVariables.secondaryColor,
@@ -561,7 +587,7 @@ class _AdminPageState extends State<AdminPage> {
         ),
         children: [
           CustomSellListTile(
-              title: 'Günsonu',
+              title: 'Hamurhane',
               onShowDetails: () {
                 // _updateBreadCounting(selectedDate!);
               },
@@ -577,7 +603,7 @@ class _AdminPageState extends State<AdminPage> {
             endIndent: 10,
           ),
           CustomSellListTile(
-              title: 'Hamurhane',
+              title: 'Pastane',
               onShowDetails: () {
                 // _showAddedProductCountingList(1);
               },
@@ -593,7 +619,7 @@ class _AdminPageState extends State<AdminPage> {
             endIndent: 10,
           ),
           CustomSellListTile(
-              title: 'Pastane',
+              title: 'Hamur işi',
               onShowDetails: () {
                 //   _showAddedProductCountingList(2);
               },
@@ -609,7 +635,7 @@ class _AdminPageState extends State<AdminPage> {
             endIndent: 10,
           ),
           CustomSellListTile(
-              title: 'Servis',
+              title: 'Dışardan alınan',
               onShowDetails: () {
                 //    _showAddedProductCountingList(3);
               },
@@ -734,11 +760,16 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-   _navigateToPage(String routeName, dynamic args) {
+  _navigateToPage(String routeName, dynamic args) {
     args == null
         ? Navigator.pushNamed(
-            context, routeName, )
+            context,
+            routeName,
+          )
         : Navigator.pushNamed(
-            context, routeName, arguments: args,);
+            context,
+            routeName,
+            arguments: args,
+          );
   }
 }

@@ -20,6 +20,7 @@ final class ServiceMarketsFailure extends ServiceMarketsState {
 }
 
 final class ServiceMarketsSuccess extends ServiceMarketsState {
+  @override
   final List<ServiceMarketModel>? markets;
   const ServiceMarketsSuccess({this.markets});
   @override

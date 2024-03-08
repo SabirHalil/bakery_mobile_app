@@ -1,10 +1,10 @@
 import 'package:bakery_app/features/data/models/service_debt_detail.dart';
 import 'package:bakery_app/features/data/models/service_debt_total.dart';
 import 'package:bakery_app/features/domain/usecases/service_debt_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 
@@ -25,11 +25,11 @@ class ServiceDebtBloc extends Bloc<ServiceDebtEvent, ServiceDebtState> {
     final dataState = await _serviceDebtUseCase.getServiceDebtMarketsList();
 
     if (dataState is DataSuccess) {
-       List<ServiceDebtTotalModel> serviceTotalDebtList = dataState.data as List<ServiceDebtTotalModel>;
+      List<ServiceDebtTotalModel> serviceTotalDebtList =
+          dataState.data as List<ServiceDebtTotalModel>;
 
-  serviceTotalDebtList.sort((a, b) => b.amount.compareTo(a.amount));
-      emit(ServiceTotalDebtSuccess(
-          serviceTotalDebtList: serviceTotalDebtList));
+      serviceTotalDebtList.sort((a, b) => b.amount.compareTo(a.amount));
+      emit(ServiceTotalDebtSuccess(serviceTotalDebtList: serviceTotalDebtList));
     }
 
     if (dataState is DataFailed) {
@@ -46,10 +46,12 @@ class ServiceDebtBloc extends Bloc<ServiceDebtEvent, ServiceDebtState> {
     if (dataState is DataSuccess) {
       final updatedList = await _serviceDebtUseCase.getServiceDebtMarketsList();
       if (updatedList is DataSuccess && updatedList.data != null) {
- List<ServiceDebtTotalModel> serviceTotalDebtList = updatedList.data as List<ServiceDebtTotalModel>;
+        List<ServiceDebtTotalModel> serviceTotalDebtList =
+            updatedList.data as List<ServiceDebtTotalModel>;
 
-  serviceTotalDebtList.sort((a, b) => b.amount.compareTo(a.amount));
-        emit(ServiceTotalDebtSuccess(serviceTotalDebtList:serviceTotalDebtList));
+        serviceTotalDebtList.sort((a, b) => b.amount.compareTo(a.amount));
+        emit(ServiceTotalDebtSuccess(
+            serviceTotalDebtList: serviceTotalDebtList));
       }
 
       if (updatedList is DataFailed) {

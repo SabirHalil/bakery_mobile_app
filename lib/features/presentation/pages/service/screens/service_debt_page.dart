@@ -33,7 +33,7 @@ class ServiceDebtPage extends StatelessWidget {
     context.read<ServiceDebtBloc>().add(ServiceGetTotalDebtList());
     return BlocBuilder<ServiceDebtBloc, ServiceDebtState>(
         builder: ((context, state) {
-      print('State: ${state.serviceTotalDebtList}');
+      
       return switch (state) {
         ServiceDebtLoading() => const LoadingIndicator(),
         ServiceDebtFailure() => const ErrorAnimation(),
@@ -244,7 +244,7 @@ class ServiceDebtPage extends StatelessWidget {
       ServiceDebtDetailModel serviceDebtDetailModel, double totalDebt) {
     TextEditingController controller =
         TextEditingController(text: serviceDebtDetailModel.amount.abs().toString());
-    print('Update dialog: $totalDebt');
+    
     showDialog(
         context: context,
         builder: (BuildContext context) {

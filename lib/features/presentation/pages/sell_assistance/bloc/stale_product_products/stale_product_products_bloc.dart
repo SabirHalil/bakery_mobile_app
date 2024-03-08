@@ -1,5 +1,5 @@
 import 'package:bakery_app/features/domain/usecases/stale_product_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 
 import 'package:equatable/equatable.dart';

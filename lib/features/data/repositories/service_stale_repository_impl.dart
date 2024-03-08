@@ -7,6 +7,7 @@ import 'package:bakery_app/features/domain/entities/service_stale.dart';
 import 'package:bakery_app/features/domain/entities/service_to_receive_stale.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
 import '../../domain/repositories/service_stale_repository.dart';
 import '../models/service_to_receive_stale.dart';
 
@@ -34,7 +35,8 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -56,7 +58,8 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -76,7 +79,8 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -97,7 +101,8 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -121,7 +126,8 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

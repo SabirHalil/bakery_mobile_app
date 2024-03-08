@@ -12,6 +12,8 @@ import 'package:bakery_app/features/domain/entities/dough_product_to_add.dart';
 import 'package:dio/dio.dart';
 import 'package:bakery_app/features/domain/repositories/dough_repository.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class DoughRepositoryImpl extends DoughRepository {
   final DoughApiService _doughApiService;
   DoughRepositoryImpl(this._doughApiService);
@@ -31,7 +33,8 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -52,7 +55,8 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -74,7 +78,8 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -94,7 +99,8 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -115,7 +121,8 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -123,6 +130,7 @@ class DoughRepositoryImpl extends DoughRepository {
   Future<DataState<int>> addDoughProducts(int userId,
       List<DoughProductToAddEntity> doughListProduct, DateTime date) async {
     try {
+      print(doughListProduct);
       final List<DoughProductToAddModel> doughListProductModels =
           doughListProduct
               .map((entity) => DoughProductToAddModel.fromEntity(entity))
@@ -142,7 +150,8 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      throw e;
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

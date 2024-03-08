@@ -259,7 +259,7 @@ class _ProductionPageState extends State<ProductionPage> {
   _updateAddedProduct(AddedProductModel addedProductModel, int index) {
     TextEditingController controller =
         TextEditingController(text: addedProductModel.quantity.toString());
-    print("update place : $addedProductModel");
+    
     showDialog(
         context: context,
         builder: (BuildContext context) {

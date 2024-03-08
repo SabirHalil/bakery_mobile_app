@@ -8,6 +8,8 @@ import 'package:bakery_app/features/domain/entities/service_account_to_receive.d
 import 'package:bakery_app/features/domain/repositories/service_account_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/show_snake_bar.dart';
+
 class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
   final ServiceAccountService _serviceAccountService;
   ServiceAccountRepositoryImpl(this._serviceAccountService);
@@ -30,7 +32,8 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -50,7 +53,8 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -69,7 +73,8 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -89,7 +94,8 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 
@@ -109,7 +115,8 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-      throw e;
+          showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
   

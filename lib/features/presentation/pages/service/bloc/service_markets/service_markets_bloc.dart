@@ -1,7 +1,7 @@
-// ignore_for_file: depend_on_referenced_packages
+
 
 import 'package:bakery_app/features/data/models/service_market.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:dio/dio.dart';
@@ -52,13 +52,12 @@ class ServiceMarketsBloc extends Bloc<ServiceMarketsEvent, ServiceMarketsState> 
     final state = this.state;
     if (state is ServiceMarketsSuccess) {
       try {
-        print("onRemoveProductFromList: ${state.markets}");
+        
         emit(ServiceMarketsSuccess(markets:
             [...?state.markets]..remove(event.market)));
       } catch (_) {
-        emit(ServiceMarketsFailure(error:DioException.requestCancelled(
-            requestOptions: RequestOptions(), reason: "Faild!")));
-        print("catch remove ${_.toString()}");
+        emit(ServiceMarketsFailure(error:DioException.requestCancelled(requestOptions: RequestOptions(), reason: "Faild!")));
+        
       }
     }
   }

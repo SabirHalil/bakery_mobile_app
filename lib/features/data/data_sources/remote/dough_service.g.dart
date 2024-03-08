@@ -152,7 +152,7 @@ class _DoughApiService implements DoughApiService {
   @override
   Future<HttpResponse<dynamic>> deleteProductFromList({int? id}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'id': id};
+    final queryParameters = <String, dynamic>{r'detailId': id};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result =

@@ -1,9 +1,10 @@
 import 'package:bakery_app/features/domain/usecases/product_counting_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
+import '../../../../../../core/utils/show_snake_bar.dart';
 import '../../../../../../core/utils/toast_message.dart';
 import '../../../../../data/models/product_counting_added.dart';
 import '../../../../../data/models/product_counting_to_add.dart';
@@ -84,8 +85,9 @@ class ProductCountingAddedBloc
           emit(ProductCountingAddedFailure(error: dataState.error!));
         }
       } catch (e) {
-        showToastMessage(e.toString());
-        print(e.toString());
+        
+      showSnakeBar(e.toString(),null,null);
+      rethrow;
       }
     }
   }

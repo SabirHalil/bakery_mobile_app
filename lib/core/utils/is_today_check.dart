@@ -9,12 +9,9 @@ bool isToday(DateTime selectedDate) {
 
 bool isAdminCheck(String token) {
   Map<String, dynamic> decodedToken = _decodeJwt(token);
-  print('decoded Token: ${decodedToken}');
-
-
 
   // Checking if user is an admin
-  print('isAdmin: ${decodedToken.toString().contains("Admin")}');
+  
   return decodedToken.toString().contains("Admin");
 }
 
