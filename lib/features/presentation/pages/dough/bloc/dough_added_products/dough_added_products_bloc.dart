@@ -1,5 +1,3 @@
-
-
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/dough_added_product.dart';
 import 'package:bakery_app/features/data/models/dough_product_to_add.dart';
@@ -27,13 +25,17 @@ class DoughAddedProductsBloc
 
   void onGetDoughAddedProducts(DoughGetAddedProductsRequested event,
       Emitter<DoughAddedProductsState> emit) async {
+    print("list id in onGetDoughAddedProducts bloc: ${event.listId}");
+   
+
     emit(const DoughAddedProductsLoading());
     final dataState =
         await _doughUseCase.getDoughListProductsByListId(event.listId);
 
     if (dataState is DataSuccess && dataState.data != null) {
       emit(DoughAddedProductsSuccess(
-          doughAddedProducts: dataState.data as List<DoughAddedProductModel>));
+          doughAddedProducts: dataState.data as List<DoughAddedProductModel>,
+          listId: event.listId));
     }
 
     if (dataState is DataFailed) {
@@ -43,16 +45,17 @@ class DoughAddedProductsBloc
 
   void onPostProductsToServer(DoughPostAddedProductRequested event,
       Emitter<DoughAddedProductsState> emit) async {
-    
-    
     emit(const DoughAddedProductsLoading());
-    final dataState =
-        await _doughUseCase.addDoughProducts(event.userId, event.products,event.date);
+    final dataState = await _doughUseCase.addDoughProducts(
+        event.userId, event.products, event.date);
     if (dataState is DataSuccess && dataState.data != null) {
       final updatedDataState = await _doughUseCase
           .getDoughListProductsByListId(dataState.data as int);
       if (updatedDataState is DataSuccess && updatedDataState.data != null) {
-        emit(DoughAddedProductsSuccess(doughAddedProducts:updatedDataState.data as List<DoughAddedProductModel>, listId: dataState.data as int));
+        emit(DoughAddedProductsSuccess(
+            doughAddedProducts:
+                updatedDataState.data as List<DoughAddedProductModel>,
+            listId: dataState.data as int));
         event.products.clear();
       }
 
@@ -71,7 +74,8 @@ class DoughAddedProductsBloc
     final state = this.state;
     if (state is DoughAddedProductsSuccess) {
       try {
-        emit(DoughAddedProductsSuccess(doughAddedProducts: [...?state.doughAddedProducts, event.product]));
+        emit(DoughAddedProductsSuccess(
+            doughAddedProducts: [...?state.doughAddedProducts, event.product]));
       } catch (_) {
         emit(DoughAddedProductsFailure(
             error: DioException.requestCancelled(

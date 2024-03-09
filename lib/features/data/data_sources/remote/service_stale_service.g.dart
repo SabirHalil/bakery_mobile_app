@@ -26,7 +26,7 @@ class _ServiceStaleService implements ServiceStaleService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+   final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(_setStreamType<HttpResponse<List<ServiceReceivedStaleModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -54,11 +54,10 @@ class _ServiceStaleService implements ServiceStaleService {
   @override
   Future<HttpResponse<List<ServiceStaleModel>>>
       getServiceNotReceivedStaleByDate({DateTime? date}) async {
-    print("g service date: $date");
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceStaleModel>>>(Options(
       method: 'GET',
@@ -76,13 +75,13 @@ class _ServiceStaleService implements ServiceStaleService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    print("result data: ${_result.data}");
+   
     var value = _result.data!
         .map((dynamic i) =>
             ServiceStaleModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
-    print("http response: $httpResponse");
+   
     return httpResponse;
   }
 
@@ -122,7 +121,7 @@ class _ServiceStaleService implements ServiceStaleService {
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    print("delete id: $queryParameters");
+   
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -153,7 +152,7 @@ class _ServiceStaleService implements ServiceStaleService {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(serviceToReceiveStaleModel!.toJson());
-    print("Data: $_data");
+
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

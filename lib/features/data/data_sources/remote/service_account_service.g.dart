@@ -26,7 +26,7 @@ class _ServiceAccountService implements ServiceAccountService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+   final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceAccountReceivedModel>>>(
             Options(
@@ -59,7 +59,7 @@ class _ServiceAccountService implements ServiceAccountService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceAccountLeftModel>>>(
             Options(

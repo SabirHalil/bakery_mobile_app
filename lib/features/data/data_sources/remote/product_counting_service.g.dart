@@ -30,7 +30,7 @@ class _ProductCountingService implements ProductCountingService {
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductCountingAddedModel>>>(Options(
       method: 'GET',
@@ -68,7 +68,7 @@ class _ProductCountingService implements ProductCountingService {
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductNotAddedModel>>>(Options(
       method: 'GET',
@@ -129,7 +129,7 @@ class _ProductCountingService implements ProductCountingService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

@@ -11,7 +11,6 @@ import '../../../../../core/constants/global_variables.dart';
 import '../../../../../core/utils/is_today_check.dart';
 import '../../../../data/models/user.dart';
 import '../../../widgets/custom_app_bar_with_date.dart';
-import '../../../widgets/custom_report_list_tile.dart';
 import '../../../widgets/custom_sell_list_tile.dart';
 import '../../../widgets/error_animation.dart';
 import '../../../widgets/loading_indicator.dart';
@@ -111,84 +110,30 @@ class _AdminPageState extends State<AdminPage> {
           'Raporlar',
         ),
         children: [
-          CustomReportListTile(
-              title: 'Günsonu',
-              onShowPdf: () {
-                // _showEndOfTheDayPdf();
-                _navigateToPage(PdfViewPage.routeName, remotePDFpath);
-              },
-              onSharePdf: todayDate
-                  ? () {
-                      context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(
-                          date: selectedDate!, pageTitle: "Gün Sonu Raporu"));
-                    }
-                  : null),
+          ListTile(title: const Text('Günsonu'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Gün Sonu Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-          CustomReportListTile(
-              title: 'Service',
-              onShowPdf: () {
-                // _updateBreadCounting(selectedDate!);
-              },
-              onSharePdf: todayDate
-                  ? () {
-                      //   _addBreadCountingDialog(selectedDate!);
-                    }
-                  : null),
+        ListTile(title: const Text('Servis'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Servis Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-          CustomReportListTile(
-              title: 'Pastane',
-              onShowPdf: () {
-                // _updateBreadCounting(selectedDate!);
-              },
-              onSharePdf: todayDate
-                  ? () {
-                      //   _addBreadCountingDialog(selectedDate!);
-                    }
-                  : null),
+        ListTile(title: const Text('Pastane'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Pastane Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
+
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-          CustomReportListTile(
-              title: 'Hamurhane',
-              onShowPdf: () {
-                // _updateBreadCounting(selectedDate!);
-              },
-              onSharePdf: todayDate
-                  ? () {
-                      //   _addBreadCountingDialog(selectedDate!);
-                    }
-                  : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          // -------NEED TO BE DONE--------
-          // CustomSellListTile(
-          //     title: 'Kasa',
-          //     onShowDetails: () {
-          //  //     _updateCashCountingDialog("Kasa Sayımı Güncelleme");
-          //     },
-          //     onAdd: todayDate
-          //         ? () {
-          //            // _addCashCountingDialog("Kasa Sayımı");
-          //           }
-          //         : null),
-        ],
+      ListTile(title: const Text('Hamurhane'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Hamurhane Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
+      ],
       ),
     );
   }

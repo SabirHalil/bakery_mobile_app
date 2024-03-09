@@ -26,7 +26,7 @@ class _ExpenseService implements ExpenseService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ExpenseModel>>>(Options(
       method: 'GET',
@@ -86,7 +86,7 @@ class _ExpenseService implements ExpenseService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

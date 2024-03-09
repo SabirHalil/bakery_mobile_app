@@ -26,7 +26,7 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceListModel>>>(Options(
       method: 'GET',
@@ -49,7 +49,7 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
             (dynamic i) => ServiceListModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
-    print("result: ${httpResponse.data}");
+
     return httpResponse;
   }
 
@@ -90,7 +90,7 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'listId': listId};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceAddedMarketModel>>>(Options(
       method: 'GET',
@@ -122,7 +122,7 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'listId': listId};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceMarketModel>>>(Options(
       method: 'GET',
@@ -153,7 +153,7 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

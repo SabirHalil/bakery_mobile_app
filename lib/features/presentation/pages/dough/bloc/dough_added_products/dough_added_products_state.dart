@@ -5,6 +5,8 @@ sealed class DoughAddedProductsState extends Equatable {
   const DoughAddedProductsState();
 
   get doughAddedProducts => null;
+  get listId => null;
+
 }
 
 final class DoughAddedProductsLoading extends DoughAddedProductsState {
@@ -24,8 +26,9 @@ final class DoughAddedProductsFailure extends DoughAddedProductsState {
 final class DoughAddedProductsSuccess extends DoughAddedProductsState {
   @override
   final List<DoughAddedProductModel>? doughAddedProducts;
-  final int? listId;
-  const DoughAddedProductsSuccess({this.doughAddedProducts, this.listId});
+  @override
+   final int? listId;
+   const DoughAddedProductsSuccess({this.doughAddedProducts, this.listId});
 
   @override
   List<Object?> get props => [doughAddedProducts];

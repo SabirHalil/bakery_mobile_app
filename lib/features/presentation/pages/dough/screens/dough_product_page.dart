@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:bakery_app/core/utils/toast_message.dart';
 import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
@@ -33,10 +32,10 @@ class DoughProductPage extends StatelessWidget {
       required this.date});
 
   final List<DoughProductToAddModel> listToPost = List.empty(growable: true);
- 
+
   @override
   Widget build(BuildContext context) {
-     print("List id: $listId");
+    print("List id: $listId");
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -127,15 +126,14 @@ class DoughProductPage extends StatelessWidget {
   }
 
   _getEditableAddedProducts(BuildContext context) {
-    context
-        .read<DoughAddedProductsBloc>()
-        .add(DoughGetAddedProductsRequested(listId: listId));
+    context.read<DoughAddedProductsBloc>().add(DoughGetAddedProductsRequested(listId: listId));
     return BlocBuilder<DoughAddedProductsBloc, DoughAddedProductsState>(
         builder: ((context, state) {
       if (state is DoughAddedProductsSuccess &&
           state.listId != null &&
           state.listId != 0) {
         listId = state.listId!;
+        print("inside getAddedProducts list id: ${listId}");
       }
       return switch (state) {
         DoughAddedProductsLoading() => const LoadingIndicator(),
@@ -243,7 +241,9 @@ class DoughProductPage extends StatelessWidget {
     if (listToPost.isNotEmpty) {
       var user = await UserPreferences.getUser();
       if (user != null) {
-        context.read<DoughAddedProductsBloc>().add(DoughPostAddedProductRequested(products: listToPost, userId: user.id!, date: date));
+        context.read<DoughAddedProductsBloc>().add(
+            DoughPostAddedProductRequested(
+                products: listToPost, userId: user.id!, date: date));
       }
     } else {
       showToastMessage("Yeni ürün eklemelisiniz!");
@@ -346,5 +346,4 @@ class DoughProductPage extends StatelessWidget {
         doughFactoryListId: listId,
         quantity: quantity));
   }
-  
 }
