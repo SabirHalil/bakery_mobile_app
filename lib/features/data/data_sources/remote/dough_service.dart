@@ -16,27 +16,27 @@ abstract class DoughApiService {
 
   @GET("/api/DoughFactory/GetByDateDoughFactoryList")
   Future<HttpResponse<List<DoughListModel>>> getListsByDate(
-      {@Query("date") DateTime date});
+      @Query("date") DateTime date);
 
   @POST("/api/DoughFactory/AddDoughFactoryListAndListDetail")
-  Future<HttpResponse> addDoughProducts({
+  Future<HttpResponse> addDoughProducts(
     @Query("userId") int userId,
     @Body() List<DoughProductToAddModel> doughListProduct,
     @Query("date") DateTime date,
-  });
+  );
 
   @GET("/api/DoughFactory/GetAddedDoughFactoryListDetailByListId")
   Future<HttpResponse<List<DoughAddedProductModel>>> getAddedProductsByListId(
-      {@Query("doughFactoryListId") int doughFactoryListId});
+      @Query("doughFactoryListId") int doughFactoryListId);
 
   @GET("/api/DoughFactory/GetNotAddedDoughFactoryListDetailByListId")
   Future<HttpResponse<List<ProductNotAddedModel>>> getAvailableProductsByListId(
-      {@Query("doughFactoryListId") int listId});
+      @Query("doughFactoryListId") int listId);
 
   @DELETE("/api/DoughFactory/DeleteDoughFactoryListDetail")
-  Future<HttpResponse> deleteProductFromList({@Query("id") int id});
+  Future<HttpResponse> deleteProductFromList(@Query("id") int id);
 
   @PUT("/api/DoughFactory/UpdateDoughFactoryListDetail")
   Future<HttpResponse> updateProductFromList(
-      {@Body() DoughProductToAddModel doughListProduct});
+      @Body() DoughProductToAddModel doughListProduct);
 }

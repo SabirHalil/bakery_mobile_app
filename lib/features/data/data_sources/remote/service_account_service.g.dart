@@ -10,10 +10,10 @@ part of 'service_account_service.dart';
 
 class _ServiceAccountService implements ServiceAccountService {
   _ServiceAccountService(
-    this._dio,  
+    this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,29 +22,28 @@ class _ServiceAccountService implements ServiceAccountService {
 
   @override
   Future<HttpResponse<List<ServiceAccountReceivedModel>>>
-      getServiceAccountReceivedByDate({DateTime? date}) async {
+      getServiceAccountReceivedByDate(DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-   final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<HttpResponse<List<ServiceAccountReceivedModel>>>(
-            Options(
+        _setStreamType<HttpResponse<List<ServiceAccountReceivedModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-                .compose(
-                  _dio.options,
-                  '/api/MoneyReceivedFromMarket/GetMoneyReceivedMarketListByDate',
-                  queryParameters: queryParameters,
-                  data: _data,
-                )
-                .copyWith(
-                    baseUrl: _combineBaseUrls(
-                  _dio.options.baseUrl,
-                  baseUrl,
-                ))));
+            .compose(
+              _dio.options,
+              '/api/MoneyReceivedFromMarket/GetMoneyReceivedMarketListByDate',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     var value = _result.data!
         .map((dynamic i) =>
             ServiceAccountReceivedModel.fromJson(i as Map<String, dynamic>))
@@ -55,29 +54,28 @@ class _ServiceAccountService implements ServiceAccountService {
 
   @override
   Future<HttpResponse<List<ServiceAccountLeftModel>>>
-      getServiceAccountLeftByDate({DateTime? date}) async {
+      getServiceAccountLeftByDate(DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<HttpResponse<List<ServiceAccountLeftModel>>>(
-            Options(
+        _setStreamType<HttpResponse<List<ServiceAccountLeftModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-                .compose(
-                  _dio.options,
-                  '/api/MoneyReceivedFromMarket/GetNotMoneyReceivedMarketListByDate',
-                  queryParameters: queryParameters,
-                  data: _data,
-                )
-                .copyWith(
-                    baseUrl: _combineBaseUrls(
-                  _dio.options.baseUrl,
-                  baseUrl,
-                ))));
+            .compose(
+              _dio.options,
+              '/api/MoneyReceivedFromMarket/GetNotMoneyReceivedMarketListByDate',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     var value = _result.data!
         .map((dynamic i) =>
             ServiceAccountLeftModel.fromJson(i as Map<String, dynamic>))
@@ -88,12 +86,12 @@ class _ServiceAccountService implements ServiceAccountService {
 
   @override
   Future<HttpResponse<dynamic>> addServiceAccountReceived(
-      {ServiceAccountToReceiveModel? serviceAccountReceivedModel}) async {
+      ServiceAccountToReceiveModel serviceAccountReceivedModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceAccountReceivedModel!.toJson());
+    _data.addAll(serviceAccountReceivedModel.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -118,12 +116,12 @@ class _ServiceAccountService implements ServiceAccountService {
 
   @override
   Future<HttpResponse<dynamic>> deleteServiceAccountReceived(
-      {ServiceAccountToReceiveModel? serviceAccountReceivedModel}) async {
+      ServiceAccountToReceiveModel serviceAccountReceivedModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceAccountReceivedModel!.toJson());
+    _data.addAll(serviceAccountReceivedModel.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -148,12 +146,12 @@ class _ServiceAccountService implements ServiceAccountService {
 
   @override
   Future<HttpResponse<dynamic>> updateServiceAccountReceived(
-      {ServiceAccountToReceiveModel? serviceAccountReceivedModel}) async {
+      ServiceAccountToReceiveModel serviceAccountReceivedModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceAccountReceivedModel!.toJson());
+    _data.addAll(serviceAccountReceivedModel.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

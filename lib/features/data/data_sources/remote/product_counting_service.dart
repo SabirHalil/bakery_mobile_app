@@ -14,26 +14,26 @@ abstract class ProductCountingService {
 
   @GET("/api/ProductsCounting/GetProductsCountingByDateAndCategory")
   Future<HttpResponse<List<ProductCountingAddedModel>>> getAddedProductsByDateAndCategoryId(
-      {@Query("date") DateTime date,
+      @Query("date") DateTime date,
       @Query("categoryId") int categoryId
-      });
+      );
 
   @GET("/api/ProductsCounting/GetNotAddedProductsCountingByDate")
   Future<HttpResponse<List<ProductNotAddedModel>>> getNotAddedProductsByCategoryId(
-      {@Query("date") DateTime date,
-      @Query("categoryId") int categoryId});
+      @Query("date") DateTime date,
+      @Query("categoryId") int categoryId);
 
   @POST("/api/ProductsCounting/AddProductsCounting")
   Future<HttpResponse> addProducts(
-      {
+      
       @Body() ProductCountingToAddModel product,
-      });
+      );
 
 
   @DELETE("/api/ProductsCounting/DeleteProductsCountingById")
-  Future<HttpResponse> deleteProductById({@Query("id") int id});
+  Future<HttpResponse> deleteProductById(@Query("id") int id);
 
   @PUT("/api/ProductsCounting/UpdateProductsCounting")
   Future<HttpResponse> updateProduct(
-      {@Body() ProductCountingToAddModel product});
+      @Body() ProductCountingToAddModel product);
 }

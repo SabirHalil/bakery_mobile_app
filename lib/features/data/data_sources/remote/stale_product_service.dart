@@ -13,17 +13,17 @@ abstract class StaleProductService {
   factory StaleProductService(Dio dio, String baseUrl) = _StaleProductService;
   @GET("/api/StaleProduct/GetByDateAndCategory")
   Future<HttpResponse<List<StaleProductAddedModel>>>
-      getAddedStaleProductListByDate({@Query("date") DateTime date, @Query("categoryId") int categoryId});
+      getAddedStaleProductListByDate(
+          @Query("date") DateTime date, @Query("categoryId") int categoryId);
   @GET("/api/StaleProduct/GetProductsNotAddedToStale")
-  Future<HttpResponse<List<ProductNotAddedModel>>>
-      getProductListByDate({@Query("date") DateTime date, @Query("categoryId") int categoryId});
+  Future<HttpResponse<List<ProductNotAddedModel>>> getProductListByDate(
+      @Query("date") DateTime date, @Query("categoryId") int categoryId);
   @POST("/api/StaleProduct/AddStaleProduct")
   Future<HttpResponse> addStaleProduct(
-      {@Body() StaleProductToAddModel staleProductToAdd});
+      @Body() StaleProductToAddModel staleProductToAdd);
   @DELETE("/api/StaleProduct/DeleteStaleProduct")
-  Future<HttpResponse> deleteStaleProduct(
-      {@Query("id") int id});
+  Future<HttpResponse> deleteStaleProduct(@Query("id") int id);
   @PUT("/api/StaleProduct/UpdateStaleProduct")
   Future<HttpResponse> updateStaleProduct(
-      {@Body() StaleProductToAddModel staleProductToAdd});
+      @Body() StaleProductToAddModel staleProductToAdd);
 }

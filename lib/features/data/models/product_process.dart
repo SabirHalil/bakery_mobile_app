@@ -16,13 +16,13 @@ class ProductProcessModel extends ProductProcessEntity {
           status: status,
         );
 
-  factory ProductProcessModel.fromJson(Map<String, dynamic> json) {
+  factory ProductProcessModel.fromJson(Map<String, dynamic> map) {
     return ProductProcessModel(
-      id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      categoryId: json['categoryId'] ?? 0,
-      price: (json['price'] ?? 0.0).toDouble(),
-      status: json['status'] ?? false,
+      id: map["id"] ?? 0,
+      name: map["name"] ?? "",
+      categoryId: map["categoryId"] ?? 0,
+      price: (map["price"] ?? 0.0).toDouble(),
+      status: map["status"] ?? false,
     );
   }
 
@@ -34,5 +34,15 @@ class ProductProcessModel extends ProductProcessEntity {
       'price': price,
       'status': status,
     };
+  }
+
+  factory ProductProcessModel.fromEntity(ProductProcessEntity entity) {
+    return ProductProcessModel(
+      id: entity.id,
+      name: entity.name,
+      categoryId: entity.categoryId,
+      price: entity.price,
+      status: entity.status,
+    );
   }
 }

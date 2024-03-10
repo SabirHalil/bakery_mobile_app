@@ -9,15 +9,15 @@ class ProductsProcessUseCase {
   ProductsProcessUseCase(this._productsProcessRepository);
 
   Future<DataState<List<ProductProcessEntity>>>
-      getAllProductsByCategoryId() async {
-    return _productsProcessRepository.getAllProductsByCategoryId();
+      getAllProductsByCategoryId(int categoryId) async {
+    return _productsProcessRepository.getAllProductsByCategoryId(categoryId);
   }
 
-  Future<DataState<String?>> addProduct(ProductProcessEntity product) async {
+  Future<DataState<void>> addProduct(ProductProcessEntity product) async {
     return _productsProcessRepository.addProduct(product);
   }
 
-  Future<DataState<String?>> updateProduct(ProductProcessEntity product) async {
+  Future<DataState<void>> updateProduct(ProductProcessEntity product) async {
     return _productsProcessRepository.updateProduct(product);
   }
 
@@ -26,12 +26,12 @@ class ProductsProcessUseCase {
     return _productsProcessRepository.getAllDoughProducts();
   }
 
-  Future<DataState<String?>> addDoughProduct(
+  Future<DataState<void>> addDoughProduct(
       DoughProductProcessEntity product) async {
     return _productsProcessRepository.addDoughProduct(product);
   }
 
-  Future<DataState<String?>> updateDoughProduct(
+  Future<DataState<void>> updateDoughProduct(
       DoughProductProcessEntity product) async {
     return _productsProcessRepository.updateDoughProduct(product);
   }

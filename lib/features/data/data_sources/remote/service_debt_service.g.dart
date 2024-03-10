@@ -13,7 +13,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -26,7 +26,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceDebtTotalModel>>>(Options(
       method: 'GET',
@@ -54,11 +54,11 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
 
   @override
   Future<HttpResponse<List<ServiceDebtDetailModel>>>
-      getServiceDebtDetailByMarketId({ int? marketId}) async {
+      getServiceDebtDetailByMarketId(int marketId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'marketId': marketId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceDebtDetailModel>>>(Options(
       method: 'GET',
@@ -86,12 +86,12 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
 
   @override
   Future<HttpResponse<dynamic>> postServicePayDebt(
-      { ServiceDebtDetailModel? serviceDebtDetail}) async {
+      ServiceDebtDetailModel serviceDebtDetail) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceDebtDetail!.toJson());
+    _data.addAll(serviceDebtDetail.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -115,12 +115,11 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteServiceDebtDetail(
-      { int? id}) async {
+  Future<HttpResponse<dynamic>> deleteServiceDebtDetail(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -145,12 +144,12 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
 
   @override
   Future<HttpResponse<dynamic>> updateServiceDebtDetail(
-      { ServiceDebtDetailModel? serviceDebtDetail}) async {
+      ServiceDebtDetailModel serviceDebtDetail) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceDebtDetail!.toJson());
+    _data.addAll(serviceDebtDetail.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

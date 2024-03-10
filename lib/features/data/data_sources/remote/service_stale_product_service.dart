@@ -12,14 +12,14 @@ abstract class ServiceStaleProduct {
       "/api/ServiceStaleProduct/GetServiceStaleProductListByDateAndServiceTypeId")
   Future<HttpResponse<List<ServiceStaleProductModel>>>
       getServiceStaleProductListByDateAndServiceType(
-          {@Query("date") DateTime date,
-          @Query("serviceTypeId") int servisTypeId});
+          @Query("date") DateTime date,
+          @Query("serviceTypeId") int servisTypeId);
   @POST("/api/ServiceStaleProduct/AddServiceStaleProduct")
   Future<HttpResponse> addServiceStaleProduct(
-      {@Body() ServiceStaleProductModel serviceStaleProduct});
+      @Body() ServiceStaleProductModel serviceStaleProduct);
   @DELETE("/api/ServiceStaleProduct/DeleteServiceStaleProduct")
-  Future<HttpResponse> deleteServiceStaleProduct({@Query("id") int id});
+  Future<HttpResponse> deleteServiceStaleProduct(@Query("id") int id);
   @PUT("/api/ServiceStaleProduct/UpdateServiceStaleProduct")
   Future<HttpResponse> updateServiceStaleProduct(
-      {@Body() ServiceStaleProductModel serviceStaleProduct});
+      @Body() ServiceStaleProductModel serviceStaleProduct);
 }

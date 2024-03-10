@@ -19,7 +19,7 @@ class GivenProductToServiceRepositoryImpl
     try {
       final httpResponse =
           await _givenProductToService.addGivenProductToService(
-              givenProductToService:
+            
                   GivenProductToServiceModel.fromEntity(givenProductToService));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -42,7 +42,7 @@ rethrow;
     try {
       
       final httpResponse =
-          await _givenProductToService.deleteGivenProductToService(id: id);
+          await _givenProductToService.deleteGivenProductToService( id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -66,7 +66,7 @@ rethrow;
     try {
       final httpResponse = await _givenProductToService
           .getGivenProductToServiceListByDateAndServiceType(
-              date: date, servisTypeId: servisTypeId);
+               date, servisTypeId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -89,7 +89,7 @@ rethrow;
     try {
       final httpResponse =
           await _givenProductToService.updateGivenProductToService(
-              givenProductToService:
+              
                   GivenProductToServiceModel.fromEntity(givenProductToService));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

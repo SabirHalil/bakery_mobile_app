@@ -13,7 +13,7 @@ class _StaleBreadService implements StaleBreadService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,11 +22,11 @@ class _StaleBreadService implements StaleBreadService {
 
   @override
   Future<HttpResponse<List<StaleBreadAddedModel>>> getAddedStaleBreadListByDate(
-      { DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<StaleBreadAddedModel>>>(Options(
       method: 'GET',
@@ -54,11 +54,11 @@ class _StaleBreadService implements StaleBreadService {
 
   @override
   Future<HttpResponse<List<StaleBreadModel>>> getBreadProductListByDate(
-      { DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<StaleBreadModel>>>(Options(
       method: 'GET',
@@ -85,12 +85,12 @@ class _StaleBreadService implements StaleBreadService {
 
   @override
   Future<HttpResponse<dynamic>> addStaleBread(
-      { StaleBreadToAddModel? staleBreadToAdd}) async {
+      StaleBreadToAddModel staleBreadToAdd) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(staleBreadToAdd!.toJson());
+    _data.addAll(staleBreadToAdd.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -114,11 +114,11 @@ class _StaleBreadService implements StaleBreadService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteStaleBread({ int? id}) async {
+  Future<HttpResponse<dynamic>> deleteStaleBread(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -143,12 +143,12 @@ class _StaleBreadService implements StaleBreadService {
 
   @override
   Future<HttpResponse<dynamic>> updateStaleBread(
-      { StaleBreadToAddModel? staleBreadToAdd}) async {
+      StaleBreadToAddModel staleBreadToAdd) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(staleBreadToAdd!.toJson());
+    _data.addAll(staleBreadToAdd.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

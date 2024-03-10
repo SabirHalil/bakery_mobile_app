@@ -21,7 +21,7 @@ class DoughRepositoryImpl extends DoughRepository {
   @override
   Future<DataState<void>> deleteDoughProductById(int id) async {
     try {
-      final httpResponse = await _doughApiService.deleteProductFromList(id: id);
+      final httpResponse = await _doughApiService.deleteProductFromList(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -43,7 +43,7 @@ class DoughRepositoryImpl extends DoughRepository {
       int listId) async {
     try {
       final httpResponse =
-          await _doughApiService.getAvailableProductsByListId(listId: listId);
+          await _doughApiService.getAvailableProductsByListId(listId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -65,7 +65,7 @@ class DoughRepositoryImpl extends DoughRepository {
       getDoughListProductsByListId(int listId) async {
     try {
       final httpResponse = await _doughApiService.getAddedProductsByListId(
-          doughFactoryListId: listId);
+          listId);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -87,7 +87,7 @@ class DoughRepositoryImpl extends DoughRepository {
   Future<DataState<List<DoughListModel>>> getDoughListsByDate(
       DateTime date) async {
     try {
-      final httpResponse = await _doughApiService.getListsByDate(date: date);
+      final httpResponse = await _doughApiService.getListsByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -109,7 +109,7 @@ class DoughRepositoryImpl extends DoughRepository {
       DoughProductToAddEntity doughProduct) async {
     try {
       final httpResponse = await _doughApiService.updateProductFromList(
-          doughListProduct: DoughProductToAddModel.fromEntity(doughProduct));
+          DoughProductToAddModel.fromEntity(doughProduct));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -137,7 +137,7 @@ class DoughRepositoryImpl extends DoughRepository {
               .toList();
 
       final httpResponse = await _doughApiService.addDoughProducts(
-          doughListProduct: doughListProductModels, userId: userId, date: date);
+           userId,doughListProductModels, date);
       if (httpResponse.response.statusCode! >= 200 &&
           httpResponse.response.statusCode! <= 300) {
         return DataSuccess(httpResponse.data);

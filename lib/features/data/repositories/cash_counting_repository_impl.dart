@@ -17,7 +17,7 @@ class CashCountingRepositoryImpl extends CashCountingRepository {
   @override
   Future<DataState<void>> addCashCounting(CashCountingEntity cashCounting)async {
    try {
-      final httpResponse = await _cashCountingService.addCashCounting(cashCounting:CashCountingModel.fromEntity(cashCounting));
+      final httpResponse = await _cashCountingService.addCashCounting(CashCountingModel.fromEntity(cashCounting));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -39,7 +39,7 @@ rethrow;
    try {
       
       final httpResponse =
-          await _cashCountingService.deleteCashCountingById(id: id);
+          await _cashCountingService.deleteCashCountingById(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -59,7 +59,7 @@ rethrow;
   @override
   Future<DataState<CashCountingEntity?>> getCashCountingByDate(DateTime date)async {
  try {
-      final httpResponse = await _cashCountingService.getCashCountingByDate(date: date);
+      final httpResponse = await _cashCountingService.getCashCountingByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       }
@@ -83,7 +83,7 @@ rethrow;
   Future<DataState<void>> updateCashCounting(CashCountingEntity cashCounting)async {
     try {
       final httpResponse =
-          await _cashCountingService.updateCashCounting(cashCounting: CashCountingModel.fromEntity(cashCounting));
+          await _cashCountingService.updateCashCounting(CashCountingModel.fromEntity(cashCounting));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

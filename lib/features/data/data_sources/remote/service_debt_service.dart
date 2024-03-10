@@ -16,16 +16,16 @@ abstract class ServiceDebtApiService {
 
    @GET("/api/DebtMarket/GetDebtByMarketId")
   Future<HttpResponse<List<ServiceDebtDetailModel>>> getServiceDebtDetailByMarketId(
-      {@Query("marketId") int marketId});
+      @Query("marketId") int marketId);
 
   @POST("/api/DebtMarket/PayDebt")
   Future<HttpResponse> postServicePayDebt(
-      {
-      @Body() ServiceDebtDetailModel serviceDebtDetail});
+      
+      @Body() ServiceDebtDetailModel serviceDebtDetail);
 
   @DELETE("/api/DebtMarket/DeleteDebtMarket")
-  Future<HttpResponse> deleteServiceDebtDetail({@Query("id") int id});
+  Future<HttpResponse> deleteServiceDebtDetail(@Query("id") int id);
 
   @PUT("/api/DebtMarket/UpdateDebtMarket")
-  Future<HttpResponse> updateServiceDebtDetail({@Body() ServiceDebtDetailModel serviceDebtDetail});
+  Future<HttpResponse> updateServiceDebtDetail(@Body() ServiceDebtDetailModel serviceDebtDetail);
 }

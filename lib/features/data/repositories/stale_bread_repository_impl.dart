@@ -22,7 +22,7 @@ class StaleBreadRepositoryImpl extends StaleBreadRepository {
   Future<DataState<void>> addStaleBread(StaleBreadToAddEntity staleBreadToAdd)async {
     try {
       final httpResponse = await _staleBreadService.addStaleBread(
-          staleBreadToAdd: StaleBreadToAddModel.fromEntity(staleBreadToAdd));
+           StaleBreadToAddModel.fromEntity(staleBreadToAdd));
       if (httpResponse.response.statusCode! >= 200 &&
           httpResponse.response.statusCode! <= 300) {
         return DataSuccess(httpResponse.data);
@@ -45,7 +45,7 @@ class StaleBreadRepositoryImpl extends StaleBreadRepository {
 try {
       final httpResponse =
           await _staleBreadService.deleteStaleBread(
-              id: id);
+             id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -66,7 +66,7 @@ try {
   Future<DataState<List<StaleBreadAddedEntity>>> getAddedStaleBreadListByDate(
       DateTime date) async{
        try {
-      final httpResponse = await _staleBreadService.getAddedStaleBreadListByDate(date: date);
+      final httpResponse = await _staleBreadService.getAddedStaleBreadListByDate(date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -88,7 +88,7 @@ try {
       DateTime date)async {
  try {
       final httpResponse =
-          await _staleBreadService.getBreadProductListByDate(date: date);
+          await _staleBreadService.getBreadProductListByDate(date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -111,7 +111,7 @@ try {
 try {
       final httpResponse =
           await _staleBreadService.updateStaleBread(
-              staleBreadToAdd: StaleBreadToAddModel.fromEntity(staleBreadToAdd));
+              StaleBreadToAddModel.fromEntity(staleBreadToAdd));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

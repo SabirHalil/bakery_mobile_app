@@ -15,17 +15,17 @@ abstract class ServiceAccountService {
   factory ServiceAccountService(Dio dio, String baseUrl) = _ServiceAccountService;
   @GET("/api/MoneyReceivedFromMarket/GetMoneyReceivedMarketListByDate")
   Future<HttpResponse<List<ServiceAccountReceivedModel>>>
-      getServiceAccountReceivedByDate({@Query("date") DateTime date});
+      getServiceAccountReceivedByDate(@Query("date") DateTime date);
   @GET("/api/MoneyReceivedFromMarket/GetNotMoneyReceivedMarketListByDate")
   Future<HttpResponse<List<ServiceAccountLeftModel>>>
-      getServiceAccountLeftByDate({@Query("date") DateTime date});
+      getServiceAccountLeftByDate(@Query("date") DateTime date);
   @POST("/api/MoneyReceivedFromMarket/AddMoneyReceivedFromMarket")
   Future<HttpResponse> addServiceAccountReceived(
-      {@Body() ServiceAccountToReceiveModel serviceAccountReceivedModel});
+      @Body() ServiceAccountToReceiveModel serviceAccountReceivedModel);
   @DELETE("/api/MoneyReceivedFromMarket/DeleteMoneyReceivedFromMarket")
   Future<HttpResponse> deleteServiceAccountReceived(
-      {@Body() ServiceAccountToReceiveModel serviceAccountReceivedModel});
+      @Body() ServiceAccountToReceiveModel serviceAccountReceivedModel);
   @PUT("/api/MoneyReceivedFromMarket/UpdateMoneyReceivedFromMarket")
   Future<HttpResponse> updateServiceAccountReceived(
-      {@Body() ServiceAccountToReceiveModel serviceAccountReceivedModel});
+      @Body() ServiceAccountToReceiveModel serviceAccountReceivedModel);
 }

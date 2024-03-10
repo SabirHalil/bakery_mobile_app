@@ -10,10 +10,8 @@ part of 'auth_service.dart';
 
 class _AuthApiService implements AuthApiService {
   _AuthApiService(
-    this._dio, 
-    this.baseUrl,
-  ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    this._dio, this.baseUrl,) {
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -21,19 +19,18 @@ class _AuthApiService implements AuthApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<UserModel>> loginUser({
-    String? userName,
-    String? password,
-  }) async {
+  Future<HttpResponse<UserModel?>> loginUser(
+    String userName,
+    String password,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'userName': userName,
       r'password': password,
     };
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<UserModel>>(Options(
       method: 'POST',
       headers: _headers,
@@ -50,7 +47,8 @@ class _AuthApiService implements AuthApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserModel.fromJson(_result.data!);
+    final value =
+        _result.data == null ? null : UserModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
@@ -60,7 +58,7 @@ class _AuthApiService implements AuthApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',

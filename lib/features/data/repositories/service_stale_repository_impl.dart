@@ -22,7 +22,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
           ServiceToReceiveStaleModel.fromEntity(serviceToReceiveStale);
 
       final httpResponse = await _serviceStaleService.addServiceReceivedStale(
-          serviceToReceiveStaleModel: serviceAccountReceivedModel);
+           serviceAccountReceivedModel);
       if (httpResponse.response.statusCode! >= 200 &&
           httpResponse.response.statusCode! <= 300) {
         return DataSuccess(httpResponse.data);
@@ -46,7 +46,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
     try {
       final httpResponse =
           await _serviceStaleService.deleteServiceReceivedStale(
-              id: id);
+               id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -67,7 +67,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
   Future<DataState<List<ServiceStaleEntity>>> getServiceNotReceivedStaleByDate(
       DateTime date) async {
     try {
-      final httpResponse = await _serviceStaleService.getServiceNotReceivedStaleByDate(date: date);
+      final httpResponse = await _serviceStaleService.getServiceNotReceivedStaleByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -89,7 +89,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
       getServiceReceivedStaleByDate(DateTime date) async {
     try {
       final httpResponse =
-          await _serviceStaleService.getServiceReceivedStaleByDate(date: date);
+          await _serviceStaleService.getServiceReceivedStaleByDate(date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -114,7 +114,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
           ServiceToReceiveStaleModel.fromEntity(serviceToReceiveStale);
       final httpResponse =
           await _serviceStaleService.updateServiceReceivedStale(
-              serviceToReceiveStaleModel: serviceAccountReceivedModel);
+              serviceAccountReceivedModel);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

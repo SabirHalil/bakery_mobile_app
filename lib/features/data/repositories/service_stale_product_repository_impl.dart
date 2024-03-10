@@ -20,7 +20,7 @@ class ServiceStaleProductRepositoryImpl extends ServiceStaleProductRepository {
 try {
       final httpResponse =
           await _serviceStaleProduct.addServiceStaleProduct(
-              serviceStaleProduct:
+              
                   ServiceStaleProductModel.fromEntity(serviceStaleProduct));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -43,7 +43,7 @@ try {
    try {
       
       final httpResponse =
-          await _serviceStaleProduct.deleteServiceStaleProduct(id: id);
+          await _serviceStaleProduct.deleteServiceStaleProduct(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -67,7 +67,7 @@ try {
        try {
       final httpResponse = await _serviceStaleProduct
           .getServiceStaleProductListByDateAndServiceType(
-              date: date, servisTypeId: serviceTypeId);
+              date, serviceTypeId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -90,7 +90,7 @@ try {
   try {
       final httpResponse =
           await _serviceStaleProduct.updateServiceStaleProduct(
-              serviceStaleProduct:
+             
                   ServiceStaleProductModel.fromEntity(serviceStaleProduct));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

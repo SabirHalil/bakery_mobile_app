@@ -13,7 +13,7 @@ class _GivenProductToService implements GivenProductToService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,17 +22,17 @@ class _GivenProductToService implements GivenProductToService {
 
   @override
   Future<HttpResponse<List<GivenProductToServiceModel>>>
-      getGivenProductToServiceListByDateAndServiceType({
-    DateTime? date,
-    int? servisTypeId,
-  }) async {
+      getGivenProductToServiceListByDateAndServiceType(
+    DateTime date,
+    int servisTypeId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
       r'servisTypeId': servisTypeId,
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<GivenProductToServiceModel>>>(Options(
       method: 'GET',
@@ -60,12 +60,12 @@ class _GivenProductToService implements GivenProductToService {
 
   @override
   Future<HttpResponse<dynamic>> addGivenProductToService(
-      {GivenProductToServiceModel? givenProductToService}) async {
+      GivenProductToServiceModel givenProductToService) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(givenProductToService!.toJson());
+    _data.addAll(givenProductToService.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -89,12 +89,11 @@ class _GivenProductToService implements GivenProductToService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteGivenProductToService({int? id}) async {
-   
+  Future<HttpResponse<dynamic>> deleteGivenProductToService(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -103,7 +102,7 @@ class _GivenProductToService implements GivenProductToService {
     )
             .compose(
               _dio.options,
-              '/api/GivenProductsToService/DeleteGivenProductsToServiceById',
+              '/api/GivenProductsToService/DeleteGivenProductsToService',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -119,12 +118,12 @@ class _GivenProductToService implements GivenProductToService {
 
   @override
   Future<HttpResponse<dynamic>> updateGivenProductToService(
-      {GivenProductToServiceModel? givenProductToService}) async {
+      GivenProductToServiceModel givenProductToService) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(givenProductToService!.toJson());
+    _data.addAll(givenProductToService.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

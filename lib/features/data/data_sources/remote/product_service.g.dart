@@ -13,7 +13,7 @@ class _ProductApiService implements ProductApiService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,17 +22,17 @@ class _ProductApiService implements ProductApiService {
 
   @override
   Future<HttpResponse<List<AddedProductModel>>>
-      getAddedProductsByDateAndCategoryId({
-     DateTime? date,
-     int? categoryId,
-  }) async {
+      getAddedProductsByDateAndCategoryId(
+    DateTime date,
+    int categoryId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<AddedProductModel>>>(Options(
       method: 'GET',
@@ -59,17 +59,17 @@ class _ProductApiService implements ProductApiService {
   }
 
   @override
-  Future<HttpResponse<List<ProductModel>>> getAvailableProductsByCategoryId({
-     DateTime? date,
-     int? categoryId,
-  }) async {
+  Future<HttpResponse<List<ProductModel>>> getAvailableProductsByCategoryId(
+    DateTime date,
+    int categoryId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductModel>>>(Options(
       method: 'GET',
@@ -95,20 +95,20 @@ class _ProductApiService implements ProductApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> addProducts({
-     int? userId,
-     int? categoryId,
-     List<ProductToAddModel>? doughListProduct,
-     DateTime? date,
-  }) async {
+  Future<HttpResponse<dynamic>> addProducts(
+    int userId,
+    int categoryId,
+    List<ProductToAddModel> doughListProduct,
+    DateTime date,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'userId': userId,
       r'categoryId': categoryId,
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
     };
     final _headers = <String, dynamic>{};
-    final _data = doughListProduct!.map((e) => e.toJson()).toList();
+    final _data = doughListProduct.map((e) => e.toJson()).toList();
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -132,11 +132,11 @@ class _ProductApiService implements ProductApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteProductById({ int? id}) async {
+  Future<HttpResponse<dynamic>> deleteProductById(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -160,13 +160,12 @@ class _ProductApiService implements ProductApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> updateProduct(
-      { ProductToAddModel? product}) async {
+  Future<HttpResponse<dynamic>> updateProduct(ProductToAddModel product) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(product!.toJson());
+    _data.addAll(product.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

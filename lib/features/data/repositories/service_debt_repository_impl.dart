@@ -17,7 +17,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
   Future<DataState<void>> deleteServiceDebtDetail(int id) async {
     try {
       final httpResponse = await _serviceDebtApiService.deleteServiceDebtDetail(
-          id: id);
+          id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -38,7 +38,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
   Future<DataState<List<ServiceDebtDetailEntity>>>
       getServiceDebtDetailByMarketId(int marketId)async {
  try {
-      final httpResponse = await _serviceDebtApiService.getServiceDebtDetailByMarketId(marketId: marketId);
+      final httpResponse = await _serviceDebtApiService.getServiceDebtDetailByMarketId(marketId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -82,7 +82,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
  final ServiceDebtDetailModel serviceDebtDetailModel = ServiceDebtDetailModel.fromEntity(serviceDebtDetail);
 
       final httpResponse = await _serviceDebtApiService.postServicePayDebt(
-          serviceDebtDetail: serviceDebtDetailModel
+          serviceDebtDetailModel
           );
       if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);
@@ -107,7 +107,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
  final ServiceDebtDetailModel serviceDebtDetailModel = ServiceDebtDetailModel.fromEntity(serviceDebtDetail);
 
       final httpResponse = await _serviceDebtApiService.updateServiceDebtDetail(
-          serviceDebtDetail: serviceDebtDetailModel
+          serviceDebtDetailModel
           );
       if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);

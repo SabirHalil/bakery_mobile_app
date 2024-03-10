@@ -16,24 +16,24 @@ abstract class ServiceServicesApiService {
 
   @GET("/api/Service/GetByDateServiceList")
   Future<HttpResponse<List<ServiceListModel>>> getServiceServicesByDate(
-      {@Query("date") DateTime date});
+      @Query("date") DateTime date);
 
   @POST("/api/Service/AddServiceListAndListDetail")
   Future<HttpResponse> addServiceMarkets(
-      {@Query("userId") int userId,
-      @Body() List<ServiceMarketToAddModel> marketList});
+      @Query("userId") int userId,
+      @Body() List<ServiceMarketToAddModel> marketList);
 
   @GET("/api/Service/GetAddedMarketByServiceListId")
   Future<HttpResponse<List<ServiceAddedMarketModel>>> getAddedMarketsByListId(
-      {@Query("listId") int listId});
+      @Query("listId") int listId);
 
   @GET("/api/Service/GetMarketByServiceListId")
   Future<HttpResponse<List<ServiceMarketModel>>> getAvailableMarketsByListId(
-      {@Query("listId") int listId});
+      @Query("listId") int listId);
 
   @DELETE("/api/Service/DeleteServiceListDetail")
-  Future<HttpResponse> deleteMarketFromList({@Query("id") int id});
+  Future<HttpResponse> deleteMarketFromList(@Query("id") int id);
 
   @PUT("/api/Service/UpdateServiceListDetail")
-  Future<HttpResponse> updateMarketFromList({@Body() ServiceMarketToAddModel doughListProduct});
+  Future<HttpResponse> updateMarketFromList(@Body() ServiceMarketToAddModel doughListProduct);
 }

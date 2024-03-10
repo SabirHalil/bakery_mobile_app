@@ -13,7 +13,7 @@ class _ExpenseService implements ExpenseService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,11 +22,11 @@ class _ExpenseService implements ExpenseService {
 
   @override
   Future<HttpResponse<List<ExpenseModel>>> getExpenseListByDate(
-      { DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ExpenseModel>>>(Options(
       method: 'GET',
@@ -52,13 +52,12 @@ class _ExpenseService implements ExpenseService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> addExpense(
-      { ExpenseModel? expense}) async {
+  Future<HttpResponse<dynamic>> addExpense(ExpenseModel expense) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(expense!.toJson());
+    _data.addAll(expense.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -82,11 +81,11 @@ class _ExpenseService implements ExpenseService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteExpense({ int? id}) async {
+  Future<HttpResponse<dynamic>> deleteExpense(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -110,13 +109,12 @@ class _ExpenseService implements ExpenseService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> updateExpense(
-      { ExpenseModel? expense}) async {
+  Future<HttpResponse<dynamic>> updateExpense(ExpenseModel expense) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(expense!.toJson());
+    _data.addAll(expense.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

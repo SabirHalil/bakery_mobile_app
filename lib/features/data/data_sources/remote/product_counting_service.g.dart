@@ -12,7 +12,9 @@ class _ProductCountingService implements ProductCountingService {
   _ProductCountingService(
     this._dio, 
     this.baseUrl,
-  );
+  ) {
+    baseUrl ??= 'http://93.190.8.250:6500';
+  }
 
   final Dio _dio;
 
@@ -20,17 +22,17 @@ class _ProductCountingService implements ProductCountingService {
 
   @override
   Future<HttpResponse<List<ProductCountingAddedModel>>>
-      getAddedProductsByDateAndCategoryId({
-     DateTime? date,
-     int? categoryId,
-  }) async {
+      getAddedProductsByDateAndCategoryId(
+    DateTime date,
+    int categoryId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductCountingAddedModel>>>(Options(
       method: 'GET',
@@ -58,17 +60,17 @@ class _ProductCountingService implements ProductCountingService {
 
   @override
   Future<HttpResponse<List<ProductNotAddedModel>>>
-      getNotAddedProductsByCategoryId({
-     DateTime? date,
-     int? categoryId,
-  }) async {
+      getNotAddedProductsByCategoryId(
+    DateTime date,
+    int categoryId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductNotAddedModel>>>(Options(
       method: 'GET',
@@ -96,12 +98,12 @@ class _ProductCountingService implements ProductCountingService {
 
   @override
   Future<HttpResponse<dynamic>> addProducts(
-      { ProductCountingToAddModel? product}) async {
+      ProductCountingToAddModel product) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(product!.toJson());
+    _data.addAll(product.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -125,11 +127,11 @@ class _ProductCountingService implements ProductCountingService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteProductById({ int? id}) async {
+  Future<HttpResponse<dynamic>> deleteProductById(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -154,12 +156,12 @@ class _ProductCountingService implements ProductCountingService {
 
   @override
   Future<HttpResponse<dynamic>> updateProduct(
-      { ProductCountingToAddModel? product}) async {
+      ProductCountingToAddModel product) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(product!.toJson());
+    _data.addAll(product.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

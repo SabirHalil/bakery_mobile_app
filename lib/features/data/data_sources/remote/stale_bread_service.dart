@@ -13,17 +13,17 @@ abstract class StaleBreadService {
   factory StaleBreadService(Dio dio, String baseUrl) = _StaleBreadService;
   @GET("/api/StaleBread/GetStaleBreadListByDate")
   Future<HttpResponse<List<StaleBreadAddedModel>>>
-      getAddedStaleBreadListByDate({@Query("date") DateTime date});
+      getAddedStaleBreadListByDate(@Query("date") DateTime date);
   @GET("/api/StaleBread/GetDoughFactoryProducts")
   Future<HttpResponse<List<StaleBreadModel>>>
-      getBreadProductListByDate({@Query("date") DateTime date});
+      getBreadProductListByDate(@Query("date") DateTime date);
   @POST("/api/StaleBread/AddStaleBread")
   Future<HttpResponse> addStaleBread(
-      {@Body() StaleBreadToAddModel staleBreadToAdd});
+      @Body() StaleBreadToAddModel staleBreadToAdd);
   @DELETE("/api/StaleBread/DeleteStaleBread")
   Future<HttpResponse> deleteStaleBread(
-      {@Query("id") int id});
+      @Query("id") int id);
   @PUT("/api/StaleBread/UpdateStaleBread")
   Future<HttpResponse> updateStaleBread(
-      {@Body() StaleBreadToAddModel staleBreadToAdd});
+      @Body() StaleBreadToAddModel staleBreadToAdd);
 }

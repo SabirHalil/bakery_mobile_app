@@ -10,10 +10,10 @@ part of 'pdf_service.dart';
 
 class _PdfService implements PdfService {
   _PdfService(
-    this._dio,
+    this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.12.54:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,19 +22,20 @@ class _PdfService implements PdfService {
 
   @override
   Future<HttpResponse<Uint8List?>> getPdfServiceListByDateAndServiceType(
-      {DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Uint8List?>(_setStreamType<HttpResponse<Uint8List?>>(Options(
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Uint8List?>(
+        _setStreamType<HttpResponse<Uint8List>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/api/EndOfDayAccount/GetEndOfDayAccountDetailPdf',
+              '/api/EndOfDayAccount/GetGivenProductsToServiceByDateAndServisTypeId',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -43,19 +44,21 @@ class _PdfService implements PdfService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
+    final value =
+        _result.data;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
   Future<HttpResponse<Uint8List?>> getPdfOfDoughFactoryByDate(
-      {DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Uint8List?>(_setStreamType<HttpResponse<Uint8List?>>(Options(
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Uint8List?>(
+        _setStreamType<HttpResponse<Uint8List>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -71,14 +74,22 @@ class _PdfService implements PdfService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
+    final value =
+        _result.data;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
-
-    requestOptions.responseType = ResponseType.bytes;
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
     return requestOptions;
   }
 

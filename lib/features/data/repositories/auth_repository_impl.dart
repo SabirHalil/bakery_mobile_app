@@ -22,8 +22,8 @@ class AuthRepositoryImpl implements AuthRepository {
       UserLoginParams? userLoginParams) async {
     try {
       final httpResponse = await _authApiService.loginUser(
-          userName: userLoginParams!.userName,
-          password: userLoginParams.password);
+          userLoginParams!.userName,
+          userLoginParams.password);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         UserPreferences.saveUser(httpResponse.data!);

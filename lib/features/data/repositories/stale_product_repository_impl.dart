@@ -19,8 +19,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
       StaleProductToAddEntity staleProductToAdd) async {
     try {
       final httpResponse = await _staleProductService.addStaleProduct(
-          staleProductToAdd:
-              StaleProductToAddModel.fromEntity(staleProductToAdd));
+          StaleProductToAddModel.fromEntity(staleProductToAdd));
       if (httpResponse.response.statusCode! >= 200 &&
           httpResponse.response.statusCode! <= 300) {
         return DataSuccess(httpResponse.data);
@@ -33,7 +32,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-       showSnakeBar(e.toString(), null, null);
+      showSnakeBar(e.toString(), null, null);
       rethrow;
     }
   }
@@ -41,8 +40,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
   @override
   Future<DataState<void>> deleteStaleProduct(int id) async {
     try {
-      final httpResponse =
-          await _staleProductService.deleteStaleProduct(id: id);
+      final httpResponse = await _staleProductService.deleteStaleProduct(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -54,7 +52,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-       showSnakeBar(e.toString(), null, null);
+      showSnakeBar(e.toString(), null, null);
       rethrow;
     }
   }
@@ -64,7 +62,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
       getAddedStaleProductListByDate(DateTime date, int categoryId) async {
     try {
       final httpResponse = await _staleProductService
-          .getAddedStaleProductListByDate(date: date, categoryId: categoryId);
+          .getAddedStaleProductListByDate(date, categoryId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -84,8 +82,8 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
   Future<DataState<List<ProductNotAddedEntity>>> getProductProductListByDate(
       DateTime date, int categoryId) async {
     try {
-      final httpResponse = await _staleProductService.getProductListByDate(
-          date: date, categoryId: categoryId);
+      final httpResponse =
+          await _staleProductService.getProductListByDate(date, categoryId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -97,7 +95,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-     showSnakeBar(e.toString(), null, null);
+      showSnakeBar(e.toString(), null, null);
       rethrow;
     }
   }
@@ -107,8 +105,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
       StaleProductToAddEntity staleProductToAdd) async {
     try {
       final httpResponse = await _staleProductService.updateStaleProduct(
-          staleProductToAdd:
-              StaleProductToAddModel.fromEntity(staleProductToAdd));
+          StaleProductToAddModel.fromEntity(staleProductToAdd));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

@@ -18,7 +18,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
       BreadCountingEntity breadCounting) async {
     try {
       final httpResponse = await _breadCountingService.addBreadCounting(
-          breadCounting: BreadCountingModel.fromEntity(breadCounting));
+           BreadCountingModel.fromEntity(breadCounting));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -39,7 +39,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
   Future<DataState<void>> deleteBreadCountingById(int id) async {
     try {
       final httpResponse =
-          await _breadCountingService.deleteBreadCountingById(id: id);
+          await _breadCountingService.deleteBreadCountingById(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -61,7 +61,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
       DateTime date) async {
     try {
       final httpResponse =
-          await _breadCountingService.getBreadCountingByDate(date: date);
+          await _breadCountingService.getBreadCountingByDate(date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       }
@@ -85,7 +85,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
       BreadCountingEntity breadCounting) async {
     try {
       final httpResponse = await _breadCountingService.updateBreadCounting(
-          breadCounting: BreadCountingModel.fromEntity(breadCounting));
+          BreadCountingModel.fromEntity(breadCounting));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

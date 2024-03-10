@@ -13,7 +13,7 @@ class _ServiceStaleService implements ServiceStaleService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,12 +22,13 @@ class _ServiceStaleService implements ServiceStaleService {
 
   @override
   Future<HttpResponse<List<ServiceReceivedStaleModel>>>
-      getServiceReceivedStaleByDate({DateTime? date}) async {
+      getServiceReceivedStaleByDate(DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-   final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<HttpResponse<List<ServiceReceivedStaleModel>>>(Options(
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<HttpResponse<List<ServiceReceivedStaleModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -53,11 +54,11 @@ class _ServiceStaleService implements ServiceStaleService {
 
   @override
   Future<HttpResponse<List<ServiceStaleModel>>>
-      getServiceNotReceivedStaleByDate({DateTime? date}) async {
+      getServiceNotReceivedStaleByDate(DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceStaleModel>>>(Options(
       method: 'GET',
@@ -75,24 +76,22 @@ class _ServiceStaleService implements ServiceStaleService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-   
     var value = _result.data!
         .map((dynamic i) =>
             ServiceStaleModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
-   
     return httpResponse;
   }
 
   @override
   Future<HttpResponse<dynamic>> addServiceReceivedStale(
-      {ServiceToReceiveStaleModel? serviceToReceiveStaleModel}) async {
+      ServiceToReceiveStaleModel serviceToReceiveStaleModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceToReceiveStaleModel!.toJson());
+    _data.addAll(serviceToReceiveStaleModel.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -116,12 +115,11 @@ class _ServiceStaleService implements ServiceStaleService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteServiceReceivedStale({int? id}) async {
+  Future<HttpResponse<dynamic>> deleteServiceReceivedStale(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-   
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -146,13 +144,12 @@ class _ServiceStaleService implements ServiceStaleService {
 
   @override
   Future<HttpResponse<dynamic>> updateServiceReceivedStale(
-      {ServiceToReceiveStaleModel? serviceToReceiveStaleModel}) async {
+      ServiceToReceiveStaleModel serviceToReceiveStaleModel) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(serviceToReceiveStaleModel!.toJson());
-
+    _data.addAll(serviceToReceiveStaleModel.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

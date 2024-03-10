@@ -16,7 +16,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
   Future<DataState<void>> addReceivedMoneyFromService(
       ReceivedMoneyFromServiceEntity receivedMoneyFromService)async {
    try {
-      final httpResponse = await _receivedMoneyFromService.addReceivedMoneyFromService(receivedMoneyFromService:ReceivedMoneyFromServiceModel.fromEntity(receivedMoneyFromService));
+      final httpResponse = await _receivedMoneyFromService.addReceivedMoneyFromService(ReceivedMoneyFromServiceModel.fromEntity(receivedMoneyFromService));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -38,7 +38,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
     try {
       
       final httpResponse =
-          await _receivedMoneyFromService.deleteReceivedMoneyFromServiceById(id: id);
+          await _receivedMoneyFromService.deleteReceivedMoneyFromServiceById(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -59,7 +59,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
   Future<DataState<ReceivedMoneyFromServiceEntity?>>
       getReceivedMoneyFromServiceByDateAndServiceType( DateTime date, int servisTypeId)async {
 try {
-      final httpResponse = await _receivedMoneyFromService.getReceivedMoneyFromServiceByDateAndServiceType(date: date, servisTypeId: servisTypeId);
+      final httpResponse = await _receivedMoneyFromService.getReceivedMoneyFromServiceByDateAndServiceType(date, servisTypeId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       }
@@ -84,7 +84,7 @@ try {
       ReceivedMoneyFromServiceEntity receivedMoneyFromService)async {
  try {
       final httpResponse =
-          await _receivedMoneyFromService.updateReceivedMoneyFromService(receivedMoneyFromService:ReceivedMoneyFromServiceModel.fromEntity(receivedMoneyFromService));
+          await _receivedMoneyFromService.updateReceivedMoneyFromService(ReceivedMoneyFromServiceModel.fromEntity(receivedMoneyFromService));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

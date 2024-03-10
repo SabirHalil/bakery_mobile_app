@@ -16,7 +16,7 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
   @override
   Future<DataState<void>> addExpense(ExpenseEntity expense) async{
  try {
-      final httpResponse = await _expenseService.addExpense(expense: ExpenseModel.fromEntity(expense));
+      final httpResponse = await _expenseService.addExpense( ExpenseModel.fromEntity(expense));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -36,7 +36,7 @@ rethrow;
   @override
   Future<DataState<void>> deleteExpense(int id)async {
  try {
-      final httpResponse = await _expenseService.deleteExpense(id: id);
+      final httpResponse = await _expenseService.deleteExpense( id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -56,7 +56,7 @@ rethrow;
   @override
   Future<DataState<List<ExpenseEntity>>> getExpenseListByDate(DateTime date)async {
    try {
-      final httpResponse = await _expenseService.getExpenseListByDate(date: date);
+      final httpResponse = await _expenseService.getExpenseListByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -76,7 +76,7 @@ rethrow;
   @override
   Future<DataState<void>> updateExpense(ExpenseEntity expense)async {
  try {
-      final httpResponse = await _expenseService.updateExpense(expense: ExpenseModel.fromEntity(expense));
+      final httpResponse = await _expenseService.updateExpense(ExpenseModel.fromEntity(expense));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

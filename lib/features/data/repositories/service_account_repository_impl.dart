@@ -19,7 +19,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
  final ServiceAccountToReceiveModel serviceAccountReceivedModel = ServiceAccountToReceiveModel.fromEntity(serviceAccountReceived);
 
       final httpResponse = await _serviceAccountService.addServiceAccountReceived(
-          serviceAccountReceivedModel: serviceAccountReceivedModel
+          serviceAccountReceivedModel
           );
       if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);
@@ -41,7 +41,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
   Future<DataState<void>> deleteServiceAccountReceived(ServiceAccountToReceiveEntity serviceAccountReceived) async{
   try {
     ServiceAccountToReceiveModel serviceAccountReceivedModel = ServiceAccountToReceiveModel.fromEntity(serviceAccountReceived);
-      final httpResponse = await _serviceAccountService.deleteServiceAccountReceived(serviceAccountReceivedModel: serviceAccountReceivedModel);
+      final httpResponse = await _serviceAccountService.deleteServiceAccountReceived(serviceAccountReceivedModel);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -61,7 +61,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
   @override
   Future<DataState<List<ServiceAccountLeftEntity>>> getServiceAccountLeftByDate(DateTime date)async {
    try {
-      final httpResponse = await _serviceAccountService.getServiceAccountLeftByDate(date: date);
+      final httpResponse = await _serviceAccountService.getServiceAccountLeftByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -82,7 +82,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
   Future<DataState<List<ServiceAccountReceivedEntity>>> getServiceAccountReceivedByDate(DateTime date)async {
    try {
       final httpResponse =
-          await _serviceAccountService.getServiceAccountReceivedByDate(date: date);
+          await _serviceAccountService.getServiceAccountReceivedByDate(date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -103,7 +103,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
   Future<DataState<void>> updateServiceAccountReceived(ServiceAccountToReceiveEntity serviceAccountReceived)async {
   try {
     ServiceAccountToReceiveModel serviceAccountReceivedModel = ServiceAccountToReceiveModel.fromEntity(serviceAccountReceived);
-      final httpResponse = await _serviceAccountService.updateServiceAccountReceived(serviceAccountReceivedModel: serviceAccountReceivedModel);
+      final httpResponse = await _serviceAccountService.updateServiceAccountReceived(serviceAccountReceivedModel);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

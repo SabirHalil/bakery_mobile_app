@@ -13,7 +13,7 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,11 +22,11 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
 
   @override
   Future<HttpResponse<List<ServiceListModel>>> getServiceServicesByDate(
-      {DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceListModel>>>(Options(
       method: 'GET',
@@ -49,19 +49,18 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
             (dynamic i) => ServiceListModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
-
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<dynamic>> addServiceMarkets({
-    int? userId,
-    List<ServiceMarketToAddModel>? marketList,
-  }) async {
+  Future<HttpResponse<dynamic>> addServiceMarkets(
+    int userId,
+    List<ServiceMarketToAddModel> marketList,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'userId': userId};
     final _headers = <String, dynamic>{};
-    final _data = marketList!.map((e) => e.toJson()).toList();
+    final _data = marketList.map((e) => e.toJson()).toList();
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -86,11 +85,11 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
 
   @override
   Future<HttpResponse<List<ServiceAddedMarketModel>>> getAddedMarketsByListId(
-      {int? listId}) async {
+      int listId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'listId': listId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceAddedMarketModel>>>(Options(
       method: 'GET',
@@ -118,11 +117,11 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
 
   @override
   Future<HttpResponse<List<ServiceMarketModel>>> getAvailableMarketsByListId(
-      {int? listId}) async {
+      int listId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'listId': listId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceMarketModel>>>(Options(
       method: 'GET',
@@ -149,11 +148,11 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteMarketFromList({int? id}) async {
+  Future<HttpResponse<dynamic>> deleteMarketFromList(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -178,12 +177,12 @@ class _ServiceServicesApiService implements ServiceServicesApiService {
 
   @override
   Future<HttpResponse<dynamic>> updateMarketFromList(
-      {ServiceMarketToAddModel? doughListProduct}) async {
+      ServiceMarketToAddModel doughListProduct) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(doughListProduct!.toJson());
+    _data.addAll(doughListProduct.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

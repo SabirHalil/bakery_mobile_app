@@ -22,7 +22,7 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
       ProductCountingToAddEntity product) async {
     try {
       
-      final httpResponse = await _productCountingService.addProducts(product: ProductCountingToAddModel.fromEntity(product));
+      final httpResponse = await _productCountingService.addProducts(ProductCountingToAddModel.fromEntity(product));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -42,7 +42,7 @@ rethrow;
   @override
   Future<DataState<void>> deleteProductById(int id)async {
      try {
-      final httpResponse = await _productCountingService.deleteProductById(id: id);
+      final httpResponse = await _productCountingService.deleteProductById( id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -62,7 +62,7 @@ rethrow;
   @override
   Future<DataState<List<ProductCountingAddedEntity>>>getAddedProductsByDateAndCategoryId(DateTime date, int categoryId) async {
   try {
-      final httpResponse = await _productCountingService.getAddedProductsByDateAndCategoryId(date: date,categoryId: categoryId);
+      final httpResponse = await _productCountingService.getAddedProductsByDateAndCategoryId(date,categoryId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -84,7 +84,7 @@ rethrow;
       getNotAddedProductsByDateAndCategoryId(
           DateTime date, int categoryId) async {
  try {
-      final httpResponse = await _productCountingService.getNotAddedProductsByCategoryId(date: date,categoryId: categoryId);
+      final httpResponse = await _productCountingService.getNotAddedProductsByCategoryId(date,categoryId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -105,7 +105,7 @@ rethrow;
   Future<DataState<void>> updateProduct(
       ProductCountingToAddEntity product) async {
  try {
-      final httpResponse = await _productCountingService.updateProduct(product: ProductCountingToAddModel.fromEntity(product));
+      final httpResponse = await _productCountingService.updateProduct(ProductCountingToAddModel.fromEntity(product));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

@@ -26,8 +26,8 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
               .toList();
 
       final httpResponse = await _serviceServicesApiService.addServiceMarkets(
-          marketList: marketListModels,
-          userId: userId
+          userId,marketListModels,
+          
           );
       if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);
@@ -49,7 +49,7 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
   @override
   Future<DataState<void>> deleteServiceMarketById(int id)async {
  try {
-      final httpResponse = await _serviceServicesApiService.deleteMarketFromList(id: id);
+      final httpResponse = await _serviceServicesApiService.deleteMarketFromList(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -71,7 +71,7 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
       int listId)async {
  try {
       final httpResponse =
-          await _serviceServicesApiService.getAvailableMarketsByListId(listId: listId);
+          await _serviceServicesApiService.getAvailableMarketsByListId(listId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -93,7 +93,7 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
       getServiceListMarketsByListId(int listId)async {
   try {
       final httpResponse = await _serviceServicesApiService.getAddedMarketsByListId(
-          listId: listId);
+          listId);
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
@@ -115,7 +115,7 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
   Future<DataState<List<ServiceListEntity>>> getServiceListsByDate(
       DateTime date)async {
  try {
-      final httpResponse = await _serviceServicesApiService.getServiceServicesByDate(date: date);
+      final httpResponse = await _serviceServicesApiService.getServiceServicesByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -137,7 +137,7 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
       ServiceMarketToAddEntity serviceMarket)async {
    try {
       final httpResponse = await _serviceServicesApiService.updateMarketFromList(
-          doughListProduct: ServiceMarketToAddModel.fromEntity(serviceMarket));
+          ServiceMarketToAddModel.fromEntity(serviceMarket));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

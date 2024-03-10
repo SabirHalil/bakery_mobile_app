@@ -10,11 +10,11 @@ part 'cash_counting_service.g.dart';
 abstract class CashCountingService {
   factory CashCountingService(Dio dio,String baseUrl) = _CashCountingService;
   @GET("/api/CashCounting/GetCashCountingByDate")
-  Future<HttpResponse<CashCountingModel?>> getCashCountingByDate({@Query("date") DateTime date});
+  Future<HttpResponse<CashCountingModel?>> getCashCountingByDate(@Query("date") DateTime date);
   @POST("/api/CashCounting/AddCashCounting")
-  Future<HttpResponse> addCashCounting({@Body() CashCountingModel cashCounting});
+  Future<HttpResponse> addCashCounting(@Body() CashCountingModel cashCounting);
   @DELETE("/api/CashCounting/DeleteCashCountingById")
-  Future<HttpResponse> deleteCashCountingById({@Query("id") int id});
+  Future<HttpResponse> deleteCashCountingById(@Query("id") int id);
   @PUT("/api/CashCounting/UpdateCashCounting")
-  Future<HttpResponse> updateCashCounting({@Body() CashCountingModel cashCounting});
+  Future<HttpResponse> updateCashCounting(@Body() CashCountingModel cashCounting);
 }

@@ -13,12 +13,12 @@ class DoughProductProcessModel extends DoughProductProcessEntity {
           status: status,
         );
 
-  factory DoughProductProcessModel.fromJson(Map<String, dynamic> json) {
+  factory DoughProductProcessModel.fromJson(Map<String, dynamic> map) {
     return DoughProductProcessModel(
-      id: json['id'] ?? 0,
-      breadEquivalent: (json['breadEquivalent'] ?? 0.0).toDouble(),
-      name: json['name'] ?? '',
-      status: json['status'] ?? false,
+      id: map["id"] ?? 0,
+      breadEquivalent: (map["breadEquivalent"] ?? 0.0).toDouble(),
+      name: map["name"] ?? "",
+      status: map["status"] ?? false,
     );
   }
 
@@ -29,5 +29,14 @@ class DoughProductProcessModel extends DoughProductProcessEntity {
       'name': name,
       'status': status,
     };
+  }
+
+  factory DoughProductProcessModel.fromEntity(DoughProductProcessEntity entity) {
+    return DoughProductProcessModel(
+      id: entity.id,
+      breadEquivalent: entity.breadEquivalent,
+      name: entity.name,
+      status: entity.status,
+    );
   }
 }

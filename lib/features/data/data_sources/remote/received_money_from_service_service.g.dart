@@ -13,7 +13,7 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,17 +22,17 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
 
   @override
   Future<HttpResponse<ReceivedMoneyFromServiceModel?>>
-      getReceivedMoneyFromServiceByDateAndServiceType({
-     DateTime? date,
-     int? servisTypeId,
-  }) async {
+      getReceivedMoneyFromServiceByDateAndServiceType(
+    DateTime date,
+    int servisTypeId,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'date': date!.toIso8601String(),
+      r'date': date.toIso8601String(),
       r'serviceType': servisTypeId,
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<ReceivedMoneyFromServiceModel>>(Options(
       method: 'GET',
@@ -50,7 +50,8 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null? null
+    final value = _result.data == null
+        ? null
         : ReceivedMoneyFromServiceModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
@@ -58,12 +59,12 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
 
   @override
   Future<HttpResponse<dynamic>> addReceivedMoneyFromService(
-      { ReceivedMoneyFromServiceModel? receivedMoneyFromService}) async {
+      ReceivedMoneyFromServiceModel receivedMoneyFromService) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(receivedMoneyFromService!.toJson());
+    _data.addAll(receivedMoneyFromService.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -88,11 +89,11 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
 
   @override
   Future<HttpResponse<dynamic>> deleteReceivedMoneyFromServiceById(
-      { int? id}) async {
+      int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -117,12 +118,12 @@ class _ReceivedMoneyFromService implements ReceivedMoneyFromService {
 
   @override
   Future<HttpResponse<dynamic>> updateReceivedMoneyFromService(
-      { ReceivedMoneyFromServiceModel? receivedMoneyFromService}) async {
+      ReceivedMoneyFromServiceModel receivedMoneyFromService) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(receivedMoneyFromService!.toJson());
+    _data.addAll(receivedMoneyFromService.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

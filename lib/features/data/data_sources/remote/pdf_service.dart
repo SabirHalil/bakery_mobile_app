@@ -10,7 +10,7 @@ part 'pdf_service.g.dart';
 abstract class PdfService {
   factory PdfService(Dio dio, String baseUrl) =_PdfService;
   @GET("/api/EndOfDayAccount/GetGivenProductsToServiceByDateAndServisTypeId")
-  Future<HttpResponse<Uint8List?>>getPdfServiceListByDateAndServiceType({@Query("date") DateTime date,});
+  Future<HttpResponse<Uint8List?>>getPdfServiceListByDateAndServiceType(@Query("date") DateTime date,);
   @GET("/api/CreatePdf/CreatePdfForHamurhane")
-  Future<HttpResponse<Uint8List?>>getPdfOfDoughFactoryByDate({@Query("date") DateTime date,});
+  Future<HttpResponse<Uint8List?>>getPdfOfDoughFactoryByDate(@Query("date") DateTime date,);
 }

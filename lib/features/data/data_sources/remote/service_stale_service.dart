@@ -13,17 +13,17 @@ abstract class ServiceStaleService {
   factory ServiceStaleService(Dio dio, String baseUrl) = _ServiceStaleService;
   @GET("/api/StaleBreadReceivedFromMarket/GetStaleBreadReceivedFromMarketByDate")
   Future<HttpResponse<List<ServiceReceivedStaleModel>>>
-      getServiceReceivedStaleByDate({@Query("date") DateTime date});
+      getServiceReceivedStaleByDate(@Query("date") DateTime date);
   @GET("/api/StaleBreadReceivedFromMarket/GetNoBreadReceivedMarketListByDate")
   Future<HttpResponse<List<ServiceStaleModel>>>
-      getServiceNotReceivedStaleByDate({@Query("date") DateTime date});
+      getServiceNotReceivedStaleByDate(@Query("date") DateTime date);
   @POST("/api/StaleBreadReceivedFromMarket/AddStaleBreadReceivedFromMarket")
   Future<HttpResponse> addServiceReceivedStale(
-      {@Body() ServiceToReceiveStaleModel serviceToReceiveStaleModel});
+      @Body() ServiceToReceiveStaleModel serviceToReceiveStaleModel);
   @DELETE("/api/StaleBreadReceivedFromMarket/DeleteStaleBreadReceivedFromMarketById")
   Future<HttpResponse> deleteServiceReceivedStale(
-      {@Query("id") int id});
+      @Query("id") int id);
   @PUT("/api/StaleBreadReceivedFromMarket/UpdateStaleBreadReceivedFromMarket")
   Future<HttpResponse> updateServiceReceivedStale(
-      {@Body() ServiceToReceiveStaleModel serviceToReceiveStaleModel});
+      @Body() ServiceToReceiveStaleModel serviceToReceiveStaleModel);
 }

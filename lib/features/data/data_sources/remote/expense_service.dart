@@ -11,14 +11,14 @@ abstract class ExpenseService {
   factory ExpenseService(Dio dio, String baseUrl) = _ExpenseService;
   @GET("/api/Expense/GetExpensesByDate")
   Future<HttpResponse<List<ExpenseModel>>>
-      getExpenseListByDate({@Query("date") DateTime date});
+      getExpenseListByDate(@Query("date") DateTime date);
   @POST("/api/Expense/AddExpense")
   Future<HttpResponse> addExpense(
-      {@Body() ExpenseModel expense});
+      @Body() ExpenseModel expense);
   @DELETE("/api/Expense/DeleteExpense")
   Future<HttpResponse> deleteExpense(
-      {@Query("id") int id});
+    @Query("id") int id);
   @PUT("/api/Expense/UpdateExpense")
   Future<HttpResponse> updateExpense(
-      {@Body() ExpenseModel expense});
+      @Body() ExpenseModel expense);
 }

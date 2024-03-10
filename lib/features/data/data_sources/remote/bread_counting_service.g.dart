@@ -13,7 +13,7 @@ class _BreadCountingService implements BreadCountingService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -21,12 +21,12 @@ class _BreadCountingService implements BreadCountingService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<BreadCountingModel?>>
-      getBreadCountingByDate({ DateTime? date}) async {
+  Future<HttpResponse<BreadCountingModel?>> getBreadCountingByDate(
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<BreadCountingModel>>(Options(
       method: 'GET',
@@ -53,12 +53,12 @@ class _BreadCountingService implements BreadCountingService {
 
   @override
   Future<HttpResponse<dynamic>> addBreadCounting(
-      { BreadCountingModel? breadCounting}) async {
+      BreadCountingModel breadCounting) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(breadCounting!.toJson());
+    _data.addAll(breadCounting.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -82,12 +82,11 @@ class _BreadCountingService implements BreadCountingService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteBreadCountingById(
-      { int? id}) async {
+  Future<HttpResponse<dynamic>> deleteBreadCountingById(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -112,12 +111,12 @@ class _BreadCountingService implements BreadCountingService {
 
   @override
   Future<HttpResponse<dynamic>> updateBreadCounting(
-      { BreadCountingModel? breadCounting}) async {
+      BreadCountingModel breadCounting) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(breadCounting!.toJson());
+    _data.addAll(breadCounting.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

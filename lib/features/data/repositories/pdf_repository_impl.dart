@@ -15,7 +15,7 @@ class PdfRepositoryImpl extends PdfRepository {
   Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date) async {
     try {
       final httpResponse =
-          await _pdfService.getPdfServiceListByDateAndServiceType(date: date);
+          await _pdfService.getPdfServiceListByDateAndServiceType(date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
@@ -37,7 +37,7 @@ class PdfRepositoryImpl extends PdfRepository {
       DateTime date) async {
     try {
       final httpResponse =
-          await _pdfService.getPdfOfDoughFactoryByDate(date: date);
+          await _pdfService.getPdfOfDoughFactoryByDate( date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {

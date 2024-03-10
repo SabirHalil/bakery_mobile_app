@@ -13,7 +13,7 @@ class _CashCountingService implements CashCountingService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.12.54:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,11 +22,11 @@ class _CashCountingService implements CashCountingService {
 
   @override
   Future<HttpResponse<CashCountingModel?>> getCashCountingByDate(
-      { DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<CashCountingModel>>(Options(
       method: 'GET',
@@ -52,12 +52,12 @@ class _CashCountingService implements CashCountingService {
 
   @override
   Future<HttpResponse<dynamic>> addCashCounting(
-      { CashCountingModel? cashCounting}) async {
+      CashCountingModel cashCounting) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(cashCounting!.toJson());
+    _data.addAll(cashCounting.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -81,12 +81,11 @@ class _CashCountingService implements CashCountingService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteCashCountingById(
-      { int? id}) async {
+  Future<HttpResponse<dynamic>> deleteCashCountingById(int id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -111,12 +110,12 @@ class _CashCountingService implements CashCountingService {
 
   @override
   Future<HttpResponse<dynamic>> updateCashCounting(
-      { CashCountingModel? cashCounting}) async {
+      CashCountingModel cashCounting) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(cashCounting!.toJson());
+    _data.addAll(cashCounting.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',

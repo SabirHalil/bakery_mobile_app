@@ -13,7 +13,7 @@ class _DoughApiService implements DoughApiService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'https://192.168.1.3:7207';
+    baseUrl ??= 'http://93.190.8.250:6500';
   }
 
   final Dio _dio;
@@ -22,11 +22,11 @@ class _DoughApiService implements DoughApiService {
 
   @override
   Future<HttpResponse<List<DoughListModel>>> getListsByDate(
-      {DateTime? date}) async {
+      DateTime date) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<DoughListModel>>>(Options(
       method: 'GET',
@@ -52,15 +52,18 @@ class _DoughApiService implements DoughApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> addDoughProducts({
-    int? userId,
-    List<DoughProductToAddModel>? doughListProduct,
-    DateTime? date,
-  }) async {
+  Future<HttpResponse<dynamic>> addDoughProducts(
+    int userId,
+    List<DoughProductToAddModel> doughListProduct,
+    DateTime date,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId, r'date': date};
+    final queryParameters = <String, dynamic>{
+      r'userId': userId,
+      r'date': date.toIso8601String(),
+    };
     final _headers = <String, dynamic>{};
-    final _data = doughListProduct!.map((e) => e.toJson()).toList();
+    final _data = doughListProduct.map((e) => e.toJson()).toList();
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',
@@ -85,13 +88,13 @@ class _DoughApiService implements DoughApiService {
 
   @override
   Future<HttpResponse<List<DoughAddedProductModel>>> getAddedProductsByListId(
-      {int? doughFactoryListId}) async {
+      int doughFactoryListId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'doughFactoryListId': doughFactoryListId
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<DoughAddedProductModel>>>(Options(
       method: 'GET',
@@ -119,11 +122,11 @@ class _DoughApiService implements DoughApiService {
 
   @override
   Future<HttpResponse<List<ProductNotAddedModel>>> getAvailableProductsByListId(
-      {int? listId}) async {
+      int listId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'doughFactoryListId': listId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductNotAddedModel>>>(Options(
       method: 'GET',
@@ -150,11 +153,11 @@ class _DoughApiService implements DoughApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> deleteProductFromList({int? id}) async {
+  Future<HttpResponse<dynamic>> deleteProductFromList(int id) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'detailId': id};
+    final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',
@@ -179,12 +182,12 @@ class _DoughApiService implements DoughApiService {
 
   @override
   Future<HttpResponse<dynamic>> updateProductFromList(
-      {DoughProductToAddModel? doughListProduct}) async {
+      DoughProductToAddModel doughListProduct) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(doughListProduct!.toJson());
+    _data.addAll(doughListProduct.toJson());
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'PUT',
