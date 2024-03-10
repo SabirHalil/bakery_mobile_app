@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/is_today_check.dart';
 import '../../../../data/models/user.dart';
 import '../../../widgets/empty_content.dart';
+import '../bloc/dough_added_products/dough_added_products_bloc.dart';
 import '../bloc/dough_lists/dough_factory_bloc.dart';
 
 class DoughListPage extends StatefulWidget {
@@ -86,7 +87,8 @@ class _DoughListPageState extends State<DoughListPage> {
                               context, DoughProductPage.routeName, arguments: {
                             0: state.doughLists![index].id,
                             1: result,
-                            2:selectedDate
+                            2:selectedDate,
+                            3:widget.user.id
                           });
                         },
                       ),
@@ -102,10 +104,12 @@ class _DoughListPageState extends State<DoughListPage> {
     if (todayDate || isAdmin) {
       return FloatingActionButton(
         onPressed: () {
+          context.read<DoughAddedProductsBloc>().add(DoughGetAddedProductsRequested(listId: 0));
           Navigator.pushNamed(context, DoughProductPage.routeName, arguments: {
             0: 0,
             1: true,
-            2:selectedDate
+            2:selectedDate,
+            3:widget.user.id
           }).then((value) => setState(
                 () {
                   context

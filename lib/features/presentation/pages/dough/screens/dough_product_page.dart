@@ -1,6 +1,4 @@
-
 import 'package:bakery_app/core/utils/toast_message.dart';
-import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
 import 'package:bakery_app/features/data/models/dough_added_product.dart';
 import 'package:bakery_app/features/data/models/dough_product_to_add.dart';
 import 'package:bakery_app/features/data/models/product_not_added.dart';
@@ -25,17 +23,18 @@ class DoughProductPage extends StatelessWidget {
   int listId;
   final bool canEdit;
   final DateTime date;
+  final int userId;
   DoughProductPage(
       {super.key,
       required this.listId,
       required this.canEdit,
-      required this.date});
+      required this.date,
+      required this.userId});
 
   final List<DoughProductToAddModel> listToPost = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
-    print("List id: $listId");
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -126,14 +125,15 @@ class DoughProductPage extends StatelessWidget {
   }
 
   _getEditableAddedProducts(BuildContext context) {
-    context.read<DoughAddedProductsBloc>().add(DoughGetAddedProductsRequested(listId: listId));
+    context
+        .read<DoughAddedProductsBloc>()
+        .add(DoughGetAddedProductsRequested(listId: listId));
     return BlocBuilder<DoughAddedProductsBloc, DoughAddedProductsState>(
         builder: ((context, state) {
       if (state is DoughAddedProductsSuccess &&
           state.listId != null &&
           state.listId != 0) {
         listId = state.listId!;
-        print("inside getAddedProducts list id: ${listId}");
       }
       return switch (state) {
         DoughAddedProductsLoading() => const LoadingIndicator(),
@@ -237,14 +237,12 @@ class DoughProductPage extends StatelessWidget {
     }));
   }
 
-  _saveNewProducts(BuildContext context) async {
+  _saveNewProducts(BuildContext context) {
     if (listToPost.isNotEmpty) {
-      var user = await UserPreferences.getUser();
-      if (user != null) {
         context.read<DoughAddedProductsBloc>().add(
             DoughPostAddedProductRequested(
-                products: listToPost, userId: user.id!, date: date));
-      }
+                products: listToPost, userId: userId, date: date));
+      
     } else {
       showToastMessage("Yeni ürün eklemelisiniz!");
     }

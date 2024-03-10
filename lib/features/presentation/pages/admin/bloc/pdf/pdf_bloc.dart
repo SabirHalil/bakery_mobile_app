@@ -18,16 +18,34 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
   final PdfUseCase _pdfUseCase;
   PdfBloc(this._pdfUseCase) : super(const PdfLoading()) {
     on<PdfGetEndOfTheDayRequested>(onGetEndOfTheDayPdfReport);
+    on<PdfGetDoughFactoryRequested>(onGetDoughFactoryPdfReport);
+
   }
 
   onGetEndOfTheDayPdfReport(
       PdfGetEndOfTheDayRequested event, Emitter<PdfState> emit) async {
     emit(const PdfLoading());
     final dataState = await _pdfUseCase.getEndOfTheDayPdfReport(event.date);
-  
+
     if (dataState is DataSuccess && dataState.data != null) {
-      File file = await createFileOfPdfUrl( dataState.data as Uint8List, "GunSonu_${getFromattedDate(event.date)}");
-      emit(PdfSuccess(pdfPath: file.path,pageTitle: event.pageTitle));
+      File file = await createFileOfPdfUrl(dataState.data as Uint8List,
+          "GunSonu_${getFromattedDate(event.date)}");
+      emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
+    }
+    if (dataState is DataFailed) {
+      emit(PdfFailure(error: dataState.error));
+    }
+  }
+
+  onGetDoughFactoryPdfReport(
+      PdfGetDoughFactoryRequested event, Emitter<PdfState> emit) async {
+    emit(const PdfLoading());
+    final dataState = await _pdfUseCase.getPdfOfDoughFactoryByDate(event.date);
+
+    if (dataState is DataSuccess && dataState.data != null) {
+      File file = await createFileOfPdfUrl(dataState.data as Uint8List,
+          "Hamurhane_${getFromattedDate(event.date)}");
+      emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
     }
     if (dataState is DataFailed) {
       emit(PdfFailure(error: dataState.error));
@@ -35,12 +53,9 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
   }
 
   Future<File> createFileOfPdfUrl(List<int> bytes, String fileName) async {
-    
     try {
       var dir = await getApplicationDocumentsDirectory();
-      
-      
-      
+
       File file = File("${dir.path}/$fileName.pdf");
 
       await file.writeAsBytes(bytes, flush: true);

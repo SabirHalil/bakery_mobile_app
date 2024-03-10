@@ -1,5 +1,6 @@
 import 'package:bakery_app/features/data/models/user.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/admin_page.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/products_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/auth/screens/login_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_product_page.dart';
@@ -19,6 +20,9 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case LoginPage.routeName:
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => const LoginPage());
+    case ProductsProcessPage.routeName:
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => const ProductsProcessPage());
     case SellAssistancePage.routeName:
       var args = routeSettings.arguments as UserModel;
       return MaterialPageRoute(
@@ -48,6 +52,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           builder: (_) => ServiceMarketsPage(
                 listId: args[0],
                 canEdit: args[1],
+                userId: args[2],
               ));
     case ServiceAccountPage.routeName:
       var args = routeSettings.arguments as DateTime;
@@ -88,6 +93,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
                 listId: args[0],
                 canEdit: args[1],
                 date: args[2],
+                userId: args[3],
               ));
     case PdfViewPage.routeName:
       var args = routeSettings.arguments as Map<int, dynamic>;

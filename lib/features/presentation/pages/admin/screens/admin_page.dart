@@ -1,6 +1,7 @@
 import 'package:bakery_app/core/utils/toast_message.dart';
 import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/pdf_view_page.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/products_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
 import 'package:bakery_app/features/presentation/pages/production/screens/production_page.dart';
 import 'package:bakery_app/features/presentation/pages/service/screens/service_lists_page.dart';
@@ -83,12 +84,12 @@ class _AdminPageState extends State<AdminPage> {
         //  onTap: _selectDate,
         additionalMenuItems: const [
           PopupMenuItem<String>(
-            value: 'purchesed-products',
-            child: Text('Dışardan alınan ürünler'),
+            value: 'system-open-close-time',
+            child: Text('Sistem açma kapanma saatleri'),
           ),
         ],
         onMenuItemSelected: (value) {
-          if (value == 'purchesed-products') {
+          if (value == 'system-open-close-time') {
             //  Navigator.pushNamed(context, ProductionPage.routeName,arguments: widget.user);
           }
         },
@@ -110,30 +111,65 @@ class _AdminPageState extends State<AdminPage> {
           'Raporlar',
         ),
         children: [
-          ListTile(title: const Text('Günsonu'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Gün Sonu Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
+          ListTile(
+            title: const Text('Günsonu'),
+            trailing: IconButton(
+              onPressed: () => context.read<PdfBloc>().add(
+                  PdfGetEndOfTheDayRequested(
+                      date: selectedDate!, pageTitle: "Gün Sonu Raporu")),
+              icon: const Icon(Icons.remove_red_eye),
+              color: GlobalVariables.secondaryColor,
+            ),
+          ),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-        ListTile(title: const Text('Servis'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Servis Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
+          ListTile(
+            title: const Text('Servis'),
+            trailing: IconButton(
+              onPressed: () => context.read<PdfBloc>().add(
+                  PdfGetDoughFactoryRequested(
+                      date: selectedDate!, pageTitle: "Servis Raporu")),
+              icon: const Icon(Icons.remove_red_eye),
+              color: GlobalVariables.secondaryColor,
+            ),
+          ),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-        ListTile(title: const Text('Pastane'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Pastane Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
-
+          ListTile(
+            title: const Text('Pastane'),
+            trailing: IconButton(
+              onPressed: () => context.read<PdfBloc>().add(
+                  PdfGetDoughFactoryRequested(
+                      date: selectedDate!, pageTitle: "Pastane Raporu")),
+              icon: const Icon(Icons.remove_red_eye),
+              color: GlobalVariables.secondaryColor,
+            ),
+          ),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-      ListTile(title: const Text('Hamurhane'),trailing: IconButton(onPressed: () => context.read<PdfBloc>().add(PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Hamurhane Raporu")),icon: const Icon(Icons.remove_red_eye), color: GlobalVariables.secondaryColor,),),
-      ],
+          ListTile(
+            title: const Text('Hamurhane'),
+            trailing: IconButton(
+              onPressed: () => context.read<PdfBloc>().add(
+                  PdfGetDoughFactoryRequested(
+                      date: selectedDate!, pageTitle: "Hamurhane Raporu")),
+              icon: const Icon(Icons.remove_red_eye),
+              color: GlobalVariables.secondaryColor,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -531,16 +567,17 @@ class _AdminPageState extends State<AdminPage> {
           'Ürünler',
         ),
         children: [
-          CustomSellListTile(
-              title: 'Hamurhane',
-              onShowDetails: () {
-                // _updateBreadCounting(selectedDate!);
+          ListTile(
+            title: const Text("Fırn ürünleri"),
+            trailing: IconButton(
+              onPressed: () {
+                _navigateToPage(ProductsProcessPage.routeName, null);
               },
-              onAdd: todayDate
-                  ? () {
-                      //   _addBreadCountingDialog(selectedDate!);
-                    }
-                  : null),
+              icon: const Icon(Icons.arrow_outward),
+              color: GlobalVariables.secondaryColor,
+            ),
+          ),
+
           const Divider(
             height: 1,
             color: Colors.white,

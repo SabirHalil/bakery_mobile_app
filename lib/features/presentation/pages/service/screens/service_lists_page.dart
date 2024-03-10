@@ -12,6 +12,7 @@ import '../../../../../core/constants/constants.dart';
 import '../../../../../core/constants/global_variables.dart';
 import '../../../../../core/utils/is_today_check.dart';
 import '../../../widgets/custom_app_bar_with_date.dart';
+import '../bloc/service_added_markets/service_added_markets_bloc.dart';
 import '../bloc/service_lists/service_lists_bloc.dart';
 import 'service_stale_page.dart';
 
@@ -88,7 +89,8 @@ class _ServiceListPageState extends State<ServiceListPage> {
                         Navigator.pushNamed(
                           context, ServiceMarketsPage.routeName, arguments: {
                           0: state.serviceLists![index].id,
-                          1: result
+                          1: result,
+                          2:widget.user.id
                         });
                       },
                     ),
@@ -183,10 +185,11 @@ class _ServiceListPageState extends State<ServiceListPage> {
             ),
             FloatingActionButton(
               onPressed: () {
-                Navigator.pushNamed(
-                    context, ServiceMarketsPage.routeName, arguments: {
+                context.read<ServiceAddedMarketsBloc>().add(ServiceGetAddedMarketsRequested(listId: 0));
+                Navigator.pushNamed(context, ServiceMarketsPage.routeName, arguments: {
                   0: 0,
-                  1: true
+                  1: true,
+                  2:widget.user.id
                 }).then((value) => setState(
                       () {
                         context.read<ServiceListsBloc>().add(

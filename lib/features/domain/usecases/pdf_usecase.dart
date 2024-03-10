@@ -10,4 +10,7 @@ class PdfUseCase {
   Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date) async {
     return _pdfRepository.getEndOfTheDayPdfReport(date);
   }
+    Future<DataState<Uint8List?>> getPdfOfDoughFactoryByDate(DateTime date) async {
+    return _pdfRepository.getPdfOfDoughFactoryByDate(date);
+  }
 }

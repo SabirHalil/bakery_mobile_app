@@ -12,9 +12,10 @@ class PdfRepositoryImpl extends PdfRepository {
   final PdfService _pdfService;
   PdfRepositoryImpl(this._pdfService);
   @override
-  Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date)async {
-     try {
-      final httpResponse = await _pdfService.getPdfServiceListByDateAndServiceType(date:date);
+  Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date) async {
+    try {
+      final httpResponse =
+          await _pdfService.getPdfServiceListByDateAndServiceType(date: date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
@@ -27,7 +28,29 @@ class PdfRepositoryImpl extends PdfRepository {
       }
     } catch (e) {
       showSnakeBar(e.toString(), null, null);
-rethrow;
+      rethrow;
+    }
+  }
+
+  @override
+  Future<DataState<Uint8List?>> getPdfOfDoughFactoryByDate(
+      DateTime date) async {
+    try {
+      final httpResponse =
+          await _pdfService.getPdfOfDoughFactoryByDate(date: date);
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data!);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } catch (e) {
+      showSnakeBar(e.toString(), null, null);
+      rethrow;
     }
   }
 }

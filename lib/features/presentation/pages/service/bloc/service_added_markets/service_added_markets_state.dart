@@ -4,6 +4,7 @@ part of 'service_added_markets_bloc.dart';
 sealed class ServiceAddedMarketsState extends Equatable {
   const ServiceAddedMarketsState();
   get serviceAddedMarkets => null;
+   get listId => null;
 }
 
 final class ServiceAddedMarketsLoading extends ServiceAddedMarketsState {
@@ -23,6 +24,7 @@ final class ServiceAddedMarketsFailure extends ServiceAddedMarketsState {
 final class ServiceAddedMarketsSuccess extends ServiceAddedMarketsState {
   @override
   final List<ServiceAddedMarketModel>? serviceAddedMarkets;
+  @override
   final int? listId;
   const ServiceAddedMarketsSuccess({this.serviceAddedMarkets, this.listId});
 

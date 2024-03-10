@@ -78,8 +78,7 @@ class _PdfViewPageState extends State<PdfViewPage> with WidgetsBindingObserver {
   _buildAppBar() {
     return AppBar(
       iconTheme: const IconThemeData(color: Colors.white),
-      title:
-          Text(widget.titlePage, style: const TextStyle(color: Colors.white)),
+      title: Text(widget.titlePage, style: const TextStyle(color: Colors.white)),
       actions: <Widget>[
         IconButton(
           icon: const Icon(
@@ -87,7 +86,6 @@ class _PdfViewPageState extends State<PdfViewPage> with WidgetsBindingObserver {
             color: Colors.white,
           ),
           onPressed: () {
-            //  Share.share('check out my website https://example.com');
             Share.shareXFiles([XFile(widget.path!)],
                 text: '${widget.titlePage} Paylaş');
           },

@@ -7,3 +7,9 @@ final class PdfGetEndOfTheDayRequested extends PdfEvent {
   String pageTitle;
   PdfGetEndOfTheDayRequested({required this.date, required this.pageTitle});
 }
+
+final class PdfGetDoughFactoryRequested extends PdfEvent {
+  DateTime date;
+  String pageTitle;
+  PdfGetDoughFactoryRequested({required this.date, required this.pageTitle});
+}

@@ -15,7 +15,7 @@ class CustomAppBarWithDate extends StatelessWidget
   const CustomAppBarWithDate(
       {super.key,
       required this.title,
-      required this.date,
+      this.date,
       this.onTap,
       this.additionalMenuItems = const [],
       this.onMenuItemSelected});

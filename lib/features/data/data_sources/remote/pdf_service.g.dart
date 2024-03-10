@@ -48,6 +48,34 @@ class _PdfService implements PdfService {
     return httpResponse;
   }
 
+  @override
+  Future<HttpResponse<Uint8List?>> getPdfOfDoughFactoryByDate(
+      {DateTime? date}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'date': date!.toIso8601String()};
+    final _headers = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Uint8List?>(_setStreamType<HttpResponse<Uint8List?>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/CreatePdf/CreatePdfForHamurhane',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
 
     requestOptions.responseType = ResponseType.bytes;

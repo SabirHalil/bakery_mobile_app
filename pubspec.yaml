@@ -33,6 +33,7 @@ dependencies:
   share_plus: ^7.2.2
   dio: ^5.4.1
   retrofit: ^4.1.0
+  group_button: ^5.3.4
 
 
  
@@ -53,6 +54,8 @@ flutter:
     - assets/animation_error.json
     - assets/bakery.json
     - assets/empty_box.json
+    - assets/select_animation.json
+
   
   
   
