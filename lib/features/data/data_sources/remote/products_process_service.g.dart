@@ -13,7 +13,7 @@ class _ProductsProcessService implements ProductsProcessService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'http://93.190.8.250:6500';
+    baseUrl ??= 'https://192.168.1.3:7207';
   }
 
   final Dio _dio;
@@ -26,7 +26,7 @@ class _ProductsProcessService implements ProductsProcessService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'categoryId': categoryId};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductProcessModel>>>(Options(
       method: 'GET',
@@ -60,7 +60,7 @@ class _ProductsProcessService implements ProductsProcessService {
     final _data = <String, dynamic>{};
     _data.addAll(product.toJson());
     final _result =
-        await _dio.fetch<String>(_setStreamType<HttpResponse<String>>(Options(
+        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -76,8 +76,7 @@ class _ProductsProcessService implements ProductsProcessService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+    final httpResponse = HttpResponse(null, _result);
     return httpResponse;
   }
 
@@ -117,7 +116,7 @@ class _ProductsProcessService implements ProductsProcessService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<DoughProductProcessModel>>>(Options(
       method: 'GET',
@@ -152,7 +151,7 @@ class _ProductsProcessService implements ProductsProcessService {
     final _data = <String, dynamic>{};
     _data.addAll(doughProduct.toJson());
     final _result =
-        await _dio.fetch<String>(_setStreamType<HttpResponse<String>>(Options(
+        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -168,13 +167,12 @@ class _ProductsProcessService implements ProductsProcessService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+    final httpResponse = HttpResponse(null, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<dynamic>> updateDoughProduct(
+  Future<HttpResponse<void>> updateDoughProduct(
       DoughProductProcessModel doughProduct) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -182,7 +180,7 @@ class _ProductsProcessService implements ProductsProcessService {
     final _data = <String, dynamic>{};
     _data.addAll(doughProduct.toJson());
     final _result =
-        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+        await _dio.fetch<void>(_setStreamType<HttpResponse<void>>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
@@ -198,8 +196,7 @@ class _ProductsProcessService implements ProductsProcessService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
+    final httpResponse = HttpResponse(null, _result);
     return httpResponse;
   }
 

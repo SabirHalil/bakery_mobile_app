@@ -11,7 +11,8 @@ import 'package:bakery_app/features/domain/entities/user.dart';
 import 'package:bakery_app/features/domain/repositories/auth_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthApiService _authApiService;
@@ -37,14 +38,13 @@ class AuthRepositoryImpl implements AuthRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
 
   @override
   Future<void> userLogout() {
-    // TODO: implement userLogout
     throw UnimplementedError();
   }
 }

@@ -39,8 +39,7 @@ class DoughProductsBloc extends Bloc<DoughProductsEvent, DoughProductsState> {
     final state = this.state;
     if (state is DoughProductsSuccess) {
       try {
-        emit(DoughProductsSuccess(
-            doughProducts: [...?state.doughProducts, event.product]));
+        emit(DoughProductsSuccess(doughProducts: [...?state.doughProducts, event.product]));
       } catch (_) {
         emit(DoughProductsFailure(
             error: DioException.requestCancelled(

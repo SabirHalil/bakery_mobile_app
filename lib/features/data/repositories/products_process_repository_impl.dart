@@ -8,7 +8,7 @@ import 'package:bakery_app/features/domain/entities/product_process.dart';
 import 'package:bakery_app/features/domain/repositories/products_process_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
 import '../models/product_process.dart';
 
 class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
@@ -19,8 +19,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
   Future<DataState<void>> addDoughProduct(DoughProductProcessEntity product)async {
  try {
 
-      final httpResponse =
-          await _productsProcessService.addDoughProduct(DoughProductProcessModel.fromEntity(product));
+      final httpResponse =await _productsProcessService.addDoughProduct(DoughProductProcessModel.fromEntity(product));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -32,7 +31,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -54,7 +53,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -74,7 +73,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -94,7 +93,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -116,7 +115,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -138,7 +137,7 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

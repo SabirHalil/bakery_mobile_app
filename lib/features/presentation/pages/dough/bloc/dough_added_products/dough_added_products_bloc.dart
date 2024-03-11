@@ -14,8 +14,7 @@ part 'dough_added_products_state.dart';
 class DoughAddedProductsBloc
     extends Bloc<DoughAddedProductsEvent, DoughAddedProductsState> {
   final DoughUseCase _doughUseCase;
-  DoughAddedProductsBloc(this._doughUseCase)
-      : super(const DoughAddedProductsLoading()) {
+  DoughAddedProductsBloc(this._doughUseCase): super(const DoughAddedProductsLoading()) {
     on<DoughGetAddedProductsRequested>(onGetDoughAddedProducts);
     on<DoughAddAddedProductRequested>(onAddProductToList);
     on<DoughRemoveAddedProductRequested>(onRemoveProductFromList);
@@ -25,7 +24,7 @@ class DoughAddedProductsBloc
 
   void onGetDoughAddedProducts(DoughGetAddedProductsRequested event,
       Emitter<DoughAddedProductsState> emit) async {
-    print("list id in onGetDoughAddedProducts bloc: ${event.listId}");
+  
    
 
     emit(const DoughAddedProductsLoading());
@@ -46,15 +45,12 @@ class DoughAddedProductsBloc
   void onPostProductsToServer(DoughPostAddedProductRequested event,
       Emitter<DoughAddedProductsState> emit) async {
     emit(const DoughAddedProductsLoading());
-    final dataState = await _doughUseCase.addDoughProducts(
-        event.userId, event.products, event.date);
+    final dataState = await _doughUseCase.addDoughProducts( event.userId, event.products, event.date);
     if (dataState is DataSuccess && dataState.data != null) {
-      final updatedDataState = await _doughUseCase
-          .getDoughListProductsByListId(dataState.data as int);
+      final updatedDataState = await _doughUseCase.getDoughListProductsByListId(dataState.data as int);
       if (updatedDataState is DataSuccess && updatedDataState.data != null) {
         emit(DoughAddedProductsSuccess(
-            doughAddedProducts:
-                updatedDataState.data as List<DoughAddedProductModel>,
+            doughAddedProducts:updatedDataState.data as List<DoughAddedProductModel>,
             listId: dataState.data as int));
         event.products.clear();
       }
@@ -74,8 +70,7 @@ class DoughAddedProductsBloc
     final state = this.state;
     if (state is DoughAddedProductsSuccess) {
       try {
-        emit(DoughAddedProductsSuccess(
-            doughAddedProducts: [...?state.doughAddedProducts, event.product]));
+        emit(DoughAddedProductsSuccess(doughAddedProducts: [...?state.doughAddedProducts, event.product]));
       } catch (_) {
         emit(DoughAddedProductsFailure(
             error: DioException.requestCancelled(

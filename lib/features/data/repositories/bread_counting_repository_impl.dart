@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 
 import 'package:bakery_app/features/domain/entities/bread_counting.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/bread_counting_repository.dart';
 
 class BreadCountingRepositoryImpl extends BreadCountingRepository {
@@ -30,7 +30,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -51,7 +51,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -75,7 +75,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
             requestOptions: httpResponse.response.requestOptions),
       );
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -97,7 +97,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

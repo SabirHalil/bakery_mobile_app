@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/resources/data_state.dart';
-import '../../../../../../core/utils/show_snake_bar.dart';
+import '../../../../../../core/utils/toast_message.dart';
 
 part 'service_stale_received_event.dart';
 part 'service_stale_received_state.dart';
@@ -92,7 +92,7 @@ class ServiceStaleReceivedBloc
         }
       } catch (e) {
         
-      showSnakeBar(e.toString(),null,null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
       }
     }

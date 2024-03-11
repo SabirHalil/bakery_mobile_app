@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bakery_app/core/resources/data_state.dart';
-import 'package:bakery_app/core/utils/show_snake_bar.dart';
 import 'package:bakery_app/features/data/data_sources/remote/stale_product_service.dart';
 import 'package:bakery_app/features/data/models/stale_product_to_add.dart';
 import 'package:bakery_app/features/domain/entities/stale_product_added.dart';
@@ -9,6 +8,7 @@ import 'package:bakery_app/features/domain/entities/stale_product_to_add.dart';
 import 'package:bakery_app/features/domain/repositories/stale_product_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/utils/toast_message.dart';
 import '../../domain/entities/product_not_added.dart';
 
 class StaleProductRepositoryImpl extends StaleProductRepository {
@@ -32,7 +32,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -52,7 +52,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -95,7 +95,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -117,7 +117,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

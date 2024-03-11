@@ -13,7 +13,7 @@ class _ServiceAccountService implements ServiceAccountService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'http://93.190.8.250:6500';
+    baseUrl ??= 'https://192.168.1.3:7207';
   }
 
   final Dio _dio;
@@ -26,7 +26,7 @@ class _ServiceAccountService implements ServiceAccountService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceAccountReceivedModel>>>(Options(
       method: 'GET',
@@ -58,7 +58,7 @@ class _ServiceAccountService implements ServiceAccountService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceAccountLeftModel>>>(Options(
       method: 'GET',

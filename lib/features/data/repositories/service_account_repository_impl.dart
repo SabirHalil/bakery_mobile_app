@@ -8,7 +8,8 @@ import 'package:bakery_app/features/domain/entities/service_account_to_receive.d
 import 'package:bakery_app/features/domain/repositories/service_account_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
   final ServiceAccountService _serviceAccountService;
@@ -32,7 +33,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -53,7 +54,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -73,7 +74,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -94,7 +95,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -115,7 +116,7 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

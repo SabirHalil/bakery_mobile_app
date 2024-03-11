@@ -8,7 +8,8 @@ import 'package:bakery_app/features/domain/entities/service_debt_total.dart';
 import 'package:bakery_app/features/domain/repositories/service_debt_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
   final ServiceDebtApiService _serviceDebtApiService;
@@ -29,7 +30,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -50,7 +51,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -70,7 +71,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -95,7 +96,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -120,7 +121,7 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

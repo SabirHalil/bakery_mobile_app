@@ -13,7 +13,7 @@ class _BreadCountingService implements BreadCountingService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'http://93.190.8.250:6500';
+    baseUrl ??= 'https://192.168.1.3:7207';
   }
 
   final Dio _dio;
@@ -26,7 +26,7 @@ class _BreadCountingService implements BreadCountingService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<BreadCountingModel>>(Options(
       method: 'GET',
@@ -86,7 +86,7 @@ class _BreadCountingService implements BreadCountingService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

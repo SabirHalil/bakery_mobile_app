@@ -6,7 +6,8 @@ import 'package:bakery_app/features/data/data_sources/remote/pdf_service.dart';
 import 'package:bakery_app/features/domain/repositories/pdf_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class PdfRepositoryImpl extends PdfRepository {
   final PdfService _pdfService;
@@ -27,7 +28,7 @@ class PdfRepositoryImpl extends PdfRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -49,7 +50,7 @@ class PdfRepositoryImpl extends PdfRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

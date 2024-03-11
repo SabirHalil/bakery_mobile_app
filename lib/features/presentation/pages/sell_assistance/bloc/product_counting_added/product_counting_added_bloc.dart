@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
-import '../../../../../../core/utils/show_snake_bar.dart';
+import '../../../../../../core/utils/toast_message.dart';
 import '../../../../../data/models/product_counting_added.dart';
 import '../../../../../data/models/product_counting_to_add.dart';
 
@@ -85,7 +85,7 @@ class ProductCountingAddedBloc
         }
       } catch (e) {
         
-      showSnakeBar(e.toString(),null,null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
       }
     }

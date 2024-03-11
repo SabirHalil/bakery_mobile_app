@@ -24,6 +24,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
+import 'features/presentation/pages/admin/bloc/products_process/products_process_bloc.dart';
 import 'features/presentation/pages/auth/bloc/auth_bloc.dart';
 import 'features/presentation/pages/dough/bloc/dough_added_products/dough_added_products_bloc.dart';
 import 'features/presentation/pages/dough/bloc/dough_lists/dough_factory_bloc.dart';
@@ -144,8 +146,14 @@ class MyApp extends StatelessWidget {
              BlocProvider<CashCountingBloc>(
           create: (context) => CashCountingBloc(sl()),
         ),
-              BlocProvider<PdfBloc>(
+       BlocProvider<PdfBloc>(
           create: (context) => PdfBloc(sl()),
+        ),
+            BlocProvider<DoughProductsProcessBloc>(
+          create: (context) => DoughProductsProcessBloc(sl()),
+        ),
+            BlocProvider<ProductsProcessBloc>(
+          create: (context) => ProductsProcessBloc(sl()),
         ),
       ],
       child: MaterialApp(

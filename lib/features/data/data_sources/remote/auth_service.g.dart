@@ -10,8 +10,10 @@ part of 'auth_service.dart';
 
 class _AuthApiService implements AuthApiService {
   _AuthApiService(
-    this._dio, this.baseUrl,) {
-    baseUrl ??= 'http://93.190.8.250:6500';
+    this._dio, 
+    this.baseUrl,
+  ) {
+    baseUrl ??= 'https://192.168.1.3:7207';
   }
 
   final Dio _dio;
@@ -29,7 +31,7 @@ class _AuthApiService implements AuthApiService {
       r'password': password,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<UserModel>>(Options(
       method: 'POST',
@@ -58,7 +60,7 @@ class _AuthApiService implements AuthApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'POST',

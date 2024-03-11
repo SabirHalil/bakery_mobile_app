@@ -7,7 +7,8 @@ import 'package:bakery_app/features/domain/entities/given_product_to_service.dar
 import 'package:bakery_app/features/domain/repositories/given_product_to_service_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class GivenProductToServiceRepositoryImpl
     extends GivenProductToServiceRepository {
@@ -32,7 +33,7 @@ class GivenProductToServiceRepositoryImpl
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
 rethrow;
     }
   }
@@ -54,7 +55,7 @@ rethrow;
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
 rethrow;
     }
   }
@@ -78,7 +79,7 @@ rethrow;
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
 rethrow;
     }
   }
@@ -102,7 +103,7 @@ rethrow;
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
 rethrow;
     }
   }

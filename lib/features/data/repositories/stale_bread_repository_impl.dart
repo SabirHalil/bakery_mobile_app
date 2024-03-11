@@ -11,7 +11,7 @@ import 'package:bakery_app/features/domain/entities/stale_bread_added.dart';
 
 import 'package:bakery_app/features/domain/entities/stale_bread_to_add.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/stale_bread_repository.dart';
 
 class StaleBreadRepositoryImpl extends StaleBreadRepository {
@@ -35,7 +35,7 @@ class StaleBreadRepositoryImpl extends StaleBreadRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -57,7 +57,7 @@ try {
         );
       }
     } catch (e) {
-       showSnakeBar(e.toString(), null, null);
+       showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -78,7 +78,7 @@ try {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -100,7 +100,7 @@ try {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -123,7 +123,7 @@ try {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

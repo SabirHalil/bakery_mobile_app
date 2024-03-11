@@ -13,7 +13,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'http://93.190.8.250:6500';
+    baseUrl ??= 'https://192.168.1.3:7207';
   }
 
   final Dio _dio;
@@ -26,7 +26,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceDebtTotalModel>>>(Options(
       method: 'GET',
@@ -58,7 +58,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'marketId': marketId};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceDebtDetailModel>>>(Options(
       method: 'GET',
@@ -119,7 +119,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

@@ -13,7 +13,7 @@ class _StaleProductService implements StaleProductService {
     this._dio, 
     this.baseUrl,
   ) {
-    baseUrl ??= 'http://93.190.8.250:6500';
+    baseUrl ??= 'https://192.168.1.3:7207';
   }
 
   final Dio _dio;
@@ -23,8 +23,8 @@ class _StaleProductService implements StaleProductService {
   @override
   Future<HttpResponse<List<StaleProductAddedModel>>>
       getAddedStaleProductListByDate(
-     DateTime date,
-     int categoryId,
+    DateTime date,
+    int categoryId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -32,7 +32,7 @@ class _StaleProductService implements StaleProductService {
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<StaleProductAddedModel>>>(Options(
       method: 'GET',
@@ -59,8 +59,9 @@ class _StaleProductService implements StaleProductService {
   }
 
   @override
-  Future<HttpResponse<List<ProductNotAddedModel>>> getProductListByDate( DateTime date,
-     int categoryId,
+  Future<HttpResponse<List<ProductNotAddedModel>>> getProductListByDate(
+    DateTime date,
+    int categoryId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -68,7 +69,7 @@ class _StaleProductService implements StaleProductService {
       r'categoryId': categoryId,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductNotAddedModel>>>(Options(
       method: 'GET',
@@ -96,7 +97,7 @@ class _StaleProductService implements StaleProductService {
 
   @override
   Future<HttpResponse<dynamic>> addStaleProduct(
-     StaleProductToAddModel staleProductToAdd) async {
+      StaleProductToAddModel staleProductToAdd) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -129,7 +130,7 @@ class _StaleProductService implements StaleProductService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

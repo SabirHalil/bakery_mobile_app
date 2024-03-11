@@ -12,7 +12,8 @@ import 'package:bakery_app/features/domain/entities/dough_product_to_add.dart';
 import 'package:dio/dio.dart';
 import 'package:bakery_app/features/domain/repositories/dough_repository.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class DoughRepositoryImpl extends DoughRepository {
   final DoughApiService _doughApiService;
@@ -33,7 +34,7 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -55,7 +56,7 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -78,7 +79,7 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -99,7 +100,7 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -121,7 +122,7 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -150,7 +151,7 @@ class DoughRepositoryImpl extends DoughRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }

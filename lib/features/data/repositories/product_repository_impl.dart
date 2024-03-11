@@ -11,7 +11,8 @@ import 'package:bakery_app/features/domain/entities/product_to_add.dart';
 import 'package:bakery_app/features/domain/repositories/product_repository.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/utils/show_snake_bar.dart';
+import '../../../core/utils/toast_message.dart';
+
 
 class ProductRepositoryImpl extends ProductRepository {
   final ProductApiService _apiService;
@@ -21,8 +22,7 @@ class ProductRepositoryImpl extends ProductRepository {
     try {
       final List<ProductToAddModel> productModel =
           productList.map((e) => ProductToAddModel.fromEntity(e)).toList();
-      final httpResponse =
-          await _apiService.addProducts(userId,categoryId,productModel,date);
+      final httpResponse = await _apiService.addProducts(userId,categoryId,productModel,date);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -34,7 +34,7 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-      showSnakeBar(e.toString(), null, null);
+      showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -54,7 +54,7 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -75,7 +75,7 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -96,7 +96,7 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
@@ -116,7 +116,7 @@ class ProductRepositoryImpl extends ProductRepository {
         );
       }
     } catch (e) {
-          showSnakeBar(e.toString(), null, null);
+          showToastMessage(e.toString(),duration: 1);
       rethrow;
     }
   }
