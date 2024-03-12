@@ -1,3 +1,4 @@
+import 'package:bakery_app/core/utils/toast_message.dart';
 import 'package:bakery_app/features/domain/usecases/system_time_usecase.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -17,15 +18,13 @@ class SystemTimeBloc extends Bloc<SystemTimeEvent, SystemTimeState> {
     on<UpdateSystemTimeRequested>(onUpdateSystemTimeRequested);
   }
 
-    onGetSystemTimeRequested(GetSystemTimeRequested event,
-      Emitter<SystemTimeState> emit) async {
+  onGetSystemTimeRequested(
+      GetSystemTimeRequested event, Emitter<SystemTimeState> emit) async {
     emit(const SystemTimeLoading());
     final dataState = await _systemTimeUseCase.getSystemTime();
 
     if (dataState is DataSuccess && dataState.data != null) {
-      emit(SystemTimeSuccess(
-          systemTime:
-              dataState.data as SystemTimeModel));
+      emit(SystemTimeSuccess(systemTime: dataState.data as SystemTimeModel));
     }
 
     if (dataState is DataFailed) {
@@ -33,15 +32,16 @@ class SystemTimeBloc extends Bloc<SystemTimeEvent, SystemTimeState> {
     }
   }
 
-   onUpdateSystemTimeRequested(UpdateSystemTimeRequested event,
-      Emitter<SystemTimeState> emit) async {
+  onUpdateSystemTimeRequested(
+      UpdateSystemTimeRequested event, Emitter<SystemTimeState> emit) async {
     final state = this.state;
     if (state is SystemTimeSuccess) {
       final dataState =
-          await _systemTimeUseCase.updateSystemTime(event.product);
+          await _systemTimeUseCase.updateSystemTime(event.systemTime);
 
       if (dataState is DataSuccess) {
-        emit(SystemTimeSuccess(systemTime: event.product));
+        emit(SystemTimeSuccess(systemTime: event.systemTime));
+        showToastMessage('Sistem çalışma saatleri güncellendi');
       }
 
       if (dataState is DataFailed) {
@@ -49,6 +49,4 @@ class SystemTimeBloc extends Bloc<SystemTimeEvent, SystemTimeState> {
       }
     }
   }
-
-
 }

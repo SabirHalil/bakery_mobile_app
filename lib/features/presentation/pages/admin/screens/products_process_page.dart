@@ -1,12 +1,16 @@
 import 'package:bakery_app/core/utils/toast_message.dart';
+import 'package:bakery_app/features/data/models/bread_price.dart';
 import 'package:bakery_app/features/data/models/dough_product_process.dart';
+import 'package:bakery_app/features/presentation/pages/admin/bloc/bread_price/bread_price_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
 import 'package:bakery_app/features/presentation/widgets/custom_product_process_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_button/group_button.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../../core/constants/constants.dart';
 import '../../../../../core/constants/global_variables.dart';
 import '../../../../data/models/product_process.dart';
 import '../../../widgets/empty_content.dart';
@@ -55,7 +59,6 @@ class _ProductsProcessPageState extends State<ProductsProcessPage> {
                 'Dışardan alınan'
               ],
               options: const GroupButtonOptions(
-                 
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
@@ -340,7 +343,9 @@ class _ProductsProcessPageState extends State<ProductsProcessPage> {
             return items;
           },
           onSelected: (value) {
-            if (value == 'bread-price') {}
+            if (value == 'bread-price') {
+              _showBreadPrices();
+            }
           },
         ),
       ],
@@ -353,5 +358,132 @@ class _ProductsProcessPageState extends State<ProductsProcessPage> {
       backgroundColor: GlobalVariables.secondaryColor,
       centerTitle: true,
     );
+  }
+
+  _showBreadPrices() {
+    context.read<BreadPriceBloc>().add(GetBreadPriceRequested());
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return BlocBuilder<BreadPriceBloc, BreadPriceState>(
+              builder: ((context, state) {
+            return switch (state) {
+              BreadPriceLoading() => const LoadingIndicator(),
+              BreadPriceFailure() => const ErrorAnimation(),
+              BreadPriceSuccess() => state.breadPriceList!.isEmpty
+                  ? const EmptyContent()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Ekmek Fiyatı",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                CircleAvatar(
+                                  backgroundColor:
+                                      GlobalVariables.secondaryColorLight,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _breadPriceDialog(null);
+                                    },
+                                    icon: const Icon(Icons.add),
+                                    color: GlobalVariables.secondaryColor,
+                                  ),
+                                )
+                              ]),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: state.breadPriceList!.length,
+                            itemBuilder: (context, index) {
+                              return Material(
+                                child: ListTile(
+                                  tileColor: index.isOdd
+                                      ? GlobalVariables.oddItemColor
+                                      : GlobalVariables.evenItemColor,
+                                  title: Text(state.breadPriceList![index].price
+                                      .toString()),
+                                  subtitle: Text(getFormattedDateTime(
+                                      state.breadPriceList![index].date)),
+                                  trailing: index == 0
+                                      ? IconButton(
+                                          onPressed: () {
+                                            _breadPriceDialog(
+                                                state.breadPriceList![index]);
+                                          },
+                                          icon: const Icon(Icons.edit),
+                                          color: GlobalVariables.secondaryColor)
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+            };
+          }));
+        });
+  }
+
+  void _breadPriceDialog(BreadPriceModel? breadPriceModel) {
+    TextEditingController priceController = TextEditingController();
+    if (breadPriceModel != null) {
+      priceController.text = breadPriceModel.price.toString();
+    }
+    String title =
+        breadPriceModel != null ? "Fiyat Güncelleme" : "Yeni Fiyat Ekleme";
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: TextField(
+              controller: priceController,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+              ],
+              decoration: const InputDecoration(labelText: 'Tutar'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Vazgeç'),
+              ),
+              TextButton(
+                onPressed: () {
+                  double price = double.tryParse(priceController.text) ?? 0.0;
+                  if (price > 0) {
+                    if (breadPriceModel == null) {
+                      context.read<BreadPriceBloc>().add(AddBreadPriceRequested(
+                          breadPrice: BreadPriceModel(
+                              id: 0, date: DateTime.now(), price: price)));
+                    } else {
+                      context.read<BreadPriceBloc>().add(
+                          UpdateBreadPriceRequested(
+                              breadPrice: BreadPriceModel(
+                                  id: breadPriceModel.id,
+                                  date: breadPriceModel.date,
+                                  price: price)));
+                    }
+                    Navigator.of(context).pop();
+                    return;
+                  }
+                  showToastMessage('Geçerli bir fiyat giriniz');
+                },
+                child: const Text('Kaydet'),
+              ),
+            ],
+          );
+        });
   }
 }

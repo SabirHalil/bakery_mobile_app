@@ -24,8 +24,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'features/presentation/pages/admin/bloc/bread_price/bread_price_bloc.dart';
 import 'features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
 import 'features/presentation/pages/admin/bloc/products_process/products_process_bloc.dart';
+import 'features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
 import 'features/presentation/pages/auth/bloc/auth_bloc.dart';
 import 'features/presentation/pages/dough/bloc/dough_added_products/dough_added_products_bloc.dart';
 import 'features/presentation/pages/dough/bloc/dough_lists/dough_factory_bloc.dart';
@@ -154,6 +156,12 @@ class MyApp extends StatelessWidget {
         ),
             BlocProvider<ProductsProcessBloc>(
           create: (context) => ProductsProcessBloc(sl()),
+        ),
+                 BlocProvider<BreadPriceBloc>(
+          create: (context) => BreadPriceBloc(sl()),
+        ),
+            BlocProvider<SystemTimeBloc>(
+          create: (context) => SystemTimeBloc(sl()),
         ),
       ],
       child: MaterialApp(

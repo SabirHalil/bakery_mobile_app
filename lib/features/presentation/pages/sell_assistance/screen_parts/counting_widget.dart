@@ -392,8 +392,7 @@ class CountingWidget extends StatelessWidget {
   }
 
   _updateProductCountingAdded(ProductCountingAddedModel productCountingAdded, BuildContext context) {
-    TextEditingController controller =
-        TextEditingController(text: productCountingAdded.quantity.toString());
+    TextEditingController controller =TextEditingController(text: productCountingAdded.quantity.toString());
 
     showDialog(
         context: context,

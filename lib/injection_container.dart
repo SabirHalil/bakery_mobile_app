@@ -45,6 +45,7 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 
 import 'features/data/data_sources/remote/bread_counting_service.dart';
+import 'features/data/data_sources/remote/bread_price_service.dart';
 import 'features/data/data_sources/remote/cash_counting_service.dart';
 import 'features/data/data_sources/remote/pdf_service.dart';
 import 'features/data/data_sources/remote/product_counting_service.dart';
@@ -52,7 +53,9 @@ import 'features/data/data_sources/remote/received_money_from_service_service.da
 import 'features/data/data_sources/remote/service_stale_product_service.dart';
 import 'features/data/data_sources/remote/service_stale_service.dart';
 import 'features/data/data_sources/remote/stale_product_service.dart';
+import 'features/data/data_sources/remote/system_time_service.dart';
 import 'features/data/repositories/bread_counting_repository_impl.dart';
+import 'features/data/repositories/bread_price_repository_impl.dart';
 import 'features/data/repositories/cash_counting_repository_impl.dart';
 import 'features/data/repositories/expense_repository_impl.dart';
 import 'features/data/repositories/given_product_to_service_repository_impl.dart';
@@ -66,7 +69,9 @@ import 'features/data/repositories/service_stale_product_repository_impl.dart';
 import 'features/data/repositories/service_stale_repository_impl.dart';
 import 'features/data/repositories/stale_bread_repository_impl.dart';
 import 'features/data/repositories/stale_product_repository_impl.dart';
+import 'features/data/repositories/system_time_repository_impl.dart';
 import 'features/domain/repositories/bread_counting_repository.dart';
+import 'features/domain/repositories/bread_price_repository.dart';
 import 'features/domain/repositories/cash_counting_repository.dart';
 import 'features/domain/repositories/given_product_to_service_repository.dart';
 import 'features/domain/repositories/pdf_repository.dart';
@@ -78,7 +83,9 @@ import 'features/domain/repositories/service_stale_product_repository.dart';
 import 'features/domain/repositories/service_stale_repository.dart';
 import 'features/domain/repositories/stale_bread_repository.dart';
 import 'features/domain/repositories/stale_product_repository.dart';
+import 'features/domain/repositories/system_time_repository.dart';
 import 'features/domain/usecases/bread_counting_usecase.dart';
+import 'features/domain/usecases/bread_price_usecase.dart';
 import 'features/domain/usecases/cash_counting_usecase.dart';
 import 'features/domain/usecases/pdf_usecase.dart';
 import 'features/domain/usecases/product_counting_usecase.dart';
@@ -88,8 +95,11 @@ import 'features/domain/usecases/service_debt_usecase.dart';
 import 'features/domain/usecases/service_stale_product_usecase.dart';
 import 'features/domain/usecases/service_stale_usecase.dart';
 import 'features/domain/usecases/stale_bread_usecase.dart';
+import 'features/domain/usecases/system_time_usecase.dart';
+import 'features/presentation/pages/admin/bloc/bread_price/bread_price_bloc.dart';
 import 'features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
 import 'features/presentation/pages/admin/bloc/products_process/products_process_bloc.dart';
+import 'features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
 import 'features/presentation/pages/auth/bloc/auth_bloc.dart';
 import 'features/presentation/pages/dough/bloc/dough_added_products/dough_added_products_bloc.dart';
 import 'features/presentation/pages/dough/bloc/dough_lists/dough_factory_bloc.dart';
@@ -162,12 +172,21 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ProductCountingRepository>(
       ProductCountingRepositoryImpl(sl()));
   sl.registerSingleton<CashCountingService>(CashCountingService(sl(), sl()));
-  sl.registerSingleton<CashCountingRepository>(CashCountingRepositoryImpl(sl()));
+  sl.registerSingleton<CashCountingRepository>(
+      CashCountingRepositoryImpl(sl()));
   sl.registerSingleton<PdfService>(PdfService(sl(), sl()));
   sl.registerSingleton<PdfRepository>(PdfRepositoryImpl(sl()));
 
-    sl.registerSingleton<ProductsProcessService>(ProductsProcessService(sl(), sl()));
-  sl.registerSingleton<ProductsProcessRepository>(ProductsProcessRepositoryImpl(sl()));
+  sl.registerSingleton<ProductsProcessService>(
+      ProductsProcessService(sl(), sl()));
+  sl.registerSingleton<ProductsProcessRepository>(
+      ProductsProcessRepositoryImpl(sl()));
+
+  sl.registerSingleton<BreadPriceService>(BreadPriceService(sl(), sl()));
+  sl.registerSingleton<BreadPriceRepository>(BreadPriceRepositoryImpl(sl()));
+
+  sl.registerSingleton<SystemTimeService>(SystemTimeService(sl(), sl()));
+  sl.registerSingleton<SystemTimeRepository>(SystemTimeRepositoryImpl(sl()));
 
   // Usecases
   sl.registerSingleton<AuthUseCase>(AuthUseCase(sl()));
@@ -191,7 +210,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<CashCountingUseCase>(CashCountingUseCase(sl()));
   sl.registerSingleton<PdfUseCase>(PdfUseCase(sl()));
   sl.registerSingleton<ProductsProcessUseCase>(ProductsProcessUseCase(sl()));
-
+  sl.registerSingleton<BreadPriceUseCase>(BreadPriceUseCase(sl()));
+  sl.registerSingleton<SystemTimeUseCase>(SystemTimeUseCase(sl()));
 
   // Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl()));
@@ -230,10 +250,12 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<BreadCountingBloc>(() => BreadCountingBloc(sl()));
   sl.registerFactory<ProductCountingAddedBloc>(
       () => ProductCountingAddedBloc(sl()));
-  sl.registerFactory<ProductCountingNotAddedBloc>(() => ProductCountingNotAddedBloc(sl()));
+  sl.registerFactory<ProductCountingNotAddedBloc>(
+      () => ProductCountingNotAddedBloc(sl()));
   sl.registerFactory<PdfBloc>(() => PdfBloc(sl()));
-  sl.registerFactory<DoughProductsProcessBloc>(() => DoughProductsProcessBloc(sl()));
+  sl.registerFactory<DoughProductsProcessBloc>(
+      () => DoughProductsProcessBloc(sl()));
   sl.registerFactory<ProductsProcessBloc>(() => ProductsProcessBloc(sl()));
-
-
+  sl.registerFactory<BreadPriceBloc>(() => BreadPriceBloc(sl()));
+  sl.registerFactory<SystemTimeBloc>(() => SystemTimeBloc(sl()));
 }

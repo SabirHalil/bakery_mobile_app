@@ -1,17 +1,21 @@
 import 'package:bakery_app/core/utils/toast_message.dart';
+import 'package:bakery_app/features/data/models/system_time.dart';
 import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
+import 'package:bakery_app/features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/pdf_view_page.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/products_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
 import 'package:bakery_app/features/presentation/pages/production/screens/production_page.dart';
 import 'package:bakery_app/features/presentation/pages/service/screens/service_lists_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/global_variables.dart';
 import '../../../../../core/utils/is_today_check.dart';
 import '../../../../data/models/user.dart';
 import '../../../widgets/custom_app_bar_with_date.dart';
+import '../../../widgets/custom_confirmation_dialog.dart';
 import '../../../widgets/custom_sell_list_tile.dart';
 import '../../../widgets/error_animation.dart';
 import '../../../widgets/loading_indicator.dart';
@@ -85,12 +89,12 @@ class _AdminPageState extends State<AdminPage> {
         additionalMenuItems: const [
           PopupMenuItem<String>(
             value: 'system-open-close-time',
-            child: Text('Sistem açma kapanma saatleri'),
+            child: Text('Sistem çalışma saatleri'),
           ),
         ],
         onMenuItemSelected: (value) {
           if (value == 'system-open-close-time') {
-            //  Navigator.pushNamed(context, ProductionPage.routeName,arguments: widget.user);
+            _showSystemtimeDialog();
           }
         },
       ),
@@ -577,7 +581,6 @@ class _AdminPageState extends State<AdminPage> {
               color: GlobalVariables.secondaryColor,
             ),
           ),
-
         ],
       ),
     );
@@ -639,7 +642,6 @@ class _AdminPageState extends State<AdminPage> {
                       //        _showProductCountingNotAddedList(2);
                     }
                   : null),
-          
         ],
       ),
     );
@@ -656,5 +658,91 @@ class _AdminPageState extends State<AdminPage> {
             routeName,
             arguments: args,
           );
+  }
+
+  _showSystemtimeDialog() {
+    context.read<SystemTimeBloc>().add(GetSystemTimeRequested());
+    TextEditingController startController = TextEditingController();
+    TextEditingController closeController = TextEditingController();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return BlocBuilder<SystemTimeBloc, SystemTimeState>(
+              builder: ((context, state) {
+            if (state is SystemTimeSuccess && state.systemTime != null) {
+              startController.text = state.systemTime!.openTime.toString();
+              closeController.text = state.systemTime!.closeTime.toString();
+            }
+            return switch (state) {
+              SystemTimeLoading() => const LoadingIndicator(),
+              SystemTimeFailure() => const ErrorAnimation(),
+              SystemTimeSuccess() => state.systemTime == null
+                  ? CustomConfirmationDialog(
+                      title: "Uyarı",
+                      onTap: () {},
+                      content: "Sistemde bir hata var daha sonra deneyin!")
+                  : AlertDialog(
+                      title: const Text("Sistem çalışma saatleri"),
+                      content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextField(
+                              controller: startController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  labelText: 'Başlama Saati'),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^(2[0-3]|[01]?[0-9])$')),
+                              ],
+                            ),
+                            TextField(
+                              controller: closeController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  labelText: 'Kapanma Saati'),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^(2[0-3]|[01]?[0-9])$')),
+                              ],
+                            ),
+                          ]),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Vazgeç'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            int openTime =
+                                int.tryParse(startController.text) ?? 0;
+                            int closeTime =
+                                int.tryParse(closeController.text) ?? 0;
+                           
+                            if (openTime != closeTime) {
+                              if (state.systemTime!.openTime != openTime &&
+                                  state.systemTime!.openTime != closeTime) {
+                                context.read<SystemTimeBloc>().add(
+                                    UpdateSystemTimeRequested(
+                                        systemTime: SystemTimeModel(
+                                            id: state.systemTime!.id,
+                                            openTime: openTime,
+                                            closeTime: closeTime)));
+                              }
+                              Navigator.of(context).pop();
+                              return;
+                            }
+                            showToastMessage(
+                                'Açma kapatma saatleri aynı olamaz!');
+                          },
+                          child: const Text('Kaydet'),
+                        ),
+                      ],
+                    )
+            };
+          }));
+        });
   }
 }
