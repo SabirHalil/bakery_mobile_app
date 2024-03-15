@@ -4,19 +4,21 @@ import 'package:flutter/services.dart';
 
 ThemeData theme() {
   return ThemeData(
-    colorScheme: ColorScheme.fromSeed(seedColor: GlobalVariables.secondaryColor),
+    colorScheme:
+        ColorScheme.fromSeed(seedColor: GlobalVariables.secondaryColor),
     useMaterial3: true,
     dividerColor: Colors.transparent,
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: appBarTheme()
-    
+    appBarTheme: appBarTheme(),
+   
   );
 }
 
 AppBarTheme appBarTheme() {
   return const AppBarTheme(
-    systemOverlayStyle: SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light,
-    statusBarColor: Colors.transparent),
+    systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.transparent),
     elevation: 0,
     centerTitle: true,
     iconTheme: IconThemeData(color: Color(0XFF8B8B8B)),

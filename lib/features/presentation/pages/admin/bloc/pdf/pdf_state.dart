@@ -24,6 +24,7 @@ final class PdfFailure extends PdfState {
 final class PdfSuccess extends PdfState {
   @override
   final String? pdfPath;
+  
   final String pageTitle;
   const PdfSuccess({this.pdfPath, required this.pageTitle});
 

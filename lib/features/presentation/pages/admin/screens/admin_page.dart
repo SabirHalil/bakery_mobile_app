@@ -151,8 +151,7 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Pastane'),
             trailing: IconButton(
               onPressed: () => context.read<PdfBloc>().add(
-                  PdfGetDoughFactoryRequested(
-                      date: selectedDate!, pageTitle: "Pastane Raporu")),
+                  PdfGetPastaneRequested(date: selectedDate!, pageTitle: "Pastane Raporu")),
               icon: const Icon(Icons.remove_red_eye),
               color: GlobalVariables.secondaryColor,
             ),
@@ -193,7 +192,7 @@ class _AdminPageState extends State<AdminPage> {
         ),
         children: [
           CustomSellListTile(
-              title: 'Günsonu',
+              title: 'Nakit devir et',
               onShowDetails: () {
                 // _updateBreadCounting(selectedDate!);
               },
@@ -209,7 +208,7 @@ class _AdminPageState extends State<AdminPage> {
             endIndent: 10,
           ),
           CustomSellListTile(
-              title: 'Hamurhane',
+              title: 'Kredi kart devir et',
               onShowDetails: () {
                 // _showAddedProductCountingList(1);
               },
@@ -218,55 +217,7 @@ class _AdminPageState extends State<AdminPage> {
                       //      _showProductCountingNotAddedList(1);
                     }
                   : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          CustomSellListTile(
-              title: 'Pastane',
-              onShowDetails: () {
-                //   _showAddedProductCountingList(2);
-              },
-              onAdd: todayDate
-                  ? () {
-                      //        _showProductCountingNotAddedList(2);
-                    }
-                  : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          CustomSellListTile(
-              title: 'Servis',
-              onShowDetails: () {
-                //    _showAddedProductCountingList(3);
-              },
-              onAdd: todayDate
-                  ? () {
-                      //           _showProductCountingNotAddedList(3);
-                    }
-                  : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          // -------NEED TO BE DONE--------
-          // CustomSellListTile(
-          //     title: 'Kasa',
-          //     onShowDetails: () {
-          //  //     _updateCashCountingDialog("Kasa Sayımı Güncelleme");
-          //     },
-          //     onAdd: todayDate
-          //         ? () {
-          //            // _addCashCountingDialog("Kasa Sayımı");
-          //           }
-          //         : null),
+         
         ],
       ),
     );
@@ -478,7 +429,7 @@ class _AdminPageState extends State<AdminPage> {
         ),
         children: [
           CustomSellListTile(
-              title: 'Günsonu',
+              title: 'Avans',
               onShowDetails: () {
                 // _updateBreadCounting(selectedDate!);
               },
@@ -494,7 +445,7 @@ class _AdminPageState extends State<AdminPage> {
             endIndent: 10,
           ),
           CustomSellListTile(
-              title: 'Hamurhane',
+              title: 'Maaş',
               onShowDetails: () {
                 // _showAddedProductCountingList(1);
               },
@@ -503,55 +454,7 @@ class _AdminPageState extends State<AdminPage> {
                       //      _showProductCountingNotAddedList(1);
                     }
                   : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          CustomSellListTile(
-              title: 'Pastane',
-              onShowDetails: () {
-                //   _showAddedProductCountingList(2);
-              },
-              onAdd: todayDate
-                  ? () {
-                      //        _showProductCountingNotAddedList(2);
-                    }
-                  : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          CustomSellListTile(
-              title: 'Servis',
-              onShowDetails: () {
-                //    _showAddedProductCountingList(3);
-              },
-              onAdd: todayDate
-                  ? () {
-                      //           _showProductCountingNotAddedList(3);
-                    }
-                  : null),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          // -------NEED TO BE DONE--------
-          // CustomSellListTile(
-          //     title: 'Kasa',
-          //     onShowDetails: () {
-          //  //     _updateCashCountingDialog("Kasa Sayımı Güncelleme");
-          //     },
-          //     onAdd: todayDate
-          //         ? () {
-          //            // _addCashCountingDialog("Kasa Sayımı");
-          //           }
-          //         : null),
+         
         ],
       ),
     );
@@ -600,48 +503,45 @@ class _AdminPageState extends State<AdminPage> {
           'Marketler',
         ),
         children: [
-          CustomSellListTile(
-              title: 'Marketler',
-              onShowDetails: () {
-                // _updateBreadCounting(selectedDate!);
+          ListTile(
+              title: const Text('Marketler'),
+               trailing: IconButton(
+              onPressed: () {
+                _navigateToPage(ProductsProcessPage.routeName, null);
               },
-              onAdd: todayDate
-                  ? () {
-                      //   _addBreadCountingDialog(selectedDate!);
-                    }
-                  : null),
+              icon: const Icon(Icons.arrow_outward),
+              color: GlobalVariables.secondaryColor,
+            ),),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-          CustomSellListTile(
-              title: 'Market sözleşmeleri',
-              onShowDetails: () {
-                // _showAddedProductCountingList(1);
+          ListTile(
+              title: const Text('Market sözleşmeleri'),
+              trailing: IconButton(
+              onPressed: () {
+                _navigateToPage(ProductsProcessPage.routeName, null);
               },
-              onAdd: todayDate
-                  ? () {
-                      //      _showProductCountingNotAddedList(1);
-                    }
-                  : null),
+              icon: const Icon(Icons.arrow_outward),
+              color: GlobalVariables.secondaryColor,
+            ),),
           const Divider(
             height: 1,
             color: Colors.white,
             indent: 10,
             endIndent: 10,
           ),
-          CustomSellListTile(
-              title: 'Market ürünleri',
-              onShowDetails: () {
-                //   _showAddedProductCountingList(2);
+          ListTile(
+              title:const  Text('Market ürünleri'),
+               trailing: IconButton(
+              onPressed: () {
+                _navigateToPage(ProductsProcessPage.routeName, null);
               },
-              onAdd: todayDate
-                  ? () {
-                      //        _showProductCountingNotAddedList(2);
-                    }
-                  : null),
+              icon: const Icon(Icons.arrow_outward),
+              color: GlobalVariables.secondaryColor,
+            ),),
         ],
       ),
     );

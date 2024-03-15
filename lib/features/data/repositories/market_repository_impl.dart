@@ -1,23 +1,25 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:bakery_app/core/resources/data_state.dart';
-import 'package:bakery_app/features/data/data_sources/remote/pdf_service.dart';
-import 'package:bakery_app/features/domain/repositories/pdf_repository.dart';
+import 'package:bakery_app/features/data/data_sources/remote/market_service.dart';
+import 'package:bakery_app/features/data/models/market.dart';
+import 'package:bakery_app/features/domain/entities/market.dart';
+import 'package:bakery_app/features/domain/repositories/market_repository.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/utils/toast_message.dart';
 
+class MarketRepositoryImpl extends MarketRepository {
+  final MarketService _marketService;
+  MarketRepositoryImpl(this._marketService);
 
-class PdfRepositoryImpl extends PdfRepository {
-  final PdfService _pdfService;
-  PdfRepositoryImpl(this._pdfService);
   @override
-  Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date) async {
-    try {
-      final httpResponse = await _pdfService.getPdfEndOfDayAccountDetailByDate(date);
+  Future<DataState<void>> addMarket(MarketEntity market) async{
+  try {
+
+      final httpResponse =await _marketService.addMarket(MarketModel.fromEntity(market));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data!);
+        return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
           DioException(
@@ -33,13 +35,32 @@ class PdfRepositoryImpl extends PdfRepository {
   }
 
   @override
-  Future<DataState<Uint8List?>> getPdfOfDoughFactoryByDate(
-      DateTime date) async {
-    try {
-      final httpResponse =
-          await _pdfService.getPdfOfDoughFactoryByDate( date);
+  Future<DataState<List<MarketEntity>>> getAllMarkets() async{
+       try {
+      final httpResponse = await _marketService.getAllMarkets();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data!);
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } catch (e) {
+      showToastMessage(e.toString(),duration: 1);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<DataState<void>> updateMarket(MarketEntity market) async{
+      try {
+
+      final httpResponse = await _marketService.updateMarket(MarketModel.fromEntity(market));
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
           DioException(
@@ -54,24 +75,4 @@ class PdfRepositoryImpl extends PdfRepository {
     }
   }
   
-  @override
-  Future<DataState<Uint8List?>> getPdfOfPastaneByDate(DateTime date)async {
-   try {
-      final httpResponse =
-          await _pdfService.getPdfOfPastaneByDate( date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data!);
-      } else {
-        return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
-        );
-      }
-    } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-      rethrow;
-    }
-  }
 }

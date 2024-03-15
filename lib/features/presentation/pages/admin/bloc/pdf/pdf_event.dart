@@ -13,3 +13,9 @@ final class PdfGetDoughFactoryRequested extends PdfEvent {
   String pageTitle;
   PdfGetDoughFactoryRequested({required this.date, required this.pageTitle});
 }
+
+final class PdfGetPastaneRequested extends PdfEvent {
+  DateTime date;
+  String pageTitle;
+  PdfGetPastaneRequested({required this.date, required this.pageTitle});
+}

@@ -34,6 +34,8 @@ dependencies:
   dio: ^5.4.1
   retrofit: ^4.1.0
   group_button: ^5.3.4
+  syncfusion_flutter_pdfviewer: ^22.1.39
+  pdf: ^3.10.8
 
 
  
@@ -55,6 +57,7 @@ flutter:
     - assets/bakery.json
     - assets/empty_box.json
     - assets/select_animation.json
+ 
 
   
   

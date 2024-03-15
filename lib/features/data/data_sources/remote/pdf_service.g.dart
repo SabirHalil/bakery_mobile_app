@@ -21,7 +21,7 @@ class _PdfService implements PdfService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<Uint8List?>> getPdfServiceListByDateAndServiceType(
+  Future<HttpResponse<Uint8List?>> getPdfEndOfDayAccountDetailByDate(
       DateTime date) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
@@ -35,7 +35,7 @@ class _PdfService implements PdfService {
     )
             .compose(
               _dio.options,
-              '/api/EndOfDayAccount/GetGivenProductsToServiceByDateAndServisTypeId',
+              '/api/EndOfDayAccount/GetEndOfDayAccountDetailPdf',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -65,7 +65,37 @@ class _PdfService implements PdfService {
     )
             .compose(
               _dio.options,
-              '/api/CreatePdf/CreatePdfForHamurhane',
+              '/api/CreatePdf/CreatePdfOfHamurhane',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+@override
+  Future<HttpResponse<Uint8List?>> getPdfOfPastaneByDate(
+      DateTime date) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
+    final _headers = <String, dynamic>{};
+    final  _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Uint8List?>(
+        _setStreamType<HttpResponse<Uint8List>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/CreatePdf/CreatePdfOfPastane',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -81,15 +111,7 @@ class _PdfService implements PdfService {
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
-    if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
-      if (T == String) {
-        requestOptions.responseType = ResponseType.plain;
-      } else {
-        requestOptions.responseType = ResponseType.json;
-      }
-    }
+  requestOptions.responseType = ResponseType.bytes;
     return requestOptions;
   }
 

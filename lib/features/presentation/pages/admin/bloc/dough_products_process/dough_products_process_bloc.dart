@@ -25,9 +25,7 @@ class DoughProductsProcessBloc
     final dataState = await _productsProcessUseCase.getAllDoughProducts();
 
     if (dataState is DataSuccess && dataState.data != null) {
-      emit(DoughProductsProcessSuccess(
-          doughProductsProcessList:
-              dataState.data as List<DoughProductProcessModel>));
+      emit(DoughProductsProcessSuccess(doughProductsProcessList:dataState.data as List<DoughProductProcessModel>));
     }
 
     if (dataState is DataFailed) {
