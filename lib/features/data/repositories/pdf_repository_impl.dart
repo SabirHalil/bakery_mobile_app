@@ -72,4 +72,24 @@ class PdfRepositoryImpl extends PdfRepository {
       rethrow;
     }
   }
+  
+  @override
+  Future<DataState<Uint8List?>> getPdfOfServiceByDate(DateTime date)async {
+   try {
+      final httpResponse =
+          await _pdfService.getPdfOfServiceByDate( date);
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data!);
+      } else {
+        return DataFailed(
+            Failure(httpResponse.response.statusMessage!),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
+    } catch (e) {
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
+    }
+  }
 }

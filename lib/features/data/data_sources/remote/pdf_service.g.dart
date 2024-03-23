@@ -65,7 +65,7 @@ class _PdfService implements PdfService {
     )
             .compose(
               _dio.options,
-              '/api/CreatePdf/CreatePdfOfHamurhane',
+              '/api/CreatePdf/CreatePdfForHamurhane',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -94,7 +94,36 @@ class _PdfService implements PdfService {
     )
             .compose(
               _dio.options,
-              '/api/CreatePdf/CreatePdfOfPastane',
+              '/api/CreatePdf/CreatePdf',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<Uint8List?>> getPdfOfServiceByDate(DateTime date) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Uint8List>(
+        _setStreamType<HttpResponse<Uint8List>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/CreatePdf/CreatePdfForMarketService',
               queryParameters: queryParameters,
               data: _data,
             )

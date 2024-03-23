@@ -5,6 +5,10 @@ sealed class PdfState{
 
 }
 
+final class PdfInitial extends PdfState {
+  const PdfInitial();
+}
+
 final class PdfLoading extends PdfState {
   const PdfLoading();
 }

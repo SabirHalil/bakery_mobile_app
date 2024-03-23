@@ -15,4 +15,6 @@ abstract class PdfService {
   Future<HttpResponse<Uint8List?>>getPdfOfDoughFactoryByDate(@Query("date") DateTime date,);
   @GET("/api/CreatePdf/CreatePdfOfPastane")
   Future<HttpResponse<Uint8List?>>getPdfOfPastaneByDate(@Query("date") DateTime date,);
+  @GET("/api/CreatePdf/CreatePdfForMarketService")
+  Future<HttpResponse<Uint8List?>>getPdfOfServiceByDate(@Query("date") DateTime date,);
 }

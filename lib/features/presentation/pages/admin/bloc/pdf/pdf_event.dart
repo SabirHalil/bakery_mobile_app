@@ -19,3 +19,9 @@ final class PdfGetPastaneRequested extends PdfEvent {
   String pageTitle;
   PdfGetPastaneRequested({required this.date, required this.pageTitle});
 }
+
+final class PdfGetServiceRequested extends PdfEvent {
+  DateTime date;
+  String pageTitle;
+  PdfGetServiceRequested({required this.date, required this.pageTitle});
+}

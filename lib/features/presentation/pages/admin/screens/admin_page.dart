@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/global_variables.dart';
 import '../../../../../core/utils/is_today_check.dart';
+import '../../../../../core/utils/show_snackbar.dart';
 import '../../../../data/models/user.dart';
 import '../../../widgets/custom_app_bar_with_date.dart';
 import '../../../widgets/custom_confirmation_dialog.dart';
@@ -45,21 +46,25 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppbar(),
-      body: BlocListener<PdfBloc, PdfState>(
+      body: BlocConsumer<PdfBloc, PdfState>(
         listener: (context, state) {
-          switch (state) {
-            case PdfLoading():
-              const LoadingIndicator();
-            case PdfFailure():
-              const ErrorAnimation();
-            case PdfSuccess():
-              state.pdfPath != null
-                  ? _navigateToPage(PdfViewPage.routeName,
-                      {0: state.pdfPath, 1: state.pageTitle})
-                  : showToastMessage('Rapor şuan hazır değil');
+          if (state is PdfSuccess) {
+            state.pdfPath != null
+                ? _navigateToPage(PdfViewPage.routeName,
+                    {0: state.pdfPath, 1: state.pageTitle})
+                : showToastMessage('Rapor şuan hazır değil');
+          }
+
+             if (state is PdfFailure) {
+            showSnackBar(context, state.error!);
           }
         },
-        child: _buildBody(),
+        builder: (context, state) {
+          if (state is PdfLoading) {
+            return const LoadingIndicator();
+          }
+          return _buildBody();
+        },
       ),
     );
   }
@@ -120,8 +125,7 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Günsonu'),
             trailing: IconButton(
               onPressed: () => context.read<PdfBloc>().add(
-                  PdfGetEndOfTheDayRequested(
-                      date: selectedDate!, pageTitle: "Gün Sonu Raporu")),
+                  PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Gün Sonu Raporu")),
               icon: const Icon(Icons.remove_red_eye),
               color: GlobalVariables.secondaryColor,
             ),
@@ -135,8 +139,9 @@ class _AdminPageState extends State<AdminPage> {
           ListTile(
             title: const Text('Servis'),
             trailing: IconButton(
+              
               onPressed: () => context.read<PdfBloc>().add(
-                  PdfGetDoughFactoryRequested(
+                  PdfGetServiceRequested(
                       date: selectedDate!, pageTitle: "Servis Raporu")),
               icon: const Icon(Icons.remove_red_eye),
               color: GlobalVariables.secondaryColor,
@@ -152,7 +157,8 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Pastane'),
             trailing: IconButton(
               onPressed: () => context.read<PdfBloc>().add(
-                  PdfGetPastaneRequested(date: selectedDate!, pageTitle: "Pastane Raporu")),
+                  PdfGetPastaneRequested(
+                      date: selectedDate!, pageTitle: "Pastane Raporu")),
               icon: const Icon(Icons.remove_red_eye),
               color: GlobalVariables.secondaryColor,
             ),
@@ -218,7 +224,6 @@ class _AdminPageState extends State<AdminPage> {
                       //      _showProductCountingNotAddedList(1);
                     }
                   : null),
-         
         ],
       ),
     );
@@ -455,7 +460,6 @@ class _AdminPageState extends State<AdminPage> {
                       //      _showProductCountingNotAddedList(1);
                     }
                   : null),
-         
         ],
       ),
     );
@@ -505,15 +509,15 @@ class _AdminPageState extends State<AdminPage> {
         ),
         children: [
           ListTile(
-              title: const Text('Market işlemleri'),
-               trailing: IconButton(
+            title: const Text('Market işlemleri'),
+            trailing: IconButton(
               onPressed: () {
                 _navigateToPage(MarketsProcessPage.routeName, null);
               },
               icon: const Icon(Icons.arrow_outward),
               color: GlobalVariables.secondaryColor,
-            ),),
-          
+            ),
+          ),
         ],
       ),
     );
@@ -592,7 +596,7 @@ class _AdminPageState extends State<AdminPage> {
                                 int.tryParse(startController.text) ?? 0;
                             int closeTime =
                                 int.tryParse(closeController.text) ?? 0;
-                           
+
                             if (openTime != closeTime) {
                               if (state.systemTime!.openTime != openTime &&
                                   state.systemTime!.openTime != closeTime) {

@@ -107,6 +107,7 @@ class DoughProductPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.builder(
+                      
                       itemCount: state.doughAddedProducts!.length,
                       itemBuilder: (context, index) {
                         return AddedProduct(
@@ -209,6 +210,7 @@ class DoughProductPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.builder(
+                      shrinkWrap: true,
                       itemCount: state.doughProducts!.length,
                       itemBuilder: (context, index) {
                         controllers.add(TextEditingController());

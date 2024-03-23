@@ -15,10 +15,11 @@ part 'pdf_state.dart';
 
 class PdfBloc extends Bloc<PdfEvent, PdfState> {
   final PdfUseCase _pdfUseCase;
-  PdfBloc(this._pdfUseCase) : super(const PdfLoading()) {
+  PdfBloc(this._pdfUseCase) : super(const PdfInitial()) {
     on<PdfGetEndOfTheDayRequested>(onGetEndOfTheDayPdfReport);
     on<PdfGetDoughFactoryRequested>(onGetDoughFactoryPdfReport);
     on<PdfGetPastaneRequested>(onGetPastanePdfReport);
+    on<PdfGetServiceRequested>(onGetServicePdfReport);
   }
 
   onGetEndOfTheDayPdfReport(
@@ -59,7 +60,22 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
 
     if (dataState is DataSuccess && dataState.data != null) {
       File file = await createFileOfPdfUrl(dataState.data as Uint8List,
-          "Hamurhane_${getFromattedDate(event.date)}");
+          "Pastane_${getFromattedDate(event.date)}");
+      emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
+    }
+    if (dataState is DataFailed) {
+      emit(PdfFailure(error: dataState.error!.message));
+    }
+  }
+
+   onGetServicePdfReport(
+      PdfGetServiceRequested event, Emitter<PdfState> emit) async {
+    emit(const PdfLoading());
+    final dataState = await _pdfUseCase.getPdfOfServiceByDate(event.date);
+
+    if (dataState is DataSuccess && dataState.data != null) {
+      File file = await createFileOfPdfUrl(dataState.data as Uint8List,
+          "Servis_${getFromattedDate(event.date)}");
       emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
     }
     if (dataState is DataFailed) {
