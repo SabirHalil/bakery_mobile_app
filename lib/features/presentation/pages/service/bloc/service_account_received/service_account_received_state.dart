@@ -1,21 +1,17 @@
 part of 'service_account_received_bloc.dart';
 @immutable
-sealed class ServiceAccountReceivedState extends Equatable {
+sealed class ServiceAccountReceivedState {
   const ServiceAccountReceivedState();
    get serviceAccountReceived => null;
 }
 
 final class ServiceAccountReceivedLoading extends ServiceAccountReceivedState {
   const ServiceAccountReceivedLoading();
-  @override
-  List<Object?> get props => [];
 }
 
 final class ServiceAccountReceivedFailure extends ServiceAccountReceivedState {
-  final DioException? error;
+  final String? error;
   const ServiceAccountReceivedFailure({this.error});
-  @override
-  List<Object?> get props => [error];
 }
 
 final class ServiceAccountReceivedSuccess extends ServiceAccountReceivedState {
@@ -23,6 +19,4 @@ final class ServiceAccountReceivedSuccess extends ServiceAccountReceivedState {
   @override
   final List<ServiceAccountReceivedModel>? serviceAccountReceived;
   const ServiceAccountReceivedSuccess({this.serviceAccountReceived});
-  @override
-  List<Object?> get props => [serviceAccountReceived];
 }

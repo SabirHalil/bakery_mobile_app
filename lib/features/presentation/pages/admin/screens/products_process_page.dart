@@ -33,6 +33,7 @@ class _ProductsProcessPageState extends State<ProductsProcessPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: _buildFloatingButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: _buildAppbar(),
       body: _buildBody(),
     );
@@ -77,6 +78,7 @@ class _ProductsProcessPageState extends State<ProductsProcessPage> {
   _buildFloatingButton() {
     if (index != -1) {
       return FloatingActionButton(
+        
         onPressed: () {
           if (index == 0) {
             _addDoughProductDialog();
@@ -376,7 +378,7 @@ class _ProductsProcessPageState extends State<ProductsProcessPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(16),
+                          padding:const EdgeInsets.all(16),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

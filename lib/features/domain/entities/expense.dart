@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class ExpenseEntity extends Equatable {
+
+class ExpenseEntity {
   final int id;
   final String detail;
   final DateTime date;
@@ -15,8 +15,4 @@ class ExpenseEntity extends Equatable {
     required this.userId,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, detail, date, amount, userId];
-  }
 }

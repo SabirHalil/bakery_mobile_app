@@ -2,10 +2,8 @@
 import 'package:bakery_app/features/data/models/service_list.dart';
 import 'package:bakery_app/features/domain/usecases/service_market_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import 'package:dio/dio.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 
@@ -29,7 +27,7 @@ class ServiceListsBloc extends Bloc<ServiceListsEvent, ServiceListsState> {
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceListsFailure(error: dataState.error!));
+      emit(ServiceListsFailure(error: dataState.error!.message));
     }
   }
 }

@@ -26,7 +26,7 @@ class _ServiceStaleService implements ServiceStaleService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceReceivedStaleModel>>>(Options(
       method: 'GET',
@@ -58,7 +58,7 @@ class _ServiceStaleService implements ServiceStaleService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceStaleModel>>>(Options(
       method: 'GET',
@@ -119,7 +119,7 @@ class _ServiceStaleService implements ServiceStaleService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

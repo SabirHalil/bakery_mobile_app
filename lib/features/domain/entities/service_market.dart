@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class ServiceMarketEntity extends Equatable {
+
+class ServiceMarketEntity {
   final int? id;
   final String? name;
 
@@ -9,8 +9,5 @@ class ServiceMarketEntity extends Equatable {
     this.name,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, name];
-  }
+
 }

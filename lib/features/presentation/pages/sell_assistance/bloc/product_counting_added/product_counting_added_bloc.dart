@@ -1,7 +1,5 @@
 import 'package:bakery_app/features/domain/usecases/product_counting_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../../core/utils/toast_message.dart';
@@ -34,7 +32,7 @@ class ProductCountingAddedBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ProductCountingAddedFailure(error: dataState.error!));
+      emit(ProductCountingAddedFailure(error: dataState.error!.message));
     }
   }
 
@@ -53,7 +51,7 @@ class ProductCountingAddedBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ProductCountingAddedFailure(error: dataState.error!));
+      emit(ProductCountingAddedFailure(error: dataState.error!.message));
     }
   }
 
@@ -81,7 +79,7 @@ class ProductCountingAddedBloc
         }
 
         if (dataState is DataFailed) {
-          emit(ProductCountingAddedFailure(error: dataState.error!));
+          emit(ProductCountingAddedFailure(error: dataState.error!.message));
         }
       } catch (e) {
         

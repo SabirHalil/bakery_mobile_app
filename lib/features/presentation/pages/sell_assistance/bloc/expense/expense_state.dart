@@ -1,6 +1,6 @@
 part of 'expense_bloc.dart';
 @immutable
-sealed class ExpenseState extends Equatable {
+sealed class ExpenseState{
   const ExpenseState();
   
 get expenseList => null;
@@ -8,16 +8,11 @@ get expenseList => null;
 
 final class ExpenseLoading extends ExpenseState {
   const ExpenseLoading();
-  @override
-  List<Object?> get props => [];
 }
 
 final class ExpenseFailure extends ExpenseState {
-  final DioException? error;
+  final String? error;
   const ExpenseFailure({this.error});
-
-  @override
-  List<Object?> get props => [error];
 }
 
 final class ExpenseSuccess extends ExpenseState {
@@ -28,7 +23,5 @@ final class ExpenseSuccess extends ExpenseState {
   const ExpenseSuccess(
       {this.expenseList});
 
-  @override
-  List<Object?> get props => [expenseList];
 }
 

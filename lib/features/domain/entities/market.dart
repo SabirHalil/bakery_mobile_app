@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class MarketEntity extends Equatable {
+
+class MarketEntity{
   final int id;
   final String name;
   final bool isActive;
@@ -11,6 +11,4 @@ class MarketEntity extends Equatable {
     required this.isActive,
   });
 
-  @override
-  List<Object?> get props => [id, name, isActive];
 }

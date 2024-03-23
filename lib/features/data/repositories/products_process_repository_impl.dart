@@ -8,6 +8,7 @@ import 'package:bakery_app/features/domain/entities/product_process.dart';
 import 'package:bakery_app/features/domain/repositories/products_process_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/error/failures.dart';
 import '../../../core/utils/toast_message.dart';
 import '../models/product_process.dart';
 
@@ -24,14 +25,13 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -46,14 +46,13 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+         Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -66,14 +65,13 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -86,14 +84,13 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -108,14 +105,13 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -130,14 +126,13 @@ class ProductsProcessRepositoryImpl extends ProductsProcessRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+             Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }

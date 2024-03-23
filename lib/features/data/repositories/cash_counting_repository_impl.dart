@@ -7,6 +7,7 @@ import 'package:bakery_app/features/data/data_sources/remote/cash_counting_servi
 
 import 'package:bakery_app/features/domain/entities/cash_counting.dart';
 
+import '../../../core/error/failures.dart';
 import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/cash_counting_repository.dart';
 import '../models/cash_counting.dart';
@@ -22,15 +23,14 @@ class CashCountingRepositoryImpl extends CashCountingRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+           Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -44,15 +44,14 @@ rethrow;
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -67,15 +66,14 @@ rethrow;
          return const DataSuccess(null);
       }
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+           Failure(httpResponse.response.statusMessage!),
         );
      
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -88,15 +86,14 @@ rethrow;
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+             Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 }

@@ -1,8 +1,6 @@
 import 'package:bakery_app/features/domain/usecases/stale_product_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
 
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../data/models/product_not_added.dart';
@@ -31,7 +29,7 @@ class StaleProductProductsBloc
     }
 
     if (dataState is DataFailed) {
-      emit(StaleProductsFailure(error: dataState.error!));
+      emit(StaleProductsFailure(error: dataState.error!.message));
     }
   }
 
@@ -54,7 +52,7 @@ class StaleProductProductsBloc
     }
 
     if (dataState is DataFailed) {
-      emit(StaleProductsFailure(error: dataState.error!));
+      emit(StaleProductsFailure(error: dataState.error!.message));
     }
   }
 }

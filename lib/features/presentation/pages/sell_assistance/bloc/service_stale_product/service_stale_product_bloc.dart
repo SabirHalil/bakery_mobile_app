@@ -1,11 +1,9 @@
 import 'package:bakery_app/features/domain/usecases/service_stale_product_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../../core/utils/toast_message.dart';
 import '../../../../../data/models/service_stale_product.dart';
-import 'package:dio/dio.dart';
 
 part 'service_stale_product_event.dart';
 part 'service_stale_product_state.dart';
@@ -34,7 +32,7 @@ class ServiceStaleProductBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceStaleProductFailure(error: dataState.error!));
+      emit(ServiceStaleProductFailure(error: dataState.error!.message));
     }
   }
 
@@ -51,7 +49,7 @@ class ServiceStaleProductBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceStaleProductFailure(error: dataState.error!));
+      emit(ServiceStaleProductFailure(error: dataState.error!.message));
     }
   }
 
@@ -70,7 +68,7 @@ class ServiceStaleProductBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceStaleProductFailure(error: dataState.error!));
+      emit(ServiceStaleProductFailure(error: dataState.error!.message));
     }
   }
 
@@ -88,7 +86,7 @@ class ServiceStaleProductBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceStaleProductFailure(error: dataState.error!));
+      emit(ServiceStaleProductFailure(error: dataState.error!.message));
     }
   }
 

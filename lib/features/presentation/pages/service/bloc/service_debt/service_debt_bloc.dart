@@ -2,8 +2,6 @@ import 'package:bakery_app/features/data/models/service_debt_detail.dart';
 import 'package:bakery_app/features/data/models/service_debt_total.dart';
 import 'package:bakery_app/features/domain/usecases/service_debt_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/resources/data_state.dart';
@@ -33,7 +31,7 @@ class ServiceDebtBloc extends Bloc<ServiceDebtEvent, ServiceDebtState> {
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceDebtFailure(error: dataState.error!));
+      emit(ServiceDebtFailure(error: dataState.error!.message));
     }
   }
 
@@ -55,12 +53,12 @@ class ServiceDebtBloc extends Bloc<ServiceDebtEvent, ServiceDebtState> {
       }
 
       if (updatedList is DataFailed) {
-        emit(ServiceDebtFailure(error: updatedList.error!));
+        emit(ServiceDebtFailure(error: updatedList.error!.message));
       }
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceDebtFailure(error: dataState.error!));
+      emit(ServiceDebtFailure(error: dataState.error!.message));
     }
   }
 }

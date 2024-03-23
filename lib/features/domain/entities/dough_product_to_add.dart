@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class DoughProductToAddEntity extends Equatable {
+
+class DoughProductToAddEntity{
   final int? id;
   final int? doughFactoryProductId;
   final int? quantity;
@@ -12,8 +12,4 @@ class DoughProductToAddEntity extends Equatable {
       this.quantity,
       this.doughFactoryListId});
 
-  @override
-  List<Object?> get props {
-    return [id, doughFactoryProductId, quantity, doughFactoryListId];
-  }
 }

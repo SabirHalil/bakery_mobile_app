@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class CashCountingEntity extends Equatable {
+
+class CashCountingEntity{
   final int id;
   final double totalMoney; // Using double for decimal in Dart
   final double remainedMoney; // Using double for decimal in Dart
@@ -15,8 +15,5 @@ class CashCountingEntity extends Equatable {
     required this.date,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, totalMoney, remainedMoney, creditCard, date];
-  }
+  
 }

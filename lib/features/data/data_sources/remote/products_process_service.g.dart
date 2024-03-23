@@ -26,7 +26,7 @@ class _ProductsProcessService implements ProductsProcessService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'categoryId': categoryId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductProcessModel>>>(Options(
       method: 'GET',
@@ -116,7 +116,7 @@ class _ProductsProcessService implements ProductsProcessService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<DoughProductProcessModel>>>(Options(
       method: 'GET',

@@ -1,8 +1,6 @@
 import 'package:bakery_app/features/data/models/stale_bread_to_add.dart';
 import 'package:bakery_app/features/domain/usecases/stale_bread_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
 
 
 import '../../../../../../core/resources/data_state.dart';
@@ -36,7 +34,7 @@ class StaleBreadBloc extends Bloc<StaleBreadEvent, StaleBreadState> {
     }
 
     if (dataState is DataFailed) {
-      emit(StaleBreadFailure(error: dataState.error!));
+      emit(StaleBreadFailure(error: dataState.error!.message));
     }
   }
 
@@ -56,7 +54,7 @@ class StaleBreadBloc extends Bloc<StaleBreadEvent, StaleBreadState> {
     }
 
     if (dataState is DataFailed) {
-      emit(StaleBreadFailure(error: dataState.error!));
+      emit(StaleBreadFailure(error: dataState.error!.message));
     }
   }
 
@@ -84,7 +82,7 @@ class StaleBreadBloc extends Bloc<StaleBreadEvent, StaleBreadState> {
         }
 
         if (dataState is DataFailed) {
-          emit(StaleBreadFailure(error: dataState.error!));
+          emit(StaleBreadFailure(error: dataState.error!.message));
         }
       } catch (e) {
         

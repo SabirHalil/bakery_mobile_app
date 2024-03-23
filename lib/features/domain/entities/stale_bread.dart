@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class StaleBreadEntity extends Equatable {
+class StaleBreadEntity{
   final int id;
   final double breadEquivalent; // Using double for decimal in Dart
   final String name;
@@ -11,8 +10,5 @@ class StaleBreadEntity extends Equatable {
     required this.name,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, breadEquivalent, name];
-  }
+
 }

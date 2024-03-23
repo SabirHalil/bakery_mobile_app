@@ -1,8 +1,6 @@
 import 'package:bakery_app/features/data/models/service_to_receive_stale.dart';
 import 'package:bakery_app/features/domain/usecases/service_stale_usecase.dart';
 import 'package:bakery_app/features/presentation/pages/service/bloc/service_stale_received/service_stale_received_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +30,7 @@ class ServiceStaleLeftBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceStaleLeftFailure(error: dataState.error!));
+      emit(ServiceStaleLeftFailure(error: dataState.error!.message));
     }
   }
 
@@ -57,7 +55,7 @@ class ServiceStaleLeftBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceStaleLeftFailure(error: dataState.error!));
+      emit(ServiceStaleLeftFailure(error: dataState.error!.message));
     }
   }
 }

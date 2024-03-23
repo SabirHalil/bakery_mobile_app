@@ -2,8 +2,6 @@ import 'package:bakery_app/features/data/models/product_counting_to_add.dart';
 import 'package:bakery_app/features/data/models/product_not_added.dart';
 import 'package:bakery_app/features/domain/usecases/product_counting_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 
@@ -31,7 +29,7 @@ void getNotAddedProductsByDateAndCategoryId(GetProductCountingNotAddedRequested 
     }
 
     if (dataState is DataFailed) {
-      emit(ProductCountingNotAddedFailure(error: dataState.error!));
+      emit(ProductCountingNotAddedFailure(error: dataState.error!.message));
     }
   }
 
@@ -54,7 +52,7 @@ void getNotAddedProductsByDateAndCategoryId(GetProductCountingNotAddedRequested 
     }
 
     if (dataState is DataFailed) {
-      emit(ProductCountingNotAddedFailure(error: dataState.error!));
+      emit(ProductCountingNotAddedFailure(error: dataState.error!.message));
     }
   }
 }

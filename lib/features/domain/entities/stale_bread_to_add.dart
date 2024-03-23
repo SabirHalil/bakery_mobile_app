@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class StaleBreadToAddEntity extends Equatable {
+class StaleBreadToAddEntity{
   final int id;
   final int quantity;
   final DateTime date;
@@ -13,8 +12,4 @@ class StaleBreadToAddEntity extends Equatable {
     required this.doughFactoryProductId,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, quantity, date, doughFactoryProductId];
-  }
 }

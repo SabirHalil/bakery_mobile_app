@@ -1,6 +1,6 @@
 part of 'stale_product_bloc.dart';
 
-sealed class StaleProductState extends Equatable {
+sealed class StaleProductState{
   const StaleProductState();
   
  get staleAddedProductList => null;
@@ -8,16 +8,12 @@ sealed class StaleProductState extends Equatable {
 
 final class StaleAddedProductLoading extends StaleProductState {
   const StaleAddedProductLoading();
-  @override
-  List<Object?> get props => [];
+
 }
 
 final class StaleAddedProductFailure extends StaleProductState {
-  final DioException? error;
+  final String? error;
   const StaleAddedProductFailure({this.error});
-
-  @override
-  List<Object?> get props => [error];
 }
 
 final class StaleAddedProductSuccess extends StaleProductState {
@@ -27,9 +23,6 @@ final class StaleAddedProductSuccess extends StaleProductState {
   
   const StaleAddedProductSuccess(
       {this.staleAddedProductList});
-
-  @override
-  List<Object?> get props => [staleAddedProductList];
 }
 
 

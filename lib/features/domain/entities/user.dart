@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class UserEntity extends Equatable {
+class UserEntity{
   final int? id;
   final String? name;
   final int? operationClaim;
@@ -8,8 +7,4 @@ class UserEntity extends Equatable {
 
   const UserEntity({this.id, this.name, this.operationClaim, this.token});
 
-  @override
-  List<Object?> get props {
-    return [id, name, operationClaim,token];
-  }
 }

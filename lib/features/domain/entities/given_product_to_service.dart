@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class GivenProductToServiceEntity extends Equatable {
+
+class GivenProductToServiceEntity{
   final int id;
   final int userId;
   final int quantity;
@@ -17,8 +17,5 @@ class GivenProductToServiceEntity extends Equatable {
     required this.serviceTypeId,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, userId, quantity, date, serviceProductId, serviceTypeId];
-  }
+
 }

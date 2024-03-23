@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +28,7 @@ class ProductsProcessBloc extends Bloc<ProductsProcessEvent, ProductsProcessStat
     }
 
     if (dataState is DataFailed) {
-      emit(ProductsProcessFailure(error: dataState.error!));
+      emit(ProductsProcessFailure(error: dataState.error!.message));
     }
   }
 
@@ -51,12 +49,12 @@ class ProductsProcessBloc extends Bloc<ProductsProcessEvent, ProductsProcessStat
           }
 
           if (dataState is DataFailed) {
-            emit(ProductsProcessFailure(error: dataState.error!));
+            emit(ProductsProcessFailure(error: dataState.error!.message));
           }
     }
 
     if (dataState is DataFailed) {
-      emit(ProductsProcessFailure(error: dataState.error!));
+      emit(ProductsProcessFailure(error: dataState.error!.message));
     }
   }
 
@@ -75,7 +73,7 @@ class ProductsProcessBloc extends Bloc<ProductsProcessEvent, ProductsProcessStat
       }
 
       if (dataState is DataFailed) {
-        emit(ProductsProcessFailure(error: dataState.error!));
+        emit(ProductsProcessFailure(error: dataState.error!.message));
       }
     }
   }

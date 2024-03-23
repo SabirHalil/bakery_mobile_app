@@ -1,6 +1,6 @@
 part of 'product_counting_added_bloc.dart';
 
-sealed class ProductCountingAddedState extends Equatable {
+sealed class ProductCountingAddedState {
   const ProductCountingAddedState();
   
  get productCountingAddedList => null;
@@ -8,16 +8,11 @@ sealed class ProductCountingAddedState extends Equatable {
 
 final class ProductCountingAddedLoading extends ProductCountingAddedState {
   const ProductCountingAddedLoading();
-  @override
-  List<Object?> get props => [];
 }
 
 final class ProductCountingAddedFailure extends ProductCountingAddedState {
-  final DioException? error;
+  final String? error;
   const ProductCountingAddedFailure({this.error});
-
-  @override
-  List<Object?> get props => [error];
 }
 
 final class ProductCountingAddedSuccess extends ProductCountingAddedState {
@@ -28,7 +23,5 @@ final class ProductCountingAddedSuccess extends ProductCountingAddedState {
   const ProductCountingAddedSuccess(
       {this.productCountingAddedList});
 
-  @override
-  List<Object?> get props => [productCountingAddedList];
 }
 

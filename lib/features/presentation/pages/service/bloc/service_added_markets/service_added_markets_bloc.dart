@@ -1,10 +1,9 @@
 import 'package:bakery_app/features/data/models/service_added_market.dart';
 import 'package:bakery_app/features/data/models/service_market_to_add.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
+import '../../../../../../core/error/exceptions.dart';
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../domain/entities/service_market_to_add.dart';
 import '../../../../../domain/usecases/service_market_usecase.dart';
@@ -36,7 +35,7 @@ class ServiceAddedMarketsBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceAddedMarketsFailure(error: dataState.error!));
+      emit(ServiceAddedMarketsFailure(error: dataState.error!.message));
     }
   }
 
@@ -59,12 +58,12 @@ class ServiceAddedMarketsBloc
       }
 
       if (updatedDataState is DataFailed) {
-        emit(ServiceAddedMarketsFailure(error: updatedDataState.error!));
+        emit(ServiceAddedMarketsFailure(error: updatedDataState.error!.message));
       }
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceAddedMarketsFailure(error: dataState.error!));
+      emit(ServiceAddedMarketsFailure(error: dataState.error!.message));
     }
   }
 
@@ -77,10 +76,8 @@ class ServiceAddedMarketsBloc
           ...?state.serviceAddedMarkets,
           event.market
         ]));
-      } catch (_) {
-        emit(ServiceAddedMarketsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+         } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -104,13 +101,11 @@ class ServiceAddedMarketsBloc
                   ..remove(event.market)));
           }
           if (dataState is DataFailed) {
-            emit(ServiceAddedMarketsFailure(error: dataState.error!));
+            emit(ServiceAddedMarketsFailure(error: dataState.error!.message));
           }
         }
-      } catch (_) {
-        emit(ServiceAddedMarketsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+   } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -143,14 +138,11 @@ class ServiceAddedMarketsBloc
             ]));
           }
           if (dataState is DataFailed) {
-            emit(ServiceAddedMarketsFailure(error: dataState.error!));
+            emit(ServiceAddedMarketsFailure(error: dataState.error!.message));
           }
         }
-      } catch (_) {
-        
-        emit(ServiceAddedMarketsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+   } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }

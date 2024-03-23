@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomProductProcessDialog extends StatefulWidget {
-  final status;
+  final bool status;
   final String title;
   final String numberLabel;
   final TextEditingController nameController;

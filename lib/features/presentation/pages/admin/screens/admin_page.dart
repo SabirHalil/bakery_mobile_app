@@ -2,6 +2,7 @@ import 'package:bakery_app/core/utils/toast_message.dart';
 import 'package:bakery_app/features/data/models/system_time.dart';
 import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/markets_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/pdf_view_page.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/products_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
@@ -504,44 +505,15 @@ class _AdminPageState extends State<AdminPage> {
         ),
         children: [
           ListTile(
-              title: const Text('Marketler'),
+              title: const Text('Market işlemleri'),
                trailing: IconButton(
               onPressed: () {
-                _navigateToPage(ProductsProcessPage.routeName, null);
+                _navigateToPage(MarketsProcessPage.routeName, null);
               },
               icon: const Icon(Icons.arrow_outward),
               color: GlobalVariables.secondaryColor,
             ),),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          ListTile(
-              title: const Text('Market sözleşmeleri'),
-              trailing: IconButton(
-              onPressed: () {
-                _navigateToPage(ProductsProcessPage.routeName, null);
-              },
-              icon: const Icon(Icons.arrow_outward),
-              color: GlobalVariables.secondaryColor,
-            ),),
-          const Divider(
-            height: 1,
-            color: Colors.white,
-            indent: 10,
-            endIndent: 10,
-          ),
-          ListTile(
-              title:const  Text('Market ürünleri'),
-               trailing: IconButton(
-              onPressed: () {
-                _navigateToPage(ProductsProcessPage.routeName, null);
-              },
-              icon: const Icon(Icons.arrow_outward),
-              color: GlobalVariables.secondaryColor,
-            ),),
+          
         ],
       ),
     );

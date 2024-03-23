@@ -1,5 +1,6 @@
 import 'package:bakery_app/features/data/models/user.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/admin_page.dart';
+import 'package:bakery_app/features/presentation/pages/admin/screens/markets_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/products_process_page.dart';
 import 'package:bakery_app/features/presentation/pages/auth/screens/login_page.dart';
 import 'package:bakery_app/features/presentation/pages/dough/screens/dough_list_page.dart';
@@ -21,8 +22,9 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => const LoginPage());
     case ProductsProcessPage.routeName:
-      return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => const ProductsProcessPage());
+      return MaterialPageRoute(settings: routeSettings, builder: (_) => const ProductsProcessPage());
+    case MarketsProcessPage.routeName:
+      return MaterialPageRoute(settings: routeSettings, builder: (_) => const MarketsProcessPage());
     case SellAssistancePage.routeName:
       var args = routeSettings.arguments as UserModel;
       return MaterialPageRoute(

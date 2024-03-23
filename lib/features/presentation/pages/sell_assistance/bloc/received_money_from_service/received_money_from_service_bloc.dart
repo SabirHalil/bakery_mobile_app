@@ -1,7 +1,5 @@
 import 'package:bakery_app/features/domain/usecases/received_money_from_service_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/resources/data_state.dart';
@@ -36,7 +34,7 @@ class ReceivedMoneyFromServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!));
+      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!.message));
     }
   }
 
@@ -56,7 +54,7 @@ class ReceivedMoneyFromServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!));
+      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!.message));
     }
   }
 
@@ -73,7 +71,7 @@ class ReceivedMoneyFromServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!));
+      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!.message));
     }
   }
 
@@ -90,7 +88,7 @@ class ReceivedMoneyFromServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!));
+      emit(ReceivedMoneyFromServiceFailure(error: dataState.error!.message));
     }
   }
 }

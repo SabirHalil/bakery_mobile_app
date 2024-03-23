@@ -8,6 +8,7 @@ import 'package:bakery_app/features/domain/entities/service_account_to_receive.d
 import 'package:bakery_app/features/domain/repositories/service_account_repository.dart';
 import 'package:dio/dio.dart';
 
+import '../../../core/error/failures.dart';
 import '../../../core/utils/toast_message.dart';
 
 
@@ -26,14 +27,13 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -47,14 +47,13 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+           Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -67,14 +66,13 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+           Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -88,14 +86,13 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -109,14 +106,13 @@ class ServiceAccountRepositoryImpl extends ServiceAccountRepository{
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }

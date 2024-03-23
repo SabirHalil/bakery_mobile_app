@@ -4,10 +4,9 @@ import 'package:bakery_app/features/data/models/product_added.dart';
 
 import 'package:bakery_app/features/domain/usecases/product_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/error/exceptions.dart';
 import '../../../../../data/models/product_to_add.dart';
 import '../../../../../domain/entities/product_to_add.dart';
 
@@ -38,7 +37,7 @@ class AddedProductBloc extends Bloc<AddedProductsEvent, AddedProductState> {
     }
 
     if (dataState is DataFailed) {
-      emit(AddedProductFailure(error: dataState.error!));
+      emit(AddedProductFailure(error: dataState.error!.message));
     }
   }
 
@@ -59,12 +58,12 @@ class AddedProductBloc extends Bloc<AddedProductsEvent, AddedProductState> {
       }
 
       if (updatedDataState is DataFailed) {
-        emit(AddedProductFailure(error: updatedDataState.error!));
+        emit(AddedProductFailure(error: updatedDataState.error!.message));
       }
     }
 
     if (dataState is DataFailed) {
-      emit(AddedProductFailure(error: dataState.error!));
+      emit(AddedProductFailure(error: dataState.error!.message));
     }
   }
 
@@ -75,10 +74,8 @@ class AddedProductBloc extends Bloc<AddedProductsEvent, AddedProductState> {
       try {
         emit(AddedProductSuccess(
             addedProducts: [...?state.addedProducts, event.product]));
-      } catch (_) {
-        emit(AddedProductFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+   } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -101,13 +98,11 @@ class AddedProductBloc extends Bloc<AddedProductsEvent, AddedProductState> {
                   ..remove(event.product)));
           }
           if (dataState is DataFailed) {
-            emit(AddedProductFailure(error: dataState.error!));
+            emit(AddedProductFailure(error: dataState.error!.message));
           }
         }
-      } catch (_) {
-        emit(AddedProductFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+   } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -140,13 +135,11 @@ class AddedProductBloc extends Bloc<AddedProductsEvent, AddedProductState> {
             ]));
           }
           if (dataState is DataFailed) {
-            emit(AddedProductFailure(error: dataState.error!));
+            emit(AddedProductFailure(error: dataState.error!.message));
           }
         }
-      } catch (_) {
-        emit(AddedProductFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+     } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }

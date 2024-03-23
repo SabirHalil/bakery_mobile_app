@@ -1,8 +1,6 @@
 import 'package:bakery_app/features/domain/usecases/given_product_to_service_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../../core/utils/toast_message.dart';
@@ -37,7 +35,7 @@ class GivenProductToServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(GivenProductToServiceFailure(error: dataState.error!));
+      emit(GivenProductToServiceFailure(error: dataState.error!.message));
     }
   }
 
@@ -57,7 +55,7 @@ class GivenProductToServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(GivenProductToServiceFailure(error: dataState.error!));
+      emit(GivenProductToServiceFailure(error: dataState.error!.message));
     }
   }
 
@@ -79,7 +77,7 @@ class GivenProductToServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(GivenProductToServiceFailure(error: dataState.error!));
+      emit(GivenProductToServiceFailure(error: dataState.error!.message));
     }
   }
 
@@ -98,7 +96,7 @@ class GivenProductToServiceBloc
     }
 
     if (dataState is DataFailed) {
-      emit(GivenProductToServiceFailure(error: dataState.error!));
+      emit(GivenProductToServiceFailure(error: dataState.error!.message));
     }
   }
 }

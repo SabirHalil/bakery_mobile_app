@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class ServiceAccountLeftEntity extends Equatable {
+
+class ServiceAccountLeftEntity {
   final int marketId;
   final String marketName;
   final double totalAmount; // Using double for decimal in Dart
@@ -16,8 +16,5 @@ class ServiceAccountLeftEntity extends Equatable {
     required this.givenBread
   });
 
-  @override
-  List<Object?> get props {
-    return [marketId, marketName, totalAmount, staleBread, givenBread];
-  }
+
 }

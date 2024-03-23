@@ -2,11 +2,10 @@
 
 import 'package:bakery_app/features/data/models/service_market.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/error/exceptions.dart';
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../domain/usecases/service_market_usecase.dart';
 
@@ -32,7 +31,7 @@ class ServiceMarketsBloc extends Bloc<ServiceMarketsEvent, ServiceMarketsState> 
     }
 
     if (dataState is DataFailed) {
-      emit(ServiceMarketsFailure(error:dataState.error));
+      emit(ServiceMarketsFailure(error:dataState.error!.message));
     }
   }
 
@@ -41,9 +40,8 @@ class ServiceMarketsBloc extends Bloc<ServiceMarketsEvent, ServiceMarketsState> 
     if (state is ServiceMarketsSuccess) {
       try {
         emit(ServiceMarketsSuccess(markets: [...?state.markets,event.market]));
-      } catch (_) {
-        emit(ServiceMarketsFailure(error:DioException.requestCancelled(
-            requestOptions: RequestOptions(), reason: "Faild!")));
+     } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -55,8 +53,8 @@ class ServiceMarketsBloc extends Bloc<ServiceMarketsEvent, ServiceMarketsState> 
         
         emit(ServiceMarketsSuccess(markets:
             [...?state.markets]..remove(event.market)));
-      } catch (_) {
-        emit(ServiceMarketsFailure(error:DioException.requestCancelled(requestOptions: RequestOptions(), reason: "Faild!")));
+      } catch (e) {
+      throw ServerException(e.toString());
         
       }
     }

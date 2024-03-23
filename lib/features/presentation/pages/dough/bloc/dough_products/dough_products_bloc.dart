@@ -4,9 +4,10 @@ import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/product_not_added.dart';
 import 'package:bakery_app/features/domain/usecases/dough_factory_usecases.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/error/exceptions.dart';
 
 part 'dough_products_event.dart';
 part 'dough_products_state.dart';
@@ -30,7 +31,7 @@ class DoughProductsBloc extends Bloc<DoughProductsEvent, DoughProductsState> {
     }
 
     if (dataState is DataFailed) {
-      emit(DoughProductsFailure(error: dataState.error));
+      emit(DoughProductsFailure(error: dataState.error!.message));
     }
   }
 
@@ -40,10 +41,8 @@ class DoughProductsBloc extends Bloc<DoughProductsEvent, DoughProductsState> {
     if (state is DoughProductsSuccess) {
       try {
         emit(DoughProductsSuccess(doughProducts: [...?state.doughProducts, event.product]));
-      } catch (_) {
-        emit(DoughProductsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+        } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -56,11 +55,8 @@ class DoughProductsBloc extends Bloc<DoughProductsEvent, DoughProductsState> {
         
         emit(DoughProductsSuccess(
             doughProducts: [...?state.doughProducts]..remove(event.product)));
-      } catch (_) {
-        emit(DoughProductsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
-        
+       } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }

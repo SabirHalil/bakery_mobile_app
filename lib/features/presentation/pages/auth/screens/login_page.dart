@@ -1,5 +1,6 @@
 import 'package:bakery_app/core/constants/global_variables.dart';
 import 'package:bakery_app/core/utils/is_today_check.dart';
+import 'package:bakery_app/core/utils/show_snackbar.dart';
 import 'package:bakery_app/core/utils/user_login_params.dart';
 import 'package:bakery_app/features/data/models/user.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/admin_page.dart';
@@ -46,10 +47,7 @@ class _LoginPageState extends State<LoginPage> {
           }
 
           if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error as String,),
-              ),
-            );
+            showSnackBar(context, state.error!);
           }
         },
         builder: (context, state) {
@@ -119,9 +117,9 @@ class _LoginPageState extends State<LoginPage> {
       case 1:
         _navigateToPage(DoughListPage.routeName, user);
       case 2:
-        _navigateToPage(ProductionPage.routeName, {0:user,1:null});
+        _navigateToPage(ProductionPage.routeName, {0: user, 1: null});
       case 3:
-        _navigateToPage(ProductionPage.routeName, {0:user,1:null});
+        _navigateToPage(ProductionPage.routeName, {0: user, 1: null});
       case 4:
         _navigateToPage(ServiceListPage.routeName, user);
       case 5:

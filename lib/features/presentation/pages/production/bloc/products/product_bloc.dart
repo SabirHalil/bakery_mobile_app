@@ -4,9 +4,9 @@ import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/models/product.dart';
 import 'package:bakery_app/features/domain/usecases/product_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/error/exceptions.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -29,7 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
 
     if (dataState is DataFailed) {
-      emit(ProductFailure(error:dataState.error!));
+      emit(ProductFailure(error:dataState.error!.message));
     }
   }
 
@@ -39,9 +39,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     if (state is ProductSuccess) {
       try {
         emit(ProductSuccess(products: [...?state.products,event.product]));
-      } catch (_) {
-        emit(ProductFailure(error:DioException.requestCancelled(
-            requestOptions: RequestOptions(), reason: "Faild!")));
+       } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }
@@ -54,9 +53,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         
         emit(ProductSuccess(products:
             [...?state.products]..remove(event.product)));
-      } catch (_) {
-        emit(ProductFailure(error:DioException.requestCancelled(
-            requestOptions: RequestOptions(), reason: "Faild!")));
+   } catch (e) {
+      throw ServerException(e.toString());
         
       }
     }

@@ -26,7 +26,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceDebtTotalModel>>>(Options(
       method: 'GET',
@@ -58,7 +58,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'marketId': marketId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ServiceDebtDetailModel>>>(Options(
       method: 'GET',
@@ -119,7 +119,7 @@ class _ServiceDebtApiService implements ServiceDebtApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

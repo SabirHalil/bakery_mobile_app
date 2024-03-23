@@ -4,9 +4,9 @@ import 'package:bakery_app/features/data/models/dough_product_to_add.dart';
 import 'package:bakery_app/features/domain/entities/dough_product_to_add.dart';
 import 'package:bakery_app/features/domain/usecases/dough_factory_usecases.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../core/error/exceptions.dart';
 
 part 'dough_added_products_event.dart';
 part 'dough_added_products_state.dart';
@@ -14,7 +14,8 @@ part 'dough_added_products_state.dart';
 class DoughAddedProductsBloc
     extends Bloc<DoughAddedProductsEvent, DoughAddedProductsState> {
   final DoughUseCase _doughUseCase;
-  DoughAddedProductsBloc(this._doughUseCase): super(const DoughAddedProductsLoading()) {
+  DoughAddedProductsBloc(this._doughUseCase)
+      : super(const DoughAddedProductsLoading()) {
     on<DoughGetAddedProductsRequested>(onGetDoughAddedProducts);
     on<DoughAddAddedProductRequested>(onAddProductToList);
     on<DoughRemoveAddedProductRequested>(onRemoveProductFromList);
@@ -24,9 +25,6 @@ class DoughAddedProductsBloc
 
   void onGetDoughAddedProducts(DoughGetAddedProductsRequested event,
       Emitter<DoughAddedProductsState> emit) async {
-  
-   
-
     emit(const DoughAddedProductsLoading());
     final dataState =
         await _doughUseCase.getDoughListProductsByListId(event.listId);
@@ -38,30 +36,34 @@ class DoughAddedProductsBloc
     }
 
     if (dataState is DataFailed) {
-      emit(DoughAddedProductsFailure(error: dataState.error!));
+      emit(DoughAddedProductsFailure(error: dataState.error!.message));
     }
   }
 
   void onPostProductsToServer(DoughPostAddedProductRequested event,
       Emitter<DoughAddedProductsState> emit) async {
     emit(const DoughAddedProductsLoading());
-    final dataState = await _doughUseCase.addDoughProducts( event.userId, event.products, event.date);
+    final dataState = await _doughUseCase.addDoughProducts(
+        event.userId, event.products, event.date);
     if (dataState is DataSuccess && dataState.data != null) {
-      final updatedDataState = await _doughUseCase.getDoughListProductsByListId(dataState.data as int);
+      final updatedDataState = await _doughUseCase
+          .getDoughListProductsByListId(dataState.data as int);
       if (updatedDataState is DataSuccess && updatedDataState.data != null) {
         emit(DoughAddedProductsSuccess(
-            doughAddedProducts:updatedDataState.data as List<DoughAddedProductModel>,
+            doughAddedProducts:
+                updatedDataState.data as List<DoughAddedProductModel>,
             listId: dataState.data as int));
         event.products.clear();
       }
 
       if (updatedDataState is DataFailed) {
-        emit(DoughAddedProductsFailure(error: updatedDataState.error!));
+        emit(
+            DoughAddedProductsFailure(error: updatedDataState.error!.message));
       }
     }
 
     if (dataState is DataFailed) {
-      emit(DoughAddedProductsFailure(error: dataState.error!));
+      emit(DoughAddedProductsFailure(error: dataState.error!.message));
     }
   }
 
@@ -70,11 +72,10 @@ class DoughAddedProductsBloc
     final state = this.state;
     if (state is DoughAddedProductsSuccess) {
       try {
-        emit(DoughAddedProductsSuccess(doughAddedProducts: [...?state.doughAddedProducts, event.product]));
-      } catch (_) {
-        emit(DoughAddedProductsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+        emit(DoughAddedProductsSuccess(
+            doughAddedProducts: [...?state.doughAddedProducts, event.product]));
+      } catch (e) {
+        throw ServerException(e.toString());
       }
     }
   }
@@ -98,13 +99,11 @@ class DoughAddedProductsBloc
                   ..remove(event.product)));
           }
           if (dataState is DataFailed) {
-            emit(DoughAddedProductsFailure(error: dataState.error!));
+            emit(DoughAddedProductsFailure(error: dataState.error!.message));
           }
         }
-      } catch (_) {
-        emit(DoughAddedProductsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+      } catch (e) {
+        throw ServerException(e.toString());
       }
     }
   }
@@ -138,13 +137,11 @@ class DoughAddedProductsBloc
             ]));
           }
           if (dataState is DataFailed) {
-            emit(DoughAddedProductsFailure(error: dataState.error!));
+            emit(DoughAddedProductsFailure(error: dataState.error!.message));
           }
         }
-      } catch (_) {
-        emit(DoughAddedProductsFailure(
-            error: DioException.requestCancelled(
-                requestOptions: RequestOptions(), reason: "Faild!")));
+   } catch (e) {
+      throw ServerException(e.toString());
       }
     }
   }

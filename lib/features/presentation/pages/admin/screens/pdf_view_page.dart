@@ -25,56 +25,9 @@ class _PdfViewPageState extends State<PdfViewPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _buildAppBar(),
-        body: SfPdfViewer.file(File(widget.path!)));
-    // body: Stack(
-    //   children: <Widget>[
-    //     PDFView(
-    //       filePath: widget.path,
-    //       enableSwipe: true,
-
-    //       autoSpacing: false,
-    //       pageFling: true,
-    //       pageSnap: true,
-    //       defaultPage: currentPage!,
-    //       fitPolicy: FitPolicy.BOTH,
-    //       preventLinkNavigation:
-    //           false, // if set to true the link is handled in flutter
-    //       onRender: (pages) {
-    //         setState(() {
-    //           pages = pages;
-    //           isReady = true;
-    //         });
-    //       },
-    //       onError: (error) {
-    //         setState(() {
-    //           errorMessage = error.toString();
-    //         });
-    //       },
-    //       onPageError: (page, error) {
-    //         setState(() {
-    //           errorMessage = '$page: ${error.toString()}';
-    //         });
-    //       },
-
-    //       onLinkHandler: (String? uri) {},
-    //       onPageChanged: (int? page, int? total) {
-    //         setState(() {
-    //           currentPage = page;
-    //         });
-    //       },
-    //     ),
-    //     errorMessage.isEmpty
-    //         ? !isReady
-    //             ? const Center(
-    //                 child: CircularProgressIndicator(),
-    //               )
-    //             : Container()
-    //         : Center(
-    //             child: Text(errorMessage),
-    //           )
-    //   ],
-    // ),
+      appBar: _buildAppBar(),
+      body: SfPdfViewer.file(File(widget.path!)),
+    );
   }
 
   _buildAppBar() {

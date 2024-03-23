@@ -1,8 +1,6 @@
 import 'package:bakery_app/features/domain/usecases/products_process_usecase.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../data/models/dough_product_process.dart';
@@ -29,7 +27,7 @@ class DoughProductsProcessBloc
     }
 
     if (dataState is DataFailed) {
-      emit(DoughProductsProcessFailure(error: dataState.error!));
+      emit(DoughProductsProcessFailure(error: dataState.error!.message));
     }
   }
 
@@ -47,12 +45,12 @@ class DoughProductsProcessBloc
         }
 
         if (dataState is DataFailed) {
-          emit(DoughProductsProcessFailure(error: dataState.error!));
+          emit(DoughProductsProcessFailure(error: dataState.error!.message));
         }
     }
 
     if (dataState is DataFailed) {
-      emit(DoughProductsProcessFailure(error: dataState.error!));
+      emit(DoughProductsProcessFailure(error: dataState.error!.message));
     }
   }
 
@@ -71,7 +69,7 @@ class DoughProductsProcessBloc
       }
 
       if (dataState is DataFailed) {
-        emit(DoughProductsProcessFailure(error: dataState.error!));
+        emit(DoughProductsProcessFailure(error: dataState.error!.message));
       }
     }
   }

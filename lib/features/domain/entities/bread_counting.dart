@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class BreadCountingEntity extends Equatable {
+
+class BreadCountingEntity {
   final int id;
   final int quantity;
   final DateTime date;
@@ -13,8 +13,4 @@ class BreadCountingEntity extends Equatable {
     required this.userId,
   });
 
-  @override
-  List<Object?> get props {
-    return [id, quantity, date, userId];
-  }
 }

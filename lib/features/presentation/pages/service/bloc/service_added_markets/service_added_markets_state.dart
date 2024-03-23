@@ -1,7 +1,7 @@
 part of 'service_added_markets_bloc.dart';
 
 @immutable
-sealed class ServiceAddedMarketsState extends Equatable {
+sealed class ServiceAddedMarketsState{
   const ServiceAddedMarketsState();
   get serviceAddedMarkets => null;
    get listId => null;
@@ -9,16 +9,11 @@ sealed class ServiceAddedMarketsState extends Equatable {
 
 final class ServiceAddedMarketsLoading extends ServiceAddedMarketsState {
   const ServiceAddedMarketsLoading();
-  @override
-  List<Object?> get props => [];
 }
 
 final class ServiceAddedMarketsFailure extends ServiceAddedMarketsState {
-  final DioException? error;
+  final String? error;
   const ServiceAddedMarketsFailure({this.error});
-
-  @override
-  List<Object?> get props => [error];
 }
 
 final class ServiceAddedMarketsSuccess extends ServiceAddedMarketsState {
@@ -27,7 +22,4 @@ final class ServiceAddedMarketsSuccess extends ServiceAddedMarketsState {
   @override
   final int? listId;
   const ServiceAddedMarketsSuccess({this.serviceAddedMarkets, this.listId});
-
-  @override
-  List<Object?> get props => [serviceAddedMarkets];
 }

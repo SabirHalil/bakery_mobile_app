@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class BreadPriceEntity extends Equatable {
+
+class BreadPriceEntity{
   final int id;
   final DateTime date;
   final double price;
@@ -11,6 +11,4 @@ class BreadPriceEntity extends Equatable {
     required this.price,
   });
 
-  @override
-  List<Object?> get props => [id, date, price];
 }

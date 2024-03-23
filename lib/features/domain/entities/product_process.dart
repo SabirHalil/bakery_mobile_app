@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class ProductProcessEntity extends Equatable {
+
+class ProductProcessEntity {
   final int id;
   final String name;
   final int categoryId;
@@ -15,6 +15,5 @@ class ProductProcessEntity extends Equatable {
     required this.status,
   });
 
-  @override
-  List<Object?> get props => [id, name, categoryId, price, status];
+
 }

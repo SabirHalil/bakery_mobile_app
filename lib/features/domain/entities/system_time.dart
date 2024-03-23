@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 
-class SystemTimeEntity extends Equatable {
+class SystemTimeEntity  {
   final int id;
   final int openTime;
   final int closeTime;
@@ -11,6 +10,4 @@ class SystemTimeEntity extends Equatable {
     required this.closeTime,
   });
 
-  @override
-  List<Object?> get props => [id, openTime, closeTime];
 }

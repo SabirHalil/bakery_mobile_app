@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bakery_app/core/error/failures.dart';
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/data_sources/remote/bread_counting_service.dart';
 import 'package:bakery_app/features/data/models/bread_counting.dart';
@@ -23,14 +24,13 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+         Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -44,14 +44,13 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -69,13 +68,12 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         return const DataSuccess(null);
       }
       return DataFailed(
-        DioException(
-            error: httpResponse.response.statusMessage,
-            response: httpResponse.response,
-            requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
       );
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -90,14 +88,13 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+           Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }

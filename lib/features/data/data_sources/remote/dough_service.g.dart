@@ -26,7 +26,7 @@ class _DoughApiService implements DoughApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<DoughListModel>>>(Options(
       method: 'GET',
@@ -94,7 +94,7 @@ class _DoughApiService implements DoughApiService {
       r'doughFactoryListId': doughFactoryListId
     };
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<DoughAddedProductModel>>>(Options(
       method: 'GET',
@@ -126,7 +126,7 @@ class _DoughApiService implements DoughApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'doughFactoryListId': listId};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ProductNotAddedModel>>>(Options(
       method: 'GET',
@@ -157,7 +157,7 @@ class _DoughApiService implements DoughApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
       method: 'DELETE',

@@ -6,9 +6,7 @@ import 'package:bakery_app/features/data/data_sources/local/shared_preference.da
 import 'package:bakery_app/features/data/models/user.dart';
 import 'package:bakery_app/features/domain/usecases/user_login_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
 import '../screens/login_page.dart';
 
@@ -31,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthSuccess(user: UserModel.fromEntity(dataState.data!)));
     }
     if (dataState is DataFailed) {
-      emit(AuthFailure(error: dataState.error!));
+      emit(AuthFailure(error: dataState.error!.message));
     }
   }
 
@@ -41,8 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     var user = await UserPreferences.getUser();
     if (user == null) {
       emit(const AuthSuccess());
-      Navigator.pushNamedAndRemoveUntil(
-          event.context, LoginPage.routeName, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(event.context, LoginPage.routeName, (route) => false);
     } else {
       emit(const AuthFailure());
     }

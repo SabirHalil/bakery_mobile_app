@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class DoughProductProcessEntity extends Equatable {
+
+class DoughProductProcessEntity {
   final int id;
   final double breadEquivalent;
   final String name;
@@ -13,6 +13,4 @@ class DoughProductProcessEntity extends Equatable {
     required this.status,
   });
 
-  @override
-  List<Object?> get props => [id, breadEquivalent, name, status];
 }

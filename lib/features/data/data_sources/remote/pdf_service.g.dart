@@ -26,8 +26,8 @@ class _PdfService implements PdfService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Uint8List?>(
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Uint8List>(
         _setStreamType<HttpResponse<Uint8List>>(Options(
       method: 'GET',
       headers: _headers,
@@ -56,8 +56,8 @@ class _PdfService implements PdfService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Uint8List?>(
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Uint8List>(
         _setStreamType<HttpResponse<Uint8List>>(Options(
       method: 'GET',
       headers: _headers,
@@ -80,14 +80,13 @@ class _PdfService implements PdfService {
     return httpResponse;
   }
 
-@override
-  Future<HttpResponse<Uint8List?>> getPdfOfPastaneByDate(
-      DateTime date) async {
+  @override
+  Future<HttpResponse<Uint8List?>> getPdfOfPastaneByDate(DateTime date) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date.toIso8601String()};
     final _headers = <String, dynamic>{};
-    final  _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Uint8List?>(
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Uint8List>(
         _setStreamType<HttpResponse<Uint8List>>(Options(
       method: 'GET',
       headers: _headers,

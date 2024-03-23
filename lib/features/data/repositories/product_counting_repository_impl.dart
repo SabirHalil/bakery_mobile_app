@@ -10,6 +10,7 @@ import 'package:bakery_app/features/domain/entities/product_counting_to_add.dart
 
 import 'package:bakery_app/features/domain/entities/product_not_added.dart';
 
+import '../../../core/error/failures.dart';
 import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/product_counting_repository.dart';
 import 'package:dio/dio.dart';
@@ -27,15 +28,14 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+           Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -47,15 +47,14 @@ rethrow;
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+             Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -67,15 +66,14 @@ rethrow;
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -89,15 +87,14 @@ rethrow;
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+             Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 
@@ -110,15 +107,14 @@ rethrow;
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+            Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(),duration: 1);
-rethrow;
+      showToastMessage(e.toString(), duration: 1);
+      rethrow;
     }
   }
 }

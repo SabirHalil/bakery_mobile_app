@@ -1,7 +1,7 @@
 part of 'service_debt_bloc.dart';
 
 @immutable
-sealed class ServiceDebtState extends Equatable {
+sealed class ServiceDebtState {
   const ServiceDebtState();
   get serviceTotalDebtList => null;
 
@@ -9,16 +9,11 @@ sealed class ServiceDebtState extends Equatable {
 
 final class ServiceDebtLoading extends ServiceDebtState {
   const ServiceDebtLoading();
-  @override
-  List<Object?> get props => [];
 }
 
 final class ServiceDebtFailure extends ServiceDebtState {
-  final DioException? error;
+  final String? error;
   const ServiceDebtFailure({this.error});
-
-  @override
-  List<Object?> get props => [error];
 }
 
 final class ServiceTotalDebtSuccess extends ServiceDebtState {
@@ -27,9 +22,6 @@ final class ServiceTotalDebtSuccess extends ServiceDebtState {
   
   const ServiceTotalDebtSuccess(
       {this.serviceTotalDebtList});
-
-  @override
-  List<Object?> get props => [serviceTotalDebtList];
 }
 
 

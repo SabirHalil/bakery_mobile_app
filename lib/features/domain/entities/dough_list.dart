@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
 
-class DoughListEntity extends Equatable {
+
+class DoughListEntity {
   final int? id;
   final int? userId;
   final String? userName;
@@ -8,8 +8,4 @@ class DoughListEntity extends Equatable {
 
   const DoughListEntity({this.id, this.userId,this.userName, this.date});
 
-  @override
-  List<Object?> get props {
-    return [id, userId,userName, date];
-  }
 }

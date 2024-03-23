@@ -6,7 +6,7 @@ import 'package:bakery_app/features/data/models/service_stale_product.dart';
 import 'package:bakery_app/features/domain/entities/service_stale_product.dart';
 import 'package:dio/dio.dart';
 
-
+import '../../../core/error/failures.dart';
 import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/service_stale_product_repository.dart';
 import '../data_sources/remote/service_stale_product_service.dart';
@@ -16,46 +16,41 @@ class ServiceStaleProductRepositoryImpl extends ServiceStaleProductRepository {
   ServiceStaleProductRepositoryImpl(this._serviceStaleProduct);
   @override
   Future<DataState<void>> addServiceStaleProduct(
-      ServiceStaleProductEntity serviceStaleProduct) async{
-try {
-      final httpResponse =
-          await _serviceStaleProduct.addServiceStaleProduct(
-              
-                  ServiceStaleProductModel.fromEntity(serviceStaleProduct));
+      ServiceStaleProductEntity serviceStaleProduct) async {
+    try {
+      final httpResponse = await _serviceStaleProduct.addServiceStaleProduct(
+          ServiceStaleProductModel.fromEntity(serviceStaleProduct));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
 
   @override
-  Future<DataState<void>> deleteServiceStaleProduct(int id) async{
-   try {
-      
+  Future<DataState<void>> deleteServiceStaleProduct(int id) async {
+    try {
       final httpResponse =
           await _serviceStaleProduct.deleteServiceStaleProduct(id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
@@ -63,47 +58,42 @@ try {
   @override
   Future<DataState<List<ServiceStaleProductEntity>>>
       getServiceStaleProductListByDateAndServiceType(
-          DateTime date, int serviceTypeId) async{
-       try {
+          DateTime date, int serviceTypeId) async {
+    try {
       final httpResponse = await _serviceStaleProduct
-          .getServiceStaleProductListByDateAndServiceType(
-              date, serviceTypeId);
+          .getServiceStaleProductListByDateAndServiceType(date, serviceTypeId);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }
 
   @override
   Future<DataState<void>> updateServiceStaleProduct(
-      ServiceStaleProductEntity serviceStaleProduct) async{
-  try {
-      final httpResponse =
-          await _serviceStaleProduct.updateServiceStaleProduct(
-             
-                  ServiceStaleProductModel.fromEntity(serviceStaleProduct));
+      ServiceStaleProductEntity serviceStaleProduct) async {
+    try {
+      final httpResponse = await _serviceStaleProduct.updateServiceStaleProduct(
+          ServiceStaleProductModel.fromEntity(serviceStaleProduct));
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          DioException(
-              error: httpResponse.response.statusMessage,
-              response: httpResponse.response,
-              requestOptions: httpResponse.response.requestOptions),
+          Failure(httpResponse.response.statusMessage!),
         );
       }
+    } on DioException catch (e) {
+      return DataFailed(Failure(e.response!.data));
     } catch (e) {
-          showToastMessage(e.toString(),duration: 1);
+      showToastMessage(e.toString(), duration: 1);
       rethrow;
     }
   }

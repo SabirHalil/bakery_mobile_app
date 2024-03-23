@@ -1,17 +1,14 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../../../core/constants/constants.dart';
 import '../../../../../../core/resources/data_state.dart';
 import '../../../../../domain/usecases/pdf_usecase.dart';
-import 'package:pdf/widgets.dart' as pw;
+
 
 part 'pdf_event.dart';
 part 'pdf_state.dart';
@@ -36,7 +33,7 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
       emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
     }
     if (dataState is DataFailed) {
-      emit(PdfFailure(error: dataState.error));
+      emit(PdfFailure(error: dataState.error!.message));
     }
   }
 
@@ -51,7 +48,7 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
       emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
     }
     if (dataState is DataFailed) {
-      emit(PdfFailure(error: dataState.error));
+      emit(PdfFailure(error: dataState.error!.message));
     }
   }
 
@@ -66,16 +63,16 @@ class PdfBloc extends Bloc<PdfEvent, PdfState> {
       emit(PdfSuccess(pdfPath: file.path, pageTitle: event.pageTitle));
     }
     if (dataState is DataFailed) {
-      emit(PdfFailure(error: dataState.error));
+      emit(PdfFailure(error: dataState.error!.message));
     }
   }
 
   Future<File> createFileOfPdfUrl(List<int> bytes, String fileName) async {
     try {
       var dir = await getApplicationDocumentsDirectory();
-      print('bytes: $bytes');
+      
       File file = File("${dir.path}/$fileName.pdf");
-      print('path: $bytes');
+    
 
       await file.writeAsBytes(bytes, flush: true);
       return file;

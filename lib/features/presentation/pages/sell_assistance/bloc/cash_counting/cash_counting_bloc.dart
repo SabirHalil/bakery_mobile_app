@@ -1,7 +1,5 @@
 import 'package:bakery_app/features/domain/usecases/cash_counting_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/resources/data_state.dart';
@@ -30,7 +28,7 @@ void onGetCashCountingList(
     }
 
     if (dataState is DataFailed) {
-      emit(CashCountingFailure(error: dataState.error!));
+      emit(CashCountingFailure(error: dataState.error!.message));
     }
   }
 
@@ -50,7 +48,7 @@ void onGetCashCountingList(
     }
 
     if (dataState is DataFailed) {
-      emit(CashCountingFailure(error: dataState.error!));
+      emit(CashCountingFailure(error: dataState.error!.message));
     }
   }
 
@@ -67,7 +65,7 @@ void onGetCashCountingList(
     }
 
     if (dataState is DataFailed) {
-      emit(CashCountingFailure(error: dataState.error!));
+      emit(CashCountingFailure(error: dataState.error!.message));
     }
   }
 
@@ -84,7 +82,7 @@ void onGetCashCountingList(
     }
 
     if (dataState is DataFailed) {
-      emit(CashCountingFailure(error: dataState.error!));
+      emit(CashCountingFailure(error: dataState.error!.message));
     }
   }
 }
