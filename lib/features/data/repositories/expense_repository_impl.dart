@@ -19,11 +19,11 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
   Future<DataState<void>> addExpense(ExpenseEntity expense) async{
  try {
       final httpResponse = await _expenseService.addExpense( ExpenseModel.fromEntity(expense));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-          Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
@@ -38,11 +38,11 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
   Future<DataState<void>> deleteExpense(int id)async {
  try {
       final httpResponse = await _expenseService.deleteExpense( id);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
@@ -57,11 +57,11 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
   Future<DataState<List<ExpenseEntity>>> getExpenseListByDate(DateTime date)async {
    try {
       final httpResponse = await _expenseService.getExpenseListByDate( date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
@@ -76,11 +76,11 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
   Future<DataState<void>> updateExpense(ExpenseEntity expense)async {
  try {
       final httpResponse = await _expenseService.updateExpense(ExpenseModel.fromEntity(expense));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+             Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {

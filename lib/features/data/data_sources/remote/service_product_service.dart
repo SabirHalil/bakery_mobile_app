@@ -1,22 +1,22 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/constants/constants.dart';
 import '../../models/service_product.dart';
-part 'service_product_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ServiceProductService {
-  factory ServiceProductService(Dio dio, String baseUrl) = _ServiceProductService;
 
- @GET("/api/ServiceProduct/GetAllServiceProduct")
-  Future<HttpResponse<List<ServiceProductModel>>> getAllServiceProducts();
+class ServiceProductService {
+    Dio dio;
+  ServiceProductService(this.dio);
 
-  @POST("/api/ServiceProduct/AddServiceProduct")
-  Future<HttpResponse<void>> addServiceProduct(@Body() ServiceProductModel serviceProduct);
+  Future<Response> getAllServiceProducts() async {
+    return dio.get('/api/ServiceProduct/GetAllServiceProduct');
+  }
 
-  @PUT("/api/ServiceProduct/UpdateServiceProduct")
-  Future<HttpResponse> updateServiceProduct(
-      @Body() ServiceProductModel serviceProduct);
+  Future<Response> addServiceProduct(ServiceProductModel serviceProduct) async {
+    return dio.post('/api/ServiceProduct/AddServiceProduct',
+        data: serviceProduct.toJson());
+  }
 
+  Future<Response> updateServiceProduct(ServiceProductModel serviceProduct) async {
+    return dio.put('/api/ServiceProduct/UpdateServiceProduct',
+        data: serviceProduct.toJson());
+  }
 }

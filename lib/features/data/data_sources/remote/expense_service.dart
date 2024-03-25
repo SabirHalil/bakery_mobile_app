@@ -1,24 +1,26 @@
 import 'package:bakery_app/features/data/models/expense.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
+class ExpenseService {
+    Dio dio;
+  ExpenseService(this.dio);
 
-part 'expense_service.g.dart';
+  Future<Response> getExpenseListByDate(DateTime date) async {
+    return await dio.get(
+      '/api/Expense/GetExpensesByDate',
+      queryParameters: {'date': date},
+    );
+  }
 
-@RestApi(baseUrl: baseUrl)
-abstract class ExpenseService {
-  factory ExpenseService(Dio dio, String baseUrl) = _ExpenseService;
-  @GET("/api/Expense/GetExpensesByDate")
-  Future<HttpResponse<List<ExpenseModel>>>
-      getExpenseListByDate(@Query("date") DateTime date);
-  @POST("/api/Expense/AddExpense")
-  Future<HttpResponse> addExpense(
-      @Body() ExpenseModel expense);
-  @DELETE("/api/Expense/DeleteExpense")
-  Future<HttpResponse> deleteExpense(
-    @Query("id") int id);
-  @PUT("/api/Expense/UpdateExpense")
-  Future<HttpResponse> updateExpense(
-      @Body() ExpenseModel expense);
+  Future<Response> addExpense(ExpenseModel expense) async {
+    return await dio.post('/api/Expense/AddExpense', data: expense.toJson());
+  }
+
+  Future<Response> deleteExpense(int id) async {
+    return await dio.delete('/api/Expense/DeleteExpense', queryParameters: {'id': id});
+  }
+
+  Future<Response> updateExpense(ExpenseModel expense) async {
+    return await dio.put('/api/Expense/UpdateExpense', data: expense.toJson());
+  }
 }

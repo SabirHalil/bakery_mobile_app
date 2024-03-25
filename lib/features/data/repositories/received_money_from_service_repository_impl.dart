@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'dart:io';
 
 import '../../../core/error/failures.dart';
-import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/received_money_from_service_repository.dart';
 import '../models/received_money_from_service.dart';
 
@@ -15,86 +14,87 @@ class ReceivedMoneyFromServiceRepositoryImpl
   ReceivedMoneyFromServiceRepositoryImpl(this._receivedMoneyFromService);
   @override
   Future<DataState<void>> addReceivedMoneyFromService(
-      ReceivedMoneyFromServiceEntity receivedMoneyFromService)async {
-   try {
-      final httpResponse = await _receivedMoneyFromService.addReceivedMoneyFromService(ReceivedMoneyFromServiceModel.fromEntity(receivedMoneyFromService));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      ReceivedMoneyFromServiceEntity receivedMoneyFromService) async {
+    try {
+      final httpResponse = await _receivedMoneyFromService
+          .addReceivedMoneyFromService(ReceivedMoneyFromServiceModel.fromEntity(
+              receivedMoneyFromService));
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
   @override
-  Future<DataState<void>> deleteReceivedMoneyFromServiceById(int id)async {
+  Future<DataState<void>> deleteReceivedMoneyFromServiceById(int id) async {
     try {
-      
-      final httpResponse =
-          await _receivedMoneyFromService.deleteReceivedMoneyFromServiceById(id);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      final httpResponse = await _receivedMoneyFromService
+          .deleteReceivedMoneyFromServiceById(id);
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
   @override
   Future<DataState<ReceivedMoneyFromServiceEntity?>>
-      getReceivedMoneyFromServiceByDateAndServiceType( DateTime date, int servisTypeId)async {
-try {
-      final httpResponse = await _receivedMoneyFromService.getReceivedMoneyFromServiceByDateAndServiceType(date, servisTypeId);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      getReceivedMoneyFromServiceByDateAndServiceType(
+          DateTime date, int servisTypeId) async {
+    try {
+      final httpResponse = await _receivedMoneyFromService
+          .getReceivedMoneyFromServiceByDateAndServiceType(date, servisTypeId);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        final item = ReceivedMoneyFromServiceModel.fromJson(httpResponse.data);
+        return DataSuccess(item);
       }
-      if(httpResponse.response.statusCode == HttpStatus.noContent){
-         return const DataSuccess(null);
+      if (httpResponse.statusCode == HttpStatus.noContent) {
+        return const DataSuccess(null);
       }
-        return DataFailed(
-          Failure(httpResponse.response.statusMessage!),
-        );
-     
+      return DataFailed(
+        Failure(httpResponse.statusMessage!),
+      );
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
   @override
   Future<DataState<void>> updateReceivedMoneyFromService(
-      ReceivedMoneyFromServiceEntity receivedMoneyFromService)async {
- try {
+      ReceivedMoneyFromServiceEntity receivedMoneyFromService) async {
+    try {
       final httpResponse =
-          await _receivedMoneyFromService.updateReceivedMoneyFromService(ReceivedMoneyFromServiceModel.fromEntity(receivedMoneyFromService));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+          await _receivedMoneyFromService.updateReceivedMoneyFromService(
+              ReceivedMoneyFromServiceModel.fromEntity(
+                  receivedMoneyFromService));
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 }

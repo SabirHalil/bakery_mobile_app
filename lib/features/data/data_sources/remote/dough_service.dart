@@ -1,42 +1,47 @@
-// ignore_for_file: depend_on_referenced_packages
-
-import 'package:bakery_app/core/constants/constants.dart';
-import 'package:bakery_app/features/data/models/dough_added_product.dart';
-
-import 'package:bakery_app/features/data/models/dough_list.dart';
 import 'package:bakery_app/features/data/models/dough_product_to_add.dart';
-import 'package:bakery_app/features/data/models/product_not_added.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-part 'dough_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class DoughApiService {
-  factory DoughApiService(Dio dio, String baseUrl) = _DoughApiService;
 
-  @GET("/api/DoughFactory/GetByDateDoughFactoryList")
-  Future<HttpResponse<List<DoughListModel>>> getListsByDate(
-      @Query("date") DateTime date);
+class DoughApiService {
+    Dio dio;
+  DoughApiService(this.dio);
 
-  @POST("/api/DoughFactory/AddDoughFactoryListAndListDetail")
-  Future<HttpResponse> addDoughProducts(
-    @Query("userId") int userId,
-    @Body() List<DoughProductToAddModel> doughListProduct,
-    @Query("date") DateTime date,
-  );
 
-  @GET("/api/DoughFactory/GetAddedDoughFactoryListDetailByListId")
-  Future<HttpResponse<List<DoughAddedProductModel>>> getAddedProductsByListId(
-      @Query("doughFactoryListId") int doughFactoryListId);
+  Future<Response> getListsByDate(
+      DateTime date) async {
+    return dio.get('/api/DoughFactory/GetByDateDoughFactoryList',
+        queryParameters: {'date': date});
+  }
 
-  @GET("/api/DoughFactory/GetNotAddedDoughFactoryListDetailByListId")
-  Future<HttpResponse<List<ProductNotAddedModel>>> getAvailableProductsByListId(
-      @Query("doughFactoryListId") int listId);
+  Future<Response> addDoughProducts(
+    int userId,
+    List<DoughProductToAddModel> doughListProduct,
+    DateTime date,
+  ) async {
+    return dio.post('/api/DoughFactory/AddDoughFactoryListAndListDetail',
+        queryParameters: {'userId': userId, 'date': date},
+        data: doughListProduct.map((e) => e.toJson()).toList());
+  }
 
-  @DELETE("/api/DoughFactory/DeleteDoughFactoryListDetail")
-  Future<HttpResponse> deleteProductFromList(@Query("id") int id);
+  Future<Response> getAddedProductsByListId(int doughFactoryListId) async {
+    return dio.get('/api/DoughFactory/GetAddedDoughFactoryListDetailByListId',
+        queryParameters: {'doughFactoryListId': doughFactoryListId});
+  }
 
-  @PUT("/api/DoughFactory/UpdateDoughFactoryListDetail")
-  Future<HttpResponse> updateProductFromList(
-      @Body() DoughProductToAddModel doughListProduct);
+  Future<Response> getAvailableProductsByListId(int listId) async {
+    return dio.get(
+        '/api/DoughFactory/GetNotAddedDoughFactoryListDetailByListId',
+        queryParameters: {'doughFactoryListId': listId});
+  }
+
+  Future<Response> deleteProductFromList(int id) async {
+    return dio.delete('/api/DoughFactory/DeleteDoughFactoryListDetail',
+        queryParameters: {'id': id});
+  }
+
+  Future<Response> updateProductFromList(
+   DoughProductToAddModel doughListProduct) async {
+    return dio.put('/api/DoughFactory/UpdateDoughFactoryListDetail',
+        data: doughListProduct.toJson());
+  }
 }

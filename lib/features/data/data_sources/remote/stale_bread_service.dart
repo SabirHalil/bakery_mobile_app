@@ -1,29 +1,32 @@
-import 'package:bakery_app/features/data/models/stale_bread.dart';
-import 'package:bakery_app/features/data/models/stale_bread_added.dart';
 import 'package:bakery_app/features/data/models/stale_bread_to_add.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
+class StaleBreadService {
+  final Dio dio;
+  StaleBreadService(this.dio);
 
-part 'stale_bread_service.g.dart';
+  Future<Response> getAddedStaleBreadListByDate(DateTime date) async {
+    return dio.get('/api/StaleBread/GetStaleBreadListByDate', queryParameters: {'date': date});
+  }
 
-@RestApi(baseUrl: baseUrl)
-abstract class StaleBreadService {
-  factory StaleBreadService(Dio dio, String baseUrl) = _StaleBreadService;
-  @GET("/api/StaleBread/GetStaleBreadListByDate")
-  Future<HttpResponse<List<StaleBreadAddedModel>>>
-      getAddedStaleBreadListByDate(@Query("date") DateTime date);
-  @GET("/api/StaleBread/GetDoughFactoryProducts")
-  Future<HttpResponse<List<StaleBreadModel>>>
-      getBreadProductListByDate(@Query("date") DateTime date);
-  @POST("/api/StaleBread/AddStaleBread")
-  Future<HttpResponse> addStaleBread(
-      @Body() StaleBreadToAddModel staleBreadToAdd);
-  @DELETE("/api/StaleBread/DeleteStaleBread")
-  Future<HttpResponse> deleteStaleBread(
-      @Query("id") int id);
-  @PUT("/api/StaleBread/UpdateStaleBread")
-  Future<HttpResponse> updateStaleBread(
-      @Body() StaleBreadToAddModel staleBreadToAdd);
+  Future<Response> getBreadProductListByDate(DateTime date) async {
+    return dio.get('/api/StaleBread/GetDoughFactoryProducts',
+        queryParameters: {'date': date});
+  }
+
+  Future<Response> addStaleBread(StaleBreadToAddModel staleBreadToAdd) async {
+    return dio.post('/api/StaleBread/AddStaleBread',
+        data: staleBreadToAdd.toJson());
+  }
+
+  Future<Response> deleteStaleBread(int id) async {
+    return dio.delete('/api/StaleBread/DeleteStaleBread',
+        queryParameters: {'id': id});
+  }
+
+  Future<Response> updateStaleBread(
+      StaleBreadToAddModel staleBreadToAdd) async {
+    return dio.put('/api/StaleBread/UpdateStaleBread',
+        data: staleBreadToAdd.toJson());
+  }
 }

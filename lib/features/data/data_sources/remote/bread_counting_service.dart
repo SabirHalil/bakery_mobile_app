@@ -1,22 +1,30 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
 import '../../models/bread_counting.dart';
-part 'bread_counting_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class BreadCountingService {
-  factory BreadCountingService(Dio dio, String baseUrl) = _BreadCountingService;
-  @GET("/api/BreadCounting/GetBreadCountingByDate")
-  Future<HttpResponse<BreadCountingModel?>>
-      getBreadCountingByDate(@Query("date") DateTime date);
-  @POST("/api/BreadCounting/AddBreadCounting")
-  Future<HttpResponse> addBreadCounting(
-      @Body() BreadCountingModel breadCounting);
-  @DELETE("/api/BreadCounting/DeleteBreadCountingById")
-  Future<HttpResponse> deleteBreadCountingById(@Query("id") int id);
-  @PUT("/api/BreadCounting/UpdateBreadCounting")
-  Future<HttpResponse> updateBreadCounting(
-      @Body() BreadCountingModel breadCounting);
+class BreadCountingService {
+  Dio dio;
+  BreadCountingService(this.dio);
+
+  Future<Response> getBreadCountingByDate(DateTime date) async {
+    return await dio.get("/api/BreadCounting/GetBreadCountingByDate",
+        queryParameters: {"date": date});
+  }
+
+  Future<Response> addBreadCounting(BreadCountingModel breadCounting) async {
+    return await dio.post(
+      "/api/BreadCounting/AddBreadCounting",
+      data: breadCounting.toJson(),
+    );
+  }
+
+  Future<Response> deleteBreadCountingById(int id) async {
+    return await dio.delete("/api/BreadCounting/DeleteBreadCountingById",
+        queryParameters: {"id": id});
+  }
+
+  Future<Response> updateBreadCounting(BreadCountingModel breadCounting) async {
+    return await dio.put('/api/BreadCounting/UpdateBreadCounting',
+        data: breadCounting.toJson());
+  }
 }

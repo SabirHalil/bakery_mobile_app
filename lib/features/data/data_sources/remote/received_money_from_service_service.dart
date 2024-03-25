@@ -1,19 +1,38 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/constants/constants.dart';
 import '../../models/received_money_from_service.dart';
-part 'received_money_from_service_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ReceivedMoneyFromService {
-  factory ReceivedMoneyFromService(Dio dio,String baseUrl) = _ReceivedMoneyFromService;
-  @GET("/api/ReceivedMoneyFromService/GetReceivedMoneyFromServiceByDateAndServiceType")
-  Future<HttpResponse<ReceivedMoneyFromServiceModel?>>getReceivedMoneyFromServiceByDateAndServiceType(@Query("date") DateTime date, @Query("serviceType") int servisTypeId);
-  @POST("/api/ReceivedMoneyFromService/AddReceivedMoneyFromService")
-  Future<HttpResponse> addReceivedMoneyFromService(@Body() ReceivedMoneyFromServiceModel receivedMoneyFromService);
-  @DELETE("/api/ReceivedMoneyFromService/DeleteReceivedMoneyFromServiceById")
-  Future<HttpResponse> deleteReceivedMoneyFromServiceById(@Query("id") int id);
-  @PUT("/api/ReceivedMoneyFromService/UpdateReceivedMoneyFromService")
-  Future<HttpResponse> updateReceivedMoneyFromService(@Body() ReceivedMoneyFromServiceModel receivedMoneyFromService);
+class ReceivedMoneyFromService {
+    Dio dio;
+  ReceivedMoneyFromService(this.dio);
+
+  Future<Response> getReceivedMoneyFromServiceByDateAndServiceType(
+      DateTime date, int serviceType) async {
+    return dio.get(
+      '/api/ReceivedMoneyFromService/GetReceivedMoneyFromServiceByDateAndServiceType',
+      queryParameters: {'date': date, 'serviceType': serviceType},
+    );
+  }
+
+  Future<Response> addReceivedMoneyFromService(
+      ReceivedMoneyFromServiceModel receivedMoneyFromService) async {
+    return dio.post(
+      '/api/ReceivedMoneyFromService/AddReceivedMoneyFromService',
+      data: receivedMoneyFromService.toJson(),
+    );
+  }
+
+  Future<Response> deleteReceivedMoneyFromServiceById(int id) async {
+    return dio.delete(
+      '/api/ReceivedMoneyFromService/DeleteReceivedMoneyFromServiceById',
+      queryParameters: {'id': id},
+    );
+  }
+
+  Future<Response> updateReceivedMoneyFromService(
+      ReceivedMoneyFromServiceModel receivedMoneyFromService) async {
+    return dio.put(
+      '/api/ReceivedMoneyFromService/UpdateReceivedMoneyFromService',
+      data: receivedMoneyFromService.toJson(),
+    );
+  }
 }

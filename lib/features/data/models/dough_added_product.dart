@@ -1,6 +1,6 @@
 import 'package:bakery_app/features/domain/entities/added_dough_list_product.dart';
 
-class DoughAddedProductModel extends AddedDoughListProductEntity {
+class DoughAddedProductModel extends DoughAddedProductEntity {
   const DoughAddedProductModel({
     int? id,
     int? doughFactoryProductId,
@@ -35,8 +35,7 @@ class DoughAddedProductModel extends AddedDoughListProductEntity {
     };
   }
 
-  factory DoughAddedProductModel.fromEntity(
-      AddedDoughListProductEntity entity) {
+  factory DoughAddedProductModel.fromEntity(DoughAddedProductEntity entity) {
     return DoughAddedProductModel(
       id: entity.id,
       doughFactoryProductId: entity.doughFactoryProductId,

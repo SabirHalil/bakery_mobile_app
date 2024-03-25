@@ -1,6 +1,6 @@
-// ignore_for_file: depend_on_referenced_packages
 
 import 'package:bakery_app/core/constants/constants.dart';
+import 'package:bakery_app/features/data/data_sources/api_network_manager.dart';
 import 'package:bakery_app/features/data/data_sources/remote/auth_service.dart';
 import 'package:bakery_app/features/data/data_sources/remote/dough_service.dart';
 import 'package:bakery_app/features/data/data_sources/remote/expense_service.dart';
@@ -121,71 +121,71 @@ import 'features/presentation/pages/service/bloc/service_debt_detail/service_deb
 final sl = GetIt.instance;
 Future<void> initializeDependencies() async {
   // Dio
-  sl.registerSingleton<Dio>(Dio());
+  sl.registerSingleton<Dio>(ApiNetworkManager.instance.dio);
   sl.registerSingleton<String>(baseUrl);
   sl.registerLazySingleton(() => GlobalKey<NavigatorState>());
   // Dependencies
   //sl.registerSingleton<Api>(Api());
-  sl.registerSingleton<AuthApiService>(AuthApiService(sl(), sl()));
+   sl.registerSingleton<AuthApiService>(AuthApiService(sl()));
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
-  sl.registerSingleton<DoughApiService>(DoughApiService(sl(), sl()));
+  sl.registerSingleton<DoughApiService>(DoughApiService(sl()));
   sl.registerSingleton<DoughRepository>(DoughRepositoryImpl(sl()));
-  sl.registerSingleton<ProductApiService>(ProductApiService(sl(), sl()));
+  sl.registerSingleton<ProductApiService>(ProductApiService(sl()));
   sl.registerSingleton<ProductRepository>(ProductRepositoryImpl(sl()));
   sl.registerSingleton<ServiceServicesApiService>(
-      ServiceServicesApiService(sl(), sl()));
+      ServiceServicesApiService(sl()));
   sl.registerSingleton<ServiceMarketRepository>(
       ServiceMarketRepositoryImpl(sl()));
   sl.registerSingleton<ServiceAccountService>(
-      ServiceAccountService(sl(), sl()));
+      ServiceAccountService(sl()));
   sl.registerSingleton<ServiceAccountRepository>(
       ServiceAccountRepositoryImpl(sl()));
-  sl.registerSingleton<ServiceStaleService>(ServiceStaleService(sl(), sl()));
+  sl.registerSingleton<ServiceStaleService>(ServiceStaleService(sl()));
   sl.registerSingleton<ServiceStaleRepository>(
       ServiceStaleRepositoryImpl(sl()));
   sl.registerSingleton<ServiceDebtApiService>(
-      ServiceDebtApiService(sl(), sl()));
+      ServiceDebtApiService(sl()));
   sl.registerSingleton<ServiceDebtRepository>(ServiceDebtRepositoryImpl(sl()));
-  sl.registerSingleton<ExpenseService>(ExpenseService(sl(), sl()));
+  sl.registerSingleton<ExpenseService>(ExpenseService(sl()));
   sl.registerSingleton<ExpenseRepository>(ExpenseRepositoryImpl(sl()));
   sl.registerSingleton<GivenProductToService>(
-      GivenProductToService(sl(), sl()));
+      GivenProductToService(sl()));
   sl.registerSingleton<GivenProductToServiceRepository>(
       GivenProductToServiceRepositoryImpl(sl()));
-  sl.registerSingleton<ServiceStaleProduct>(ServiceStaleProduct(sl(), sl()));
+  sl.registerSingleton<ServiceStaleProduct>(ServiceStaleProduct(sl()));
   sl.registerSingleton<ServiceStaleProductRepository>(
       ServiceStaleProductRepositoryImpl(sl()));
-  sl.registerSingleton<StaleBreadService>(StaleBreadService(sl(), sl()));
+  sl.registerSingleton<StaleBreadService>(StaleBreadService(sl()));
   sl.registerSingleton<StaleBreadRepository>(StaleBreadRepositoryImpl(sl()));
-  sl.registerSingleton<StaleProductService>(StaleProductService(sl(), sl()));
+  sl.registerSingleton<StaleProductService>(StaleProductService(sl()));
   sl.registerSingleton<StaleProductRepository>(
       StaleProductRepositoryImpl(sl()));
   sl.registerSingleton<ReceivedMoneyFromService>(
-      ReceivedMoneyFromService(sl(), sl()));
+      ReceivedMoneyFromService(sl()));
   sl.registerSingleton<ReceivedMoneyFromServiceRepository>(
       ReceivedMoneyFromServiceRepositoryImpl(sl()));
-  sl.registerSingleton<BreadCountingService>(BreadCountingService(sl(), sl()));
+  sl.registerSingleton<BreadCountingService>(BreadCountingService(sl()));
   sl.registerSingleton<BreadCountingRepository>(
       BreadCountingRepositoryImpl(sl()));
   sl.registerSingleton<ProductCountingService>(
-      ProductCountingService(sl(), sl()));
+      ProductCountingService(sl()));
   sl.registerSingleton<ProductCountingRepository>(
       ProductCountingRepositoryImpl(sl()));
-  sl.registerSingleton<CashCountingService>(CashCountingService(sl(), sl()));
+  sl.registerSingleton<CashCountingService>(CashCountingService(sl()));
   sl.registerSingleton<CashCountingRepository>(
       CashCountingRepositoryImpl(sl()));
-  sl.registerSingleton<PdfService>(PdfService(sl(), sl()));
+  sl.registerSingleton<PdfService>(PdfService(sl()));
   sl.registerSingleton<PdfRepository>(PdfRepositoryImpl(sl()));
 
   sl.registerSingleton<ProductsProcessService>(
-      ProductsProcessService(sl(), sl()));
+      ProductsProcessService(sl()));
   sl.registerSingleton<ProductsProcessRepository>(
       ProductsProcessRepositoryImpl(sl()));
 
-  sl.registerSingleton<BreadPriceService>(BreadPriceService(sl(), sl()));
+  sl.registerSingleton<BreadPriceService>(BreadPriceService(sl()));
   sl.registerSingleton<BreadPriceRepository>(BreadPriceRepositoryImpl(sl()));
 
-  sl.registerSingleton<SystemTimeService>(SystemTimeService(sl(), sl()));
+  sl.registerSingleton<SystemTimeService>(SystemTimeService(sl()));
   sl.registerSingleton<SystemTimeRepository>(SystemTimeRepositoryImpl(sl()));
 
   // Usecases

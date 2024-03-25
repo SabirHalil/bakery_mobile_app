@@ -1,22 +1,19 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/constants/constants.dart';
 import '../../models/market_contract.dart';
-part 'market_contract_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class MarketContractService {
-  factory MarketContractService(Dio dio, String baseUrl) = _MarketContractService;
+class MarketContractService {
+    Dio dio;
+  MarketContractService(this.dio);
 
- @GET("/api/MarketContract/GetAllMarketContract")
-  Future<HttpResponse<List<MarketContractModel>>> getAllMarketContracts();
+  Future<Response> getAllMarketContracts() async {
+    return await dio.get('/api/MarketContract/GetAllMarketContract');
+  }
 
-  @POST("/api/MarketContract/AddMarketContract")
-  Future<HttpResponse<void>> addMarketContract(@Body() MarketContractModel marketContract);
+  Future<Response> addMarketContract(MarketContractModel marketContract) async {
+    return await dio.post('/api/MarketContract/AddMarketContract', data: marketContract.toJson());
+  }
 
-  @PUT("/api/MarketContract/UpdateMarketContract")
-  Future<HttpResponse> updateMarketContract(
-      @Body() MarketContractModel marketContract);
-
+  Future<Response> updateMarketContract(MarketContractModel marketContract) async {
+    return await dio.put('/api/MarketContract/UpdateMarketContract', data: marketContract.toJson());
+  }
 }

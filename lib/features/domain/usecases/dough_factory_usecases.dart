@@ -15,8 +15,8 @@ class DoughUseCase {
     return await _doughRepository.getDoughListsByDate(date);
   }
 
-  Future<DataState<List<AddedDoughListProductEntity>>>
-      getDoughListProductsByListId(int listId) async {
+  Future<DataState<List<DoughAddedProductEntity>>> getDoughListProductsByListId(
+      int listId) async {
     return await _doughRepository.getDoughListProductsByListId(listId);
   }
 

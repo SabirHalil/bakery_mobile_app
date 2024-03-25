@@ -1,31 +1,32 @@
 
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/constants/constants.dart';
 import '../../models/service_debt_detail.dart';
-import '../../models/service_debt_total.dart';
-part 'service_debt_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ServiceDebtApiService {
-  factory ServiceDebtApiService(Dio dio, String baseUrl) = _ServiceDebtApiService;
+class ServiceDebtApiService {
+    Dio dio;
+  ServiceDebtApiService(this.dio);
 
-  @GET("/api/DebtMarket/GetDebtsOfMarkets")
-  Future<HttpResponse<List<ServiceDebtTotalModel>>> getServiceDebtMarketsList();
+  Future<Response> getServiceDebtMarketsList() async {
+    return dio.get('/api/DebtMarket/GetDebtsOfMarkets');
+  }
 
-   @GET("/api/DebtMarket/GetDebtByMarketId")
-  Future<HttpResponse<List<ServiceDebtDetailModel>>> getServiceDebtDetailByMarketId(
-      @Query("marketId") int marketId);
+  Future<Response> getServiceDebtDetailByMarketId(int marketId) async {
+    return dio.get('/api/DebtMarket/GetDebtByMarketId',
+        queryParameters: {'marketId': marketId});
+  }
 
-  @POST("/api/DebtMarket/PayDebt")
-  Future<HttpResponse> postServicePayDebt(
-      
-      @Body() ServiceDebtDetailModel serviceDebtDetail);
+  Future<Response> postServicePayDebt(ServiceDebtDetailModel serviceDebtDetail) async {
+    return dio.post('/api/DebtMarket/PayDebt',
+        data: serviceDebtDetail.toJson());
+  }
 
-  @DELETE("/api/DebtMarket/DeleteDebtMarket")
-  Future<HttpResponse> deleteServiceDebtDetail(@Query("id") int id);
+  Future<Response> deleteServiceDebtDetail(int id) async {
+    return dio.delete('/api/DebtMarket/DeleteDebtMarket',
+        queryParameters: {'id': id});
+  }
 
-  @PUT("/api/DebtMarket/UpdateDebtMarket")
-  Future<HttpResponse> updateServiceDebtDetail(@Body() ServiceDebtDetailModel serviceDebtDetail);
+  Future<Response> updateServiceDebtDetail(ServiceDebtDetailModel serviceDebtDetail) async {
+    return dio.put('/api/DebtMarket/UpdateDebtMarket',
+        data: serviceDebtDetail.toJson());
+  }
 }

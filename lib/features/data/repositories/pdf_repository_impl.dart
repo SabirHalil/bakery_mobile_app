@@ -7,7 +7,6 @@ import 'package:bakery_app/features/domain/repositories/pdf_repository.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/error/failures.dart';
-import '../../../core/utils/toast_message.dart';
 
 
 class PdfRepositoryImpl extends PdfRepository {
@@ -17,18 +16,17 @@ class PdfRepositoryImpl extends PdfRepository {
   Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date) async {
     try {
       final httpResponse = await _pdfService.getPdfEndOfDayAccountDetailByDate(date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -38,18 +36,17 @@ class PdfRepositoryImpl extends PdfRepository {
     try {
       final httpResponse =
           await _pdfService.getPdfOfDoughFactoryByDate( date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
   
@@ -58,18 +55,17 @@ class PdfRepositoryImpl extends PdfRepository {
    try {
       final httpResponse =
           await _pdfService.getPdfOfPastaneByDate( date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
   
@@ -78,18 +74,17 @@ class PdfRepositoryImpl extends PdfRepository {
    try {
       final httpResponse =
           await _pdfService.getPdfOfServiceByDate( date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+ return DataFailed(Failure(e.toString()));
     }
   }
 }

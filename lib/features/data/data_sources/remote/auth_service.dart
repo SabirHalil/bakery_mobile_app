@@ -1,20 +1,19 @@
-import 'package:bakery_app/core/constants/constants.dart';
 
-import 'package:bakery_app/features/data/models/user.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-part 'auth_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class AuthApiService {
-  factory AuthApiService(Dio dio,String baseUrl) = _AuthApiService;
-  @POST("/api/Auth/login")
-  Future<HttpResponse<UserModel?>> loginUser(
-    @Query("userName") String userName,
-    @Query("password") String password
-  );
-  @POST("/api/Auth/logout")
-  Future<HttpResponse> logoutUser();
+class AuthApiService {
+    Dio dio;
+  AuthApiService(this.dio);
+  Future<Response> loginUser(String userName, String password) async {
+    return await dio.post(
+      "/api/Auth/login",
+      queryParameters: {"userName": userName, "password": password},
+    );
+  }
 
-  
+  Future<Response> logoutUser() async {
+    return await dio.post(
+      "/api/Auth/login",
+    );
+  }
 }

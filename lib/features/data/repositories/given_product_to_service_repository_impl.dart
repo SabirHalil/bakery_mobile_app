@@ -8,77 +8,74 @@ import 'package:bakery_app/features/domain/repositories/given_product_to_service
 import 'package:dio/dio.dart';
 
 import '../../../core/error/failures.dart';
-import '../../../core/utils/toast_message.dart';
 
 
-class GivenProductToServiceRepositoryImpl
-    extends GivenProductToServiceRepository {
+class GivenProductToServiceRepositoryImpl extends GivenProductToServiceRepository {
   final GivenProductToService _givenProductToService;
+
   GivenProductToServiceRepositoryImpl(this._givenProductToService);
+
   @override
   Future<DataState<void>> addGivenProductToService(
       GivenProductToServiceEntity givenProductToService) async {
     try {
-      final httpResponse =
-          await _givenProductToService.addGivenProductToService(
-            
-                  GivenProductToServiceModel.fromEntity(givenProductToService));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      final httpResponse = await _givenProductToService.addGivenProductToService(
+        GivenProductToServiceModel.fromEntity(givenProductToService)
+      );
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
   @override
   Future<DataState<void>> deleteGivenProductToService(int id) async {
     try {
-      
-      final httpResponse =
-          await _givenProductToService.deleteGivenProductToService( id);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      final httpResponse = await _givenProductToService.deleteGivenProductToService(id);
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
   @override
-  Future<DataState<List<GivenProductToServiceEntity>>>
-      getGivenProductToServiceListByDateAndServiceType(
-          DateTime date, int servisTypeId) async {
+  Future<DataState<List<GivenProductToServiceModel>>> getGivenProductToServiceListByDateAndServiceType(
+      DateTime date, int servisTypeId) async {
     try {
-      final httpResponse = await _givenProductToService
-          .getGivenProductToServiceListByDateAndServiceType(
-               date, servisTypeId);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      final httpResponse = await _givenProductToService.getGivenProductToServiceListByDateAndServiceType(
+        date, servisTypeId
+      );
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<GivenProductToServiceModel>? list = (httpResponse.data as List<dynamic>)
+            .map((dynamic item) =>
+        GivenProductToServiceModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -86,22 +83,20 @@ class GivenProductToServiceRepositoryImpl
   Future<DataState<void>> updateGivenProductToService(
       GivenProductToServiceEntity givenProductToService) async {
     try {
-      final httpResponse =
-          await _givenProductToService.updateGivenProductToService(
-              
-                  GivenProductToServiceModel.fromEntity(givenProductToService));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      final httpResponse = await _givenProductToService.updateGivenProductToService(
+        GivenProductToServiceModel.fromEntity(givenProductToService)
+      );
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 }

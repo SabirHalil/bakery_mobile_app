@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/data_sources/remote/product_counting_service.dart';
 import 'package:bakery_app/features/data/models/product_counting_to_add.dart';
+import 'package:bakery_app/features/data/models/product_not_added.dart';
 
 import 'package:bakery_app/features/domain/entities/product_counting_added.dart';
 
@@ -11,9 +12,10 @@ import 'package:bakery_app/features/domain/entities/product_counting_to_add.dart
 import 'package:bakery_app/features/domain/entities/product_not_added.dart';
 
 import '../../../core/error/failures.dart';
-import '../../../core/utils/toast_message.dart';
 import '../../domain/repositories/product_counting_repository.dart';
 import 'package:dio/dio.dart';
+
+import '../models/product_counting_added.dart';
 
 class ProductCountingRepositoryImpl extends ProductCountingRepository {
   final ProductCountingService _productCountingService;
@@ -24,18 +26,17 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
     try {
       
       final httpResponse = await _productCountingService.addProducts(ProductCountingToAddModel.fromEntity(product));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -43,18 +44,17 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
   Future<DataState<void>> deleteProductById(int id)async {
      try {
       final httpResponse = await _productCountingService.deleteProductById( id);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+             Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -62,18 +62,20 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
   Future<DataState<List<ProductCountingAddedEntity>>>getAddedProductsByDateAndCategoryId(DateTime date, int categoryId) async {
   try {
       final httpResponse = await _productCountingService.getAddedProductsByDateAndCategoryId(date,categoryId);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ProductCountingAddedEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ProductCountingAddedModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -83,18 +85,20 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
           DateTime date, int categoryId) async {
  try {
       final httpResponse = await _productCountingService.getNotAddedProductsByCategoryId(date,categoryId);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ProductNotAddedEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ProductNotAddedModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+             Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -103,18 +107,17 @@ class ProductCountingRepositoryImpl extends ProductCountingRepository {
       ProductCountingToAddEntity product) async {
  try {
       final httpResponse = await _productCountingService.updateProduct(ProductCountingToAddModel.fromEntity(product));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+ return DataFailed(Failure(e.toString()));
     }
   }
 }

@@ -1,34 +1,49 @@
 import 'package:bakery_app/features/data/models/product_process.dart';
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
 import '../../models/dough_product_process.dart';
-part 'products_process_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ProductsProcessService {
-  factory ProductsProcessService(Dio dio, String baseUrl) = _ProductsProcessService;
+class ProductsProcessService {
+    Dio dio;
+  ProductsProcessService(this.dio);
 
-  @GET("/api/Product/GetAllProductsBycategoryId")
-  Future<HttpResponse<List<ProductProcessModel>>> getAllProductsByCategoryId(
-      @Query("categoryId") int categoryId
-      );
+  Future<Response<List<ProductProcessModel>>> getAllProductsByCategoryId(
+      int categoryId) async {
+    return dio.get(
+      '/api/Product/GetAllProductsBycategoryId',
+      queryParameters: {'categoryId': categoryId}
+    );
+  }
 
-  @POST("/api/Product/AddProduct")
-  Future<HttpResponse<void>> addProduct(@Body() ProductProcessModel product);
+  Future<Response<void>> addProduct(ProductProcessModel product) async {
+    return dio.post(
+      '/api/Product/AddProduct',
+      data: product.toJson()
+    );
+  }
 
-  @PUT("/api/Product/UpdateProduct")
-  Future<HttpResponse> updateProduct(
-      @Body() ProductProcessModel product);
+  Future<Response<void>> updateProduct(ProductProcessModel product) async {
+    return dio.put(
+      '/api/Product/UpdateProduct',
+      data: product.toJson()
+    );
+  }
 
- @GET("/api/DoughFactoryProduct/GetDoughFactoryProducts")
-  Future<HttpResponse<List<DoughProductProcessModel>>> getAllDoughProducts();
+  Future<Response<List<DoughProductProcessModel>>> getAllDoughProducts() async {
+    return dio.get('/api/DoughFactoryProduct/GetDoughFactoryProducts');
+  }
 
-  @POST("/api/DoughFactoryProduct/AddDoughFactoryProduct")
-  Future<HttpResponse<void>> addDoughProduct(@Body() DoughProductProcessModel doughProduct);
+  Future<Response<void>> addDoughProduct(DoughProductProcessModel doughProduct) async {
+    return dio.post(
+      '/api/DoughFactoryProduct/AddDoughFactoryProduct',
+      data: doughProduct.toJson()
+    );
+  }
 
-  @PUT("/api/DoughFactoryProduct/UpdateDoughFactoryProduct")
-  Future<HttpResponse<void>> updateDoughProduct(
-      @Body() DoughProductProcessModel doughProduct);
+  Future<Response<void>> updateDoughProduct(DoughProductProcessModel doughProduct) async {
+    return dio.put(
+      '/api/DoughFactoryProduct/UpdateDoughFactoryProduct',
+      data: doughProduct.toJson()
+    );
+  }
 }

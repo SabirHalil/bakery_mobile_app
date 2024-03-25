@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/data_sources/remote/service_services_service.dart';
+import 'package:bakery_app/features/data/models/service_list.dart';
+import 'package:bakery_app/features/data/models/service_market.dart';
 import 'package:bakery_app/features/data/models/service_market_to_add.dart';
 import 'package:bakery_app/features/domain/entities/service_added_market.dart';
 import 'package:bakery_app/features/domain/entities/service_list.dart';
@@ -12,7 +14,7 @@ import 'package:bakery_app/features/domain/repositories/service_market_repositor
 import 'package:dio/dio.dart';
 
 import '../../../core/error/failures.dart';
-import '../../../core/utils/toast_message.dart';
+import '../models/service_added_market.dart';
 
 
 class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
@@ -31,18 +33,17 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
           userId,marketListModels,
           
           );
-      if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
+      if (httpResponse.statusCode! >= 200 && httpResponse.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+   return DataFailed(Failure(e.toString()));
     }
     
   }
@@ -51,18 +52,17 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
   Future<DataState<void>> deleteServiceMarketById(int id)async {
  try {
       final httpResponse = await _serviceServicesApiService.deleteMarketFromList(id);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -72,18 +72,20 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
  try {
       final httpResponse =
           await _serviceServicesApiService.getAvailableMarketsByListId(listId);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ServiceMarketEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ServiceMarketModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+     return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -94,18 +96,20 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
       final httpResponse = await _serviceServicesApiService.getAddedMarketsByListId(
           listId);
 
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ServiceAddedMarketEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ServiceAddedMarketModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -114,18 +118,20 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
       DateTime date)async {
  try {
       final httpResponse = await _serviceServicesApiService.getServiceServicesByDate( date);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ServiceListEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ServiceListModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -135,18 +141,17 @@ class ServiceMarketRepositoryImpl extends ServiceMarketRepository {
    try {
       final httpResponse = await _serviceServicesApiService.updateMarketFromList(
           ServiceMarketToAddModel.fromEntity(serviceMarket));
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+             Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 }

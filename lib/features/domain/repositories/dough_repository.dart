@@ -6,8 +6,8 @@ import 'package:bakery_app/features/domain/entities/product_not_added.dart';
 
 abstract class DoughRepository {
   Future<DataState<List<DoughListEntity>>> getDoughListsByDate(DateTime date);
-  Future<DataState<List<AddedDoughListProductEntity>>>
-      getDoughListProductsByListId(int listId);
+  Future<DataState<List<DoughAddedProductEntity>>> getDoughListProductsByListId(
+      int listId);
   Future<DataState<List<ProductNotAddedEntity>>> getAvailableDoughProducts(
       int listId); // if list id is 0 then it will retrieve all dough product else retrieve products that are not exist in this list
   Future<DataState<int>> addDoughProducts(int userId,

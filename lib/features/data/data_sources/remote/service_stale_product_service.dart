@@ -1,25 +1,32 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/constants/constants.dart';
 import '../../models/service_stale_product.dart';
-part 'service_stale_product_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ServiceStaleProduct {
-  factory ServiceStaleProduct(Dio dio, String baseUrl) = _ServiceStaleProduct;
-  @GET(
-      "/api/ServiceStaleProduct/GetServiceStaleProductListByDateAndServiceTypeId")
-  Future<HttpResponse<List<ServiceStaleProductModel>>>
-      getServiceStaleProductListByDateAndServiceType(
-          @Query("date") DateTime date,
-          @Query("serviceTypeId") int servisTypeId);
-  @POST("/api/ServiceStaleProduct/AddServiceStaleProduct")
-  Future<HttpResponse> addServiceStaleProduct(
-      @Body() ServiceStaleProductModel serviceStaleProduct);
-  @DELETE("/api/ServiceStaleProduct/DeleteServiceStaleProduct")
-  Future<HttpResponse> deleteServiceStaleProduct(@Query("id") int id);
-  @PUT("/api/ServiceStaleProduct/UpdateServiceStaleProduct")
-  Future<HttpResponse> updateServiceStaleProduct(
-      @Body() ServiceStaleProductModel serviceStaleProduct);
+class ServiceStaleProduct {
+    Dio dio;
+  ServiceStaleProduct(this.dio);
+
+  Future<Response> getServiceStaleProductListByDateAndServiceType(
+      DateTime date, int serviceTypeId) async {
+    return dio.get(
+        '/api/ServiceStaleProduct/GetServiceStaleProductListByDateAndServiceTypeId',
+        queryParameters: {'date': date, 'serviceTypeId': serviceTypeId});
+  }
+
+  Future<Response> addServiceStaleProduct(
+      ServiceStaleProductModel serviceStaleProduct) async {
+    return dio.post('/api/ServiceStaleProduct/AddServiceStaleProduct',
+        data: serviceStaleProduct.toJson());
+  }
+
+  Future<Response> deleteServiceStaleProduct(int id) async {
+    return dio.delete('/api/ServiceStaleProduct/DeleteServiceStaleProduct',
+        queryParameters: {'id': id});
+  }
+
+  Future<Response> updateServiceStaleProduct(
+      ServiceStaleProductModel serviceStaleProduct) async {
+    return dio.put('/api/ServiceStaleProduct/UpdateServiceStaleProduct',
+        data: serviceStaleProduct.toJson());
+  }
 }
+

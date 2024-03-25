@@ -1,39 +1,39 @@
-
-import 'package:bakery_app/features/data/models/service_added_market.dart';
-import 'package:bakery_app/features/data/models/service_list.dart';
-import 'package:bakery_app/features/data/models/service_market.dart';
 import 'package:bakery_app/features/data/models/service_market_to_add.dart';
-
-import '../../../../core/constants/constants.dart';
-
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-part 'service_services_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ServiceServicesApiService {
-  factory ServiceServicesApiService(Dio dio, String baseUrl) = _ServiceServicesApiService;
 
-  @GET("/api/Service/GetByDateServiceList")
-  Future<HttpResponse<List<ServiceListModel>>> getServiceServicesByDate(
-      @Query("date") DateTime date);
+class ServiceServicesApiService {
+    Dio dio;
+  ServiceServicesApiService(this.dio);
 
-  @POST("/api/Service/AddServiceListAndListDetail")
-  Future<HttpResponse> addServiceMarkets(
-      @Query("userId") int userId,
-      @Body() List<ServiceMarketToAddModel> marketList);
+  Future<Response> getServiceServicesByDate(DateTime date) async {
+    return dio.get('/api/Service/GetByDateServiceList',
+        queryParameters: {'date': date});
+  }
 
-  @GET("/api/Service/GetAddedMarketByServiceListId")
-  Future<HttpResponse<List<ServiceAddedMarketModel>>> getAddedMarketsByListId(
-      @Query("listId") int listId);
+  Future<Response> addServiceMarkets(int userId, List<ServiceMarketToAddModel> marketList) async {
+    return dio.post('/api/Service/AddServiceListAndListDetail',
+        queryParameters: {'userId': userId},
+        data: marketList.map((e) => e.toJson()).toList());
+  }
 
-  @GET("/api/Service/GetMarketByServiceListId")
-  Future<HttpResponse<List<ServiceMarketModel>>> getAvailableMarketsByListId(
-      @Query("listId") int listId);
+  Future<Response> getAddedMarketsByListId(int listId) async {
+    return dio.get('/api/Service/GetAddedMarketByServiceListId',
+        queryParameters: {'listId': listId});
+  }
 
-  @DELETE("/api/Service/DeleteServiceListDetail")
-  Future<HttpResponse> deleteMarketFromList(@Query("id") int id);
+  Future<Response> getAvailableMarketsByListId(int listId) async {
+    return dio.get('/api/Service/GetMarketByServiceListId',
+        queryParameters: {'listId': listId});
+  }
 
-  @PUT("/api/Service/UpdateServiceListDetail")
-  Future<HttpResponse> updateMarketFromList(@Body() ServiceMarketToAddModel doughListProduct);
+  Future<Response> deleteMarketFromList(int id) async {
+    return dio.delete('/api/Service/DeleteServiceListDetail',
+        queryParameters: {'id': id});
+  }
+
+  Future<Response> updateMarketFromList(ServiceMarketToAddModel doughListProduct) async {
+    return dio.put('/api/Service/UpdateServiceListDetail',
+        data: doughListProduct.toJson());
+  }
 }

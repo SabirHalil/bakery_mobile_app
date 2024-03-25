@@ -1,39 +1,42 @@
-
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/constants/constants.dart';
-import '../../models/product_counting_added.dart';
 import '../../models/product_counting_to_add.dart';
-import '../../models/product_not_added.dart';
-part 'product_counting_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class ProductCountingService {
-  factory ProductCountingService(Dio dio, String baseUrl) = _ProductCountingService;
+class ProductCountingService {
+    Dio dio;
+  ProductCountingService(this.dio);
 
-  @GET("/api/ProductsCounting/GetProductsCountingByDateAndCategory")
-  Future<HttpResponse<List<ProductCountingAddedModel>>> getAddedProductsByDateAndCategoryId(
-      @Query("date") DateTime date,
-      @Query("categoryId") int categoryId
-      );
+  Future<Response> getAddedProductsByDateAndCategoryId(DateTime date, int categoryId) async {
+    return dio.get(
+      '/api/ProductsCounting/GetProductsCountingByDateAndCategory',
+      queryParameters: {'date': date, 'categoryId': categoryId},
+    );
+  }
 
-  @GET("/api/ProductsCounting/GetNotAddedProductsCountingByDate")
-  Future<HttpResponse<List<ProductNotAddedModel>>> getNotAddedProductsByCategoryId(
-      @Query("date") DateTime date,
-      @Query("categoryId") int categoryId);
+  Future<Response> getNotAddedProductsByCategoryId(DateTime date, int categoryId) async {
+    return dio.get(
+      '/api/ProductsCounting/GetNotAddedProductsCountingByDate',
+      queryParameters: {'date': date, 'categoryId': categoryId},
+    );
+  }
 
-  @POST("/api/ProductsCounting/AddProductsCounting")
-  Future<HttpResponse> addProducts(
-      
-      @Body() ProductCountingToAddModel product,
-      );
+  Future<Response> addProducts(ProductCountingToAddModel product) async {
+    return dio.post(
+      '/api/ProductsCounting/AddProductsCounting',
+      data: product.toJson(),
+    );
+  }
 
+  Future<Response> deleteProductById(int id) async {
+    return dio.delete(
+      '/api/ProductsCounting/DeleteProductsCountingById',
+      queryParameters: {'id': id},
+    );
+  }
 
-  @DELETE("/api/ProductsCounting/DeleteProductsCountingById")
-  Future<HttpResponse> deleteProductById(@Query("id") int id);
-
-  @PUT("/api/ProductsCounting/UpdateProductsCounting")
-  Future<HttpResponse> updateProduct(
-      @Body() ProductCountingToAddModel product);
+  Future<Response> updateProduct(ProductCountingToAddModel product) async {
+    return dio.put(
+      '/api/ProductsCounting/UpdateProductsCounting',
+      data: product.toJson(),
+    );
+  }
 }

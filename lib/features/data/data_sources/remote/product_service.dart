@@ -1,42 +1,46 @@
-
-
-import 'package:bakery_app/features/data/models/product_added.dart';
-import 'package:bakery_app/features/data/models/product.dart';
 import 'package:bakery_app/features/data/models/product_to_add.dart';
-
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
-part 'product_service.g.dart';
+class ProductApiService {
+   Dio dio;
+  ProductApiService(this.dio);
 
-@RestApi(baseUrl: baseUrl)
-abstract class ProductApiService {
-  factory ProductApiService(Dio dio, String baseUrl) = _ProductApiService;
+  Future<Response> getAddedProductsByDateAndCategoryId(
+      DateTime date, int categoryId) async {
+    return dio.get(
+      '/api/ProductionList/GetAddedProductsByDateAndCategoryId',
+      queryParameters: {'date': date, 'categoryId': categoryId}
+    );
+  }
 
-  @GET("/api/ProductionList/GetAddedProductsByDateAndCategoryId")
-  Future<HttpResponse<List<AddedProductModel>>> getAddedProductsByDateAndCategoryId(
-      @Query("date") DateTime date,
-      @Query("categoryId") int categoryId
-      );
+  Future<Response> getAvailableProductsByCategoryId(
+      DateTime date, int categoryId) async {
+    return dio.get(
+      '/api/ProductionList/GetNotAddedProductsByListAndCategoryId',
+      queryParameters: {'date': date, 'categoryId': categoryId}
+    );
+  }
 
-  @GET("/api/ProductionList/GetNotAddedProductsByListAndCategoryId")
-  Future<HttpResponse<List<ProductModel>>> getAvailableProductsByCategoryId(
-      @Query("date") DateTime date,
-      @Query("categoryId") int categoryId);
+  Future<Response> addProducts(int userId, int categoryId,
+      List<ProductToAddModel> doughListProduct, DateTime date) async {
+    return dio.post(
+      '/api/ProductionList/AddProductionListAndDetail',
+      queryParameters: {'userId': userId, 'categoryId': categoryId, 'date': date},
+      data: doughListProduct.map((e) => e.toJson()).toList()
+    );
+  }
 
-  @POST("/api/ProductionList/AddProductionListAndDetail")
-  Future<HttpResponse> addProducts(
-      @Query("userId") int userId,
-      @Query("categoryId") int categoryId,
-      @Body() List<ProductToAddModel> doughListProduct,
-      @Query("date") DateTime date);
+  Future<Response> deleteProductById(int id) async {
+    return dio.delete(
+      '/api/ProductionList/DeleteProductionListDetail',
+      queryParameters: {'id': id}
+    );
+  }
 
-
-  @DELETE("/api/ProductionList/DeleteProductionListDetail")
-  Future<HttpResponse> deleteProductById(@Query("id") int id);
-
-  @PUT("/api/ProductionList/UpdateProductionListDetail")
-  Future<HttpResponse> updateProduct(
-      @Body() ProductToAddModel product);
+  Future<Response> updateProduct(ProductToAddModel product) async {
+    return dio.put(
+      '/api/ProductionList/UpdateProductionListDetail',
+      data: product.toJson()
+    );
+  }
 }

@@ -1,20 +1,29 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
 import '../../models/cash_counting.dart';
 
-part 'cash_counting_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class CashCountingService {
-  factory CashCountingService(Dio dio,String baseUrl) = _CashCountingService;
-  @GET("/api/CashCounting/GetCashCountingByDate")
-  Future<HttpResponse<CashCountingModel?>> getCashCountingByDate(@Query("date") DateTime date);
-  @POST("/api/CashCounting/AddCashCounting")
-  Future<HttpResponse> addCashCounting(@Body() CashCountingModel cashCounting);
-  @DELETE("/api/CashCounting/DeleteCashCountingById")
-  Future<HttpResponse> deleteCashCountingById(@Query("id") int id);
-  @PUT("/api/CashCounting/UpdateCashCounting")
-  Future<HttpResponse> updateCashCounting(@Body() CashCountingModel cashCounting);
+class CashCountingService {
+    Dio dio;
+  CashCountingService(this.dio);
+
+  Future<Response> getCashCountingByDate(DateTime date) async {
+    return await dio.get('/api/CashCounting/GetCashCountingByDate',
+        queryParameters: {'date': date});
+  }
+
+  Future<Response> addCashCounting(CashCountingModel cashCounting) async {
+    return await dio.post('/api/CashCounting/AddCashCounting',
+        data: cashCounting.toJson());
+  }
+
+  Future<Response> deleteCashCountingById(int id) async {
+    return await dio.delete('/api/CashCounting/DeleteCashCountingById',
+        queryParameters: {'id': id});
+  }
+
+  Future<Response> updateCashCounting(CashCountingModel cashCounting) async {
+    return dio.put('/api/CashCounting/UpdateCashCounting',
+        data: cashCounting.toJson());
+  }
 }

@@ -1,22 +1,20 @@
-import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/constants/constants.dart';
 import '../../models/market.dart';
-part 'market_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
-abstract class MarketService {
-  factory MarketService(Dio dio, String baseUrl) = _MarketService;
+class MarketService {
+    Dio dio;
+  MarketService(this.dio);
 
- @GET("/api/Market/GetAllMarket")
-  Future<HttpResponse<List<MarketModel>>> getAllMarkets();
+  Future<Response> getAllMarkets() async {
+    return await dio.get('/api/Market/GetAllMarket');
+  }
 
-  @POST("/api/Market/AddMarket")
-  Future<HttpResponse<void>> addMarket(@Body() MarketModel market);
+  Future<Response> addMarket(MarketModel market) async {
+    return await dio.post('/api/Market/AddMarket', data: market.toJson());
+  }
 
-  @PUT("/api/Market/UpdateMarket")
-  Future<HttpResponse> updateMarket(
-      @Body() MarketModel market);
-
+  Future<Response> updateMarket(MarketModel market) async {
+    return await dio.put('/api/Market/UpdateMarket', data: market.toJson());
+  }
 }

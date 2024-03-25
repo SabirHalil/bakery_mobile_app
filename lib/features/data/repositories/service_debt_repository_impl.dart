@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:bakery_app/core/resources/data_state.dart';
 import 'package:bakery_app/features/data/data_sources/remote/service_debt_service.dart';
 import 'package:bakery_app/features/data/models/service_debt_detail.dart';
+import 'package:bakery_app/features/data/models/service_debt_total.dart';
 import 'package:bakery_app/features/domain/entities/service_debt_detail.dart';
 import 'package:bakery_app/features/domain/entities/service_debt_total.dart';
 import 'package:bakery_app/features/domain/repositories/service_debt_repository.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/error/failures.dart';
-import '../../../core/utils/toast_message.dart';
 
 
 class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
@@ -20,18 +20,17 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
     try {
       final httpResponse = await _serviceDebtApiService.deleteServiceDebtDetail(
           id);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
+      if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-             Failure(httpResponse.response.statusMessage!),
+             Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+ return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -40,18 +39,20 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
       getServiceDebtDetailByMarketId(int marketId)async {
  try {
       final httpResponse = await _serviceDebtApiService.getServiceDebtDetailByMarketId(marketId);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ServiceDebtDetailEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ServiceDebtDetailModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -59,18 +60,20 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
   Future<DataState<List<ServiceDebtTotalEntity>>> getServiceDebtMarketsList()async {
  try {
       final httpResponse = await _serviceDebtApiService.getServiceDebtMarketsList();
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+      if (httpResponse.statusCode == HttpStatus.ok) {
+        List<ServiceDebtTotalEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ServiceDebtTotalModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -83,18 +86,17 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
       final httpResponse = await _serviceDebtApiService.postServicePayDebt(
           serviceDebtDetailModel
           );
-      if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
+      if (httpResponse.statusCode! >= 200 && httpResponse.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-            Failure(httpResponse.response.statusMessage!),
+            Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -107,18 +109,17 @@ class ServiceDebtRepositoryImpl extends ServiceDebtRepository {
       final httpResponse = await _serviceDebtApiService.updateServiceDebtDetail(
           serviceDebtDetailModel
           );
-      if (httpResponse.response.statusCode! >= 200 && httpResponse.response.statusCode! <= 300  ) {
+      if (httpResponse.statusCode! >= 200 && httpResponse.statusCode! <= 300  ) {
         return DataSuccess(httpResponse.data);
       } else {
         return DataFailed(
-           Failure(httpResponse.response.statusMessage!),
+           Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
       return DataFailed(Failure(e.response!.data));
     } catch (e) {
-      showToastMessage(e.toString(), duration: 1);
-      rethrow;
+       return DataFailed(Failure(e.toString()));
     }
   }
 }
