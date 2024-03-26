@@ -34,7 +34,7 @@ class StaleBreadRepositoryImpl extends StaleBreadRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
        return DataFailed(Failure(e.toString()));
     }
@@ -54,7 +54,7 @@ try {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }
@@ -76,7 +76,7 @@ try {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -99,7 +99,7 @@ try {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }
@@ -120,7 +120,7 @@ try {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }

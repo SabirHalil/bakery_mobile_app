@@ -27,9 +27,9 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
-   return DataFailed(Failure(e.toString()));
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -46,9 +46,9 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
-       return DataFailed(Failure(e.toString()));
+      return DataFailed(Failure(e.toString()));
     }
   }
 
@@ -69,7 +69,7 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         Failure(httpResponse.statusMessage!),
       );
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -89,9 +89,9 @@ class BreadCountingRepositoryImpl extends BreadCountingRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
-       return DataFailed(Failure(e.toString()));
+      return DataFailed(Failure(e.toString()));
     }
   }
 }

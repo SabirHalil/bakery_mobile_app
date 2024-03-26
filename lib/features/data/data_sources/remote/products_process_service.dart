@@ -7,7 +7,7 @@ class ProductsProcessService {
     Dio dio;
   ProductsProcessService(this.dio);
 
-  Future<Response<List<ProductProcessModel>>> getAllProductsByCategoryId(
+  Future<Response> getAllProductsByCategoryId(
       int categoryId) async {
     return dio.get(
       '/api/Product/GetAllProductsBycategoryId',
@@ -15,32 +15,32 @@ class ProductsProcessService {
     );
   }
 
-  Future<Response<void>> addProduct(ProductProcessModel product) async {
+  Future<Response> addProduct(ProductProcessModel product) async {
     return dio.post(
       '/api/Product/AddProduct',
       data: product.toJson()
     );
   }
 
-  Future<Response<void>> updateProduct(ProductProcessModel product) async {
+  Future<Response> updateProduct(ProductProcessModel product) async {
     return dio.put(
       '/api/Product/UpdateProduct',
       data: product.toJson()
     );
   }
 
-  Future<Response<List<DoughProductProcessModel>>> getAllDoughProducts() async {
+  Future<Response> getAllDoughProducts() async {
     return dio.get('/api/DoughFactoryProduct/GetDoughFactoryProducts');
   }
 
-  Future<Response<void>> addDoughProduct(DoughProductProcessModel doughProduct) async {
+  Future<Response> addDoughProduct(DoughProductProcessModel doughProduct) async {
     return dio.post(
       '/api/DoughFactoryProduct/AddDoughFactoryProduct',
       data: doughProduct.toJson()
     );
   }
 
-  Future<Response<void>> updateDoughProduct(DoughProductProcessModel doughProduct) async {
+  Future<Response> updateDoughProduct(DoughProductProcessModel doughProduct) async {
     return dio.put(
       '/api/DoughFactoryProduct/UpdateDoughFactoryProduct',
       data: doughProduct.toJson()

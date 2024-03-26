@@ -29,7 +29,7 @@ class SystemTimeRepositoryImpl extends SystemTimeRepository {
           Failure(httpResponse.statusMessage!),
       );
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }
@@ -47,7 +47,7 @@ class SystemTimeRepositoryImpl extends SystemTimeRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }

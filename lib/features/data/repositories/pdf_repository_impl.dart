@@ -17,6 +17,7 @@ class PdfRepositoryImpl extends PdfRepository {
     try {
       final httpResponse = await _pdfService.getPdfEndOfDayAccountDetailByDate(date);
       if (httpResponse.statusCode == HttpStatus.ok) {
+
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
@@ -24,7 +25,7 @@ class PdfRepositoryImpl extends PdfRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -44,7 +45,7 @@ class PdfRepositoryImpl extends PdfRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -63,7 +64,7 @@ class PdfRepositoryImpl extends PdfRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
        return DataFailed(Failure(e.toString()));
     }
@@ -82,7 +83,7 @@ class PdfRepositoryImpl extends PdfRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
  return DataFailed(Failure(e.toString()));
     }

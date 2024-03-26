@@ -34,7 +34,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
        return DataFailed(Failure(e.toString()));
     }
@@ -55,7 +55,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -77,7 +77,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -100,7 +100,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -123,7 +123,7 @@ class ServiceStaleRepositoryImpl extends ServiceStaleRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response!.data));
+      return DataFailed(Failure(e.response?.data));
     } catch (e) {
     return DataFailed(Failure(e.toString()));
     }
