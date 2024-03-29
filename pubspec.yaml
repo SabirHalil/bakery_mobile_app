@@ -31,6 +31,8 @@ dependencies:
   retrofit: ^4.1.0
   group_button: ^5.3.4
   syncfusion_flutter_pdfviewer: ^22.1.39
+  pdf: ^3.10.8
+  printing: ^5.12.0
  
 
 

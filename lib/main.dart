@@ -5,6 +5,7 @@ import 'package:bakery_app/config/theme/app_theme.dart';
 import 'package:bakery_app/core/utils/http_overrides.dart';
 import 'package:bakery_app/features/data/data_sources/local/shared_preference.dart';
 import 'package:bakery_app/features/data/models/user.dart';
+import 'package:bakery_app/features/presentation/pages/admin/bloc/markets_process/markets_process_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/admin/bloc/pdf/pdf_bloc.dart';
 import 'package:bakery_app/features/presentation/pages/admin/screens/admin_page.dart';
 
@@ -26,6 +27,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'features/presentation/pages/admin/bloc/bread_price/bread_price_bloc.dart';
 import 'features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
+import 'features/presentation/pages/admin/bloc/market_contracts/market_contracts_bloc.dart';
 import 'features/presentation/pages/admin/bloc/products_process/products_process_bloc.dart';
 import 'features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
 import 'features/presentation/pages/auth/bloc/auth_bloc.dart';
@@ -160,9 +162,9 @@ class MyApp extends StatelessWidget {
                  BlocProvider<BreadPriceBloc>(
           create: (context) => BreadPriceBloc(sl()),
         ),
-            BlocProvider<SystemTimeBloc>(
-          create: (context) => SystemTimeBloc(sl()),
-        ),
+            BlocProvider<SystemTimeBloc>(create: (context) => SystemTimeBloc(sl()),),
+            BlocProvider<MarketContractsBloc>(create: (context) => MarketContractsBloc(sl()),),
+            BlocProvider<MarketsProcessBloc>(create: (context) => MarketsProcessBloc(sl()),),
       ],
       child: MaterialApp(
         localizationsDelegates: const [

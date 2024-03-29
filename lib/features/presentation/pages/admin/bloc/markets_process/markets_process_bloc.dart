@@ -12,20 +12,22 @@ part 'markets_process_state.dart';
 class MarketsProcessBloc
     extends Bloc<MarketsProcessEvent, MarketsProcessState> {
   final MarketUseCase _marketUseCase;
-  MarketsProcessBloc(this._marketUseCase) : super(const MarketsProcessLoading()) {
+  MarketsProcessBloc(this._marketUseCase)
+      : super(const MarketsProcessLoading()) {
     on<GetMarketsProcesssRequested>(onGetMarketsProcesssRequested);
     on<AddMarketsProcessRequested>(onAddMarketsProcessRequested);
     on<UpdateMarketsProcessRequested>(onUpdateMarketsProcessRequested);
   }
   onGetMarketsProcesssRequested(GetMarketsProcesssRequested event,
       Emitter<MarketsProcessState> emit) async {
+    print('get markets');
+    print('get it ');
     emit(const MarketsProcessLoading());
     final dataState = await _marketUseCase.getAllMarkets();
 
     if (dataState is DataSuccess && dataState.data != null) {
       emit(MarketsProcessSuccess(
-          marketsProcessList:
-              dataState.data as List<MarketModel>));
+          marketsProcessList: dataState.data as List<MarketModel>));
     }
 
     if (dataState is DataFailed) {
@@ -36,16 +38,14 @@ class MarketsProcessBloc
   onAddMarketsProcessRequested(AddMarketsProcessRequested event,
       Emitter<MarketsProcessState> emit) async {
     emit(const MarketsProcessLoading());
-    final dataState =
-        await _marketUseCase.addMarket(event.market);
+    final dataState = await _marketUseCase.addMarket(event.market);
 
     if (dataState is DataSuccess) {
       final dataState = await _marketUseCase.getAllMarkets();
 
       if (dataState is DataSuccess && dataState.data != null) {
         emit(MarketsProcessSuccess(
-            marketsProcessList:
-                dataState.data as List<MarketModel>));
+            marketsProcessList: dataState.data as List<MarketModel>));
       }
 
       if (dataState is DataFailed) {
@@ -62,8 +62,7 @@ class MarketsProcessBloc
       Emitter<MarketsProcessState> emit) async {
     final state = this.state;
     if (state is MarketsProcessSuccess) {
-      final dataState =
-          await _marketUseCase.updateMarket(event.market);
+      final dataState = await _marketUseCase.updateMarket(event.market);
 
       if (dataState is DataSuccess) {
         emit(MarketsProcessSuccess(marketsProcessList: [

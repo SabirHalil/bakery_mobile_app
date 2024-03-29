@@ -1,8 +1,7 @@
 part of 'pdf_bloc.dart';
 
-sealed class PdfState{
+sealed class PdfState {
   const PdfState();
-
 }
 
 final class PdfInitial extends PdfState {
@@ -20,7 +19,8 @@ final class PdfFailure extends PdfState {
 
 final class PdfSuccess extends PdfState {
   final String? pdfPath;
-  
+  final Uint8List? byteList;
+
   final String pageTitle;
-  const PdfSuccess({this.pdfPath, required this.pageTitle});
+  const PdfSuccess({this.pdfPath, required this.pageTitle, required this.byteList});
 }

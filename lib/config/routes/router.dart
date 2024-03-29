@@ -104,6 +104,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           builder: (_) => PdfViewPage(
                 path: args[0],
                 titlePage: args[1],
+                byteList: args[2],
               ));
     default:
       return MaterialPageRoute(

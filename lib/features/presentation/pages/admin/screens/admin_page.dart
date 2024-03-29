@@ -51,7 +51,7 @@ class _AdminPageState extends State<AdminPage> {
           if (state is PdfSuccess) {
             state.pdfPath != null
                 ? _navigateToPage(PdfViewPage.routeName,
-                    {0: state.pdfPath, 1: state.pageTitle})
+                    {0: state.pdfPath, 1: state.pageTitle, 2:state.byteList})
                 : showToastMessage('Rapor şuan hazır değil');
           }
 

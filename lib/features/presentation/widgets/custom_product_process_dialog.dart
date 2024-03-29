@@ -5,16 +5,16 @@ import 'package:flutter/services.dart';
 class CustomProductProcessDialog extends StatefulWidget {
   final bool status;
   final String title;
-  final String numberLabel;
+  final String? numberLabel;
   final TextEditingController nameController;
-  final TextEditingController numberController;
+  final TextEditingController? numberController;
   final Function(bool, String, double) onSave;
   const CustomProductProcessDialog(
       {super.key,
       required this.title,
       required this.nameController,
-      required this.numberController,
-      required this.numberLabel,
+      this.numberController,
+      this.numberLabel,
       required this.onSave,
       required this.status});
 
@@ -45,21 +45,23 @@ class _CustomProductProcessDialogState
               onChanged: (bool value) {
                 setState(() {
                   status = value;
-                }); 
+                });
               }),
           TextField(
             controller: widget.nameController,
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(labelText: 'İsim'),
           ),
-          TextField(
-            controller: widget.numberController,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
-            ],
-            decoration: InputDecoration(labelText: widget.numberLabel),
-          ),
+          if (widget.numberController != null || widget.numberLabel != null)
+            TextField(
+              controller: widget.numberController,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+              ],
+              decoration: InputDecoration(labelText: widget.numberLabel),
+            ),
         ],
       ),
       actions: [
@@ -69,11 +71,17 @@ class _CustomProductProcessDialogState
         ),
         TextButton(
           onPressed: () {
-            double number =
-                double.tryParse(widget.numberController.text) ?? 0.0;
-            if (number > 0 && widget.nameController.text.isNotEmpty) {
+            if(widget.numberController != null){
+             double number =double.tryParse(widget.numberController!.text) ?? 0.0;
+             if (number > 0 && widget.nameController.text.isNotEmpty) {
               widget.onSave(status, widget.nameController.text, number);
-              Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              return;
+            }
+            }
+            if(widget.nameController.text.isNotEmpty){
+                widget.onSave(status, widget.nameController.text, 0);
+                Navigator.of(context).pop();
               return;
             }
             showToastMessage('Boşluklar doldurulmalı!');
