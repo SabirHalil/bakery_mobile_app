@@ -18,9 +18,9 @@ final class PdfFailure extends PdfState {
 }
 
 final class PdfSuccess extends PdfState {
-  final String? pdfPath;
+  final String? fileName;
   final Uint8List? byteList;
 
   final String pageTitle;
-  const PdfSuccess({this.pdfPath, required this.pageTitle, required this.byteList});
+  const PdfSuccess({this.fileName, required this.pageTitle, required this.byteList});
 }

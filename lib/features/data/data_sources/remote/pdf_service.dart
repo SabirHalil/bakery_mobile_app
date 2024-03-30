@@ -18,6 +18,7 @@ class PdfService {
     return dio.get(
       '/api/CreatePdf/CreatePdfForHamurhane',
       queryParameters: {'date': date},
+     
       options: Options(
         responseType: ResponseType.bytes,
       ),

@@ -49,9 +49,9 @@ class _AdminPageState extends State<AdminPage> {
       body: BlocConsumer<PdfBloc, PdfState>(
         listener: (context, state) {
           if (state is PdfSuccess) {
-            state.pdfPath != null
+            state.byteList != null
                 ? _navigateToPage(PdfViewPage.routeName,
-                    {0: state.pdfPath, 1: state.pageTitle, 2:state.byteList})
+                    {0:state.fileName,1: state.pageTitle, 2: state.byteList,})
                 : showToastMessage('Rapor şuan hazır değil');
           }
 
