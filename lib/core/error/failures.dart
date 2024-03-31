@@ -1,4 +1,4 @@
 class Failure {
-  String? message;
-  Failure([this.message = 'Beklenmedik bir hata oluştu']);
+  String message;
+  Failure([String? errorMessage]) : message = errorMessage ?? 'Beklenmedik bir hata oluştu';
 }

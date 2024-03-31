@@ -27,7 +27,7 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       showToastMessage(e.toString(), duration: 1);
       rethrow;
@@ -46,7 +46,7 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       showToastMessage(e.toString(), duration: 1);
       rethrow;
@@ -65,7 +65,7 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       showToastMessage(e.toString(), duration: 1);
       rethrow;
@@ -84,7 +84,7 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       showToastMessage(e.toString(), duration: 1);
       rethrow;

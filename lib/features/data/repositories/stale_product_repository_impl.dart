@@ -31,7 +31,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -49,7 +49,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }
@@ -72,7 +72,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
      return DataFailed(Failure(e.toString()));
     }
@@ -95,7 +95,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -115,7 +115,7 @@ class StaleProductRepositoryImpl extends StaleProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
        return DataFailed(Failure(e.toString()));
     }

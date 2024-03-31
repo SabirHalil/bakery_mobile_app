@@ -26,7 +26,7 @@ class BreadPriceRepositoryImpl extends BreadPriceRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -50,7 +50,7 @@ class BreadPriceRepositoryImpl extends BreadPriceRepository {
         Failure(httpResponse.statusMessage!),
       );
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
     return DataFailed(Failure(e.toString()));
     }
@@ -68,7 +68,7 @@ class BreadPriceRepositoryImpl extends BreadPriceRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
     return DataFailed(Failure(e.toString()));
     }

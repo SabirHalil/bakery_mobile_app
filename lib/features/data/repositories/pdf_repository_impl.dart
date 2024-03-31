@@ -8,24 +8,23 @@ import 'package:dio/dio.dart';
 
 import '../../../core/error/failures.dart';
 
-
 class PdfRepositoryImpl extends PdfRepository {
   final PdfService _pdfService;
   PdfRepositoryImpl(this._pdfService);
   @override
   Future<DataState<Uint8List?>> getEndOfTheDayPdfReport(DateTime date) async {
     try {
-      final httpResponse = await _pdfService.getPdfEndOfDayAccountDetailByDate(date);
+      final httpResponse =
+          await _pdfService.getPdfEndOfDayAccountDetailByDate(date);
       if (httpResponse.statusCode == HttpStatus.ok) {
-
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-           Failure(httpResponse.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+        return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -35,57 +34,54 @@ class PdfRepositoryImpl extends PdfRepository {
   Future<DataState<Uint8List?>> getPdfOfDoughFactoryByDate(
       DateTime date) async {
     try {
-      final httpResponse =
-          await _pdfService.getPdfOfDoughFactoryByDate( date);
+      final httpResponse = await _pdfService.getPdfOfDoughFactoryByDate(date);
       if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-           Failure(httpResponse.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
   }
-  
+
   @override
-  Future<DataState<Uint8List?>> getPdfOfPastaneByDate(DateTime date)async {
-   try {
-      final httpResponse =
-          await _pdfService.getPdfOfPastaneByDate( date);
+  Future<DataState<Uint8List?>> getPdfOfPastaneByDate(DateTime date) async {
+    try {
+      final httpResponse = await _pdfService.getPdfOfPastaneByDate(date);
       if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-            Failure(httpResponse.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
-       return DataFailed(Failure(e.toString()));
+      return DataFailed(Failure(e.toString()));
     }
   }
-  
+
   @override
-  Future<DataState<Uint8List?>> getPdfOfServiceByDate(DateTime date)async {
-   try {
-      final httpResponse =
-          await _pdfService.getPdfOfServiceByDate( date);
+  Future<DataState<Uint8List?>> getPdfOfServiceByDate(DateTime date) async {
+    try {
+      final httpResponse = await _pdfService.getPdfOfServiceByDate(date);
       if (httpResponse.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data!);
       } else {
         return DataFailed(
-            Failure(httpResponse.statusMessage!),
+          Failure(httpResponse.statusMessage!),
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
- return DataFailed(Failure(e.toString()));
+      return DataFailed(Failure(e.toString()));
     }
   }
 }

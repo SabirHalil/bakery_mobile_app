@@ -27,7 +27,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -46,7 +46,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -70,7 +70,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
         Failure(httpResponse.statusMessage!),
       );
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -92,7 +92,7 @@ class ReceivedMoneyFromServiceRepositoryImpl
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }

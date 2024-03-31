@@ -32,7 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return DataFailed(Failure(httpResponse.statusMessage.toString()));
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data ?? "Beklenmedik bir hata oluştu"));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }

@@ -27,7 +27,7 @@ class ServiceProductRepositoryImpl extends ServiceProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -48,7 +48,7 @@ class ServiceProductRepositoryImpl extends ServiceProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
       return DataFailed(Failure(e.toString()));
     }
@@ -67,7 +67,7 @@ class ServiceProductRepositoryImpl extends ServiceProductRepository {
         );
       }
     } on DioException catch (e) {
-      return DataFailed(Failure(e.response?.data));
+       return DataFailed(Failure(e.response?.data ?? e.message)); 
     } catch (e) {
     return DataFailed(Failure(e.toString()));
     }
