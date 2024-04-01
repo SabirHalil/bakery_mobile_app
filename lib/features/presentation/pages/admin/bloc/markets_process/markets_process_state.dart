@@ -2,7 +2,6 @@ part of 'markets_process_bloc.dart';
 @immutable
 sealed class MarketsProcessState{
   const MarketsProcessState();
-  
 }
 
 final class MarketsProcessLoading extends MarketsProcessState {
@@ -20,6 +19,6 @@ final class MarketsProcessSuccess extends MarketsProcessState {
   
   final List<MarketModel>? marketsProcessList;
 
-  const MarketsProcessSuccess({this.marketsProcessList});
+   const MarketsProcessSuccess({this.marketsProcessList});
 }
 

@@ -108,6 +108,7 @@ import 'features/domain/usecases/stale_bread_usecase.dart';
 import 'features/domain/usecases/system_time_usecase.dart';
 import 'features/presentation/pages/admin/bloc/bread_price/bread_price_bloc.dart';
 import 'features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
+import 'features/presentation/pages/admin/bloc/market_hasnot_contract/market_hasnot_contract_bloc.dart';
 import 'features/presentation/pages/admin/bloc/products_process/products_process_bloc.dart';
 import 'features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
 import 'features/presentation/pages/auth/bloc/auth_bloc.dart';
@@ -277,4 +278,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<SystemTimeBloc>(() => SystemTimeBloc(sl()));
   sl.registerFactory<MarketsProcessBloc>(() => MarketsProcessBloc(sl()));
   sl.registerFactory<MarketContractsBloc>(() => MarketContractsBloc(sl()));
+  sl.registerFactory<MarketHasnotContractBloc>(() => MarketHasnotContractBloc(sl()));
 }

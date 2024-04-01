@@ -1,3 +1,5 @@
+import 'package:bakery_app/features/domain/entities/market.dart';
+
 import '../../../core/resources/data_state.dart';
 import '../entities/market_contract.dart';
 import '../repositories/market_contract_repository.dart';
@@ -16,5 +18,9 @@ class MarketContractUseCase {
 
   Future<DataState<void>> updateMarketContract(MarketContractEntity marketContract) async {
     return _marketContractRepository.updateMarketContract(marketContract);
+  }
+
+    Future<DataState<List<MarketEntity>>> getMarketsNotHaveContracts() async {
+    return _marketContractRepository.getMarketsNotHaveContracts();
   }
 }

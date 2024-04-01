@@ -28,6 +28,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'features/presentation/pages/admin/bloc/bread_price/bread_price_bloc.dart';
 import 'features/presentation/pages/admin/bloc/dough_products_process/dough_products_process_bloc.dart';
 import 'features/presentation/pages/admin/bloc/market_contracts/market_contracts_bloc.dart';
+import 'features/presentation/pages/admin/bloc/market_hasnot_contract/market_hasnot_contract_bloc.dart';
 import 'features/presentation/pages/admin/bloc/products_process/products_process_bloc.dart';
 import 'features/presentation/pages/admin/bloc/system_time/system_time_bloc.dart';
 import 'features/presentation/pages/auth/bloc/auth_bloc.dart';
@@ -165,6 +166,7 @@ class MyApp extends StatelessWidget {
             BlocProvider<SystemTimeBloc>(create: (context) => SystemTimeBloc(sl()),),
             BlocProvider<MarketContractsBloc>(create: (context) => MarketContractsBloc(sl()),),
             BlocProvider<MarketsProcessBloc>(create: (context) => MarketsProcessBloc(sl()),),
+            BlocProvider<MarketHasnotContractBloc>(create: (context) => MarketHasnotContractBloc(sl()),),
       ],
       child: MaterialApp(
         localizationsDelegates: const [

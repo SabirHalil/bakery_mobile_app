@@ -8,6 +8,9 @@ class MarketContractService {
   Future<Response> getAllMarketContracts() async {
     return await dio.get('/api/MarketContract/GetAllMarketContract');
   }
+  Future<Response> getMarketsNotHaveContracts() async {
+    return await dio.get('/api/MarketContract/GetMarketsNotHaveContract');
+  }
 
   Future<Response> addMarketContract(MarketContractModel marketContract) async {
     return await dio.post('/api/MarketContract/AddMarketContract', data: marketContract.toJson());

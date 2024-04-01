@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/resources/data_state.dart';
+import '../../../../../data/models/market.dart';
 import '../../../../../data/models/market_contract.dart';
 
 part 'market_contracts_event.dart';
@@ -11,7 +12,8 @@ part 'market_contracts_state.dart';
 class MarketContractsBloc
     extends Bloc<MarketContractsEvent, MarketContractsState> {
   final MarketContractUseCase _marketContractUseCase;
-  MarketContractsBloc(this._marketContractUseCase) : super(const MarketContractsLoading()) {
+  MarketContractsBloc(this._marketContractUseCase)
+      : super(const MarketContractsLoading()) {
     on<GetMarketContractsRequested>(onGetMarketContractsRequested);
     on<AddMarketContractRequested>(onAddMarketContractRequested);
     on<UpdateMarketContractRequested>(onUpdateMarketContractRequested);
@@ -34,7 +36,8 @@ class MarketContractsBloc
   onAddMarketContractRequested(AddMarketContractRequested event,
       Emitter<MarketContractsState> emit) async {
     emit(const MarketContractsLoading());
-    final dataState = await _marketContractUseCase.addMarketContract(event.product);
+    final dataState =
+        await _marketContractUseCase.addMarketContract(event.marketContract);
 
     if (dataState is DataSuccess) {
       final dataState = await _marketContractUseCase.getAllMarketContracts();
@@ -59,12 +62,12 @@ class MarketContractsBloc
     final state = this.state;
     if (state is MarketContractsSuccess) {
       final dataState =
-          await _marketContractUseCase.updateMarketContract(event.product);
+          await _marketContractUseCase.updateMarketContract(event.marketContract);
 
       if (dataState is DataSuccess) {
         emit(MarketContractsSuccess(marketContractsList: [
-          ...state.marketContractsList!.map((element) =>
-              element.id == event.product.id ? event.product : element)
+          ...state.marketContractsList.map((element) =>
+              element.id == event.marketContract.id ? event.marketContract : element)
         ]));
       }
 

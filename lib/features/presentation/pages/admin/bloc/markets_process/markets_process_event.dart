@@ -10,6 +10,11 @@ final class AddMarketsProcessRequested extends MarketsProcessEvent {
 }
 
 final class UpdateMarketsProcessRequested extends MarketsProcessEvent {
-    MarketModel market;
+  MarketModel market;
   UpdateMarketsProcessRequested({required this.market});
+}
+
+final class FilterMarketsProcessRequested extends MarketsProcessEvent {
+  List<MarketModel> marketList;
+  FilterMarketsProcessRequested({required this.marketList});
 }

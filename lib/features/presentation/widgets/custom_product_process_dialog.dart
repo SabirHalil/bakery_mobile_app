@@ -6,13 +6,13 @@ class CustomProductProcessDialog extends StatefulWidget {
   final bool status;
   final String title;
   final String? numberLabel;
-  final TextEditingController nameController;
+  final TextEditingController? nameController;
   final TextEditingController? numberController;
   final Function(bool, String, double) onSave;
   const CustomProductProcessDialog(
       {super.key,
       required this.title,
-      required this.nameController,
+       this.nameController,
       this.numberController,
       this.numberLabel,
       required this.onSave,
@@ -47,11 +47,12 @@ class _CustomProductProcessDialogState
                   status = value;
                 });
               }),
-          TextField(
-            controller: widget.nameController,
-            keyboardType: TextInputType.text,
-            decoration: const InputDecoration(labelText: 'İsim'),
-          ),
+          if (widget.nameController != null)
+            TextField(
+              controller: widget.nameController,
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(labelText: 'İsim'),
+            ),
           if (widget.numberController != null || widget.numberLabel != null)
             TextField(
               controller: widget.numberController,
@@ -60,7 +61,7 @@ class _CustomProductProcessDialogState
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
               ],
-              decoration: InputDecoration(labelText: widget.numberLabel),
+              decoration: InputDecoration(labelText: widget.numberLabel??'Fiyat'),
             ),
         ],
       ),
@@ -68,20 +69,21 @@ class _CustomProductProcessDialogState
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Vazgeç'),
-        ),
+        ), 
         TextButton(
           onPressed: () {
-            if(widget.numberController != null){
-             double number =double.tryParse(widget.numberController!.text) ?? 0.0;
-             if (number > 0 && widget.nameController.text.isNotEmpty) {
-              widget.onSave(status, widget.nameController.text, number);
+            if (widget.numberController != null) {
+              double number = double.tryParse(widget.numberController!.text) ?? 0.0;
+              String text = widget.nameController != null? widget.nameController!.text:'';
+              if (number > 0 ) {
+                widget.onSave(status, text, number);
                 Navigator.of(context).pop();
-              return;
+                return;
+              }
             }
-            }
-            if(widget.nameController.text.isNotEmpty){
-                widget.onSave(status, widget.nameController.text, 0);
-                Navigator.of(context).pop();
+            if (widget.nameController!.text.isNotEmpty) {
+              widget.onSave(status, widget.nameController!.text, 0);
+              Navigator.of(context).pop();
               return;
             }
             showToastMessage('Boşluklar doldurulmalı!');

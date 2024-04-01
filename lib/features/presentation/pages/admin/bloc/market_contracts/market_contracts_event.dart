@@ -1,15 +1,15 @@
 part of 'market_contracts_bloc.dart';
 
-sealed class MarketContractsEvent{}
+sealed class MarketContractsEvent {}
 
 final class GetMarketContractsRequested extends MarketContractsEvent {}
 
 final class AddMarketContractRequested extends MarketContractsEvent {
-  MarketContractModel product;
-  AddMarketContractRequested({required this.product});
+  MarketContractModel marketContract;
+  AddMarketContractRequested({required this.marketContract});
 }
 
 final class UpdateMarketContractRequested extends MarketContractsEvent {
-    MarketContractModel product;
-  UpdateMarketContractRequested({required this.product});
+  MarketContractModel marketContract;
+  UpdateMarketContractRequested({required this.marketContract});
 }

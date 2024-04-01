@@ -17,6 +17,7 @@ class MarketsProcessBloc
     on<GetMarketsProcesssRequested>(onGetMarketsProcesssRequested);
     on<AddMarketsProcessRequested>(onAddMarketsProcessRequested);
     on<UpdateMarketsProcessRequested>(onUpdateMarketsProcessRequested);
+    on<FilterMarketsProcessRequested>(onFilterMarketsProcessRequested);
   }
   onGetMarketsProcesssRequested(GetMarketsProcesssRequested event,
       Emitter<MarketsProcessState> emit) async {
@@ -74,6 +75,18 @@ class MarketsProcessBloc
       if (dataState is DataFailed) {
         emit(MarketsProcessFailure(error: dataState.error!.message));
       }
+    }
+  }
+
+  onFilterMarketsProcessRequested(FilterMarketsProcessRequested event,
+      Emitter<MarketsProcessState> emit) async {
+    
+    if (state is MarketsProcessSuccess) {
+
+     
+        emit(MarketsProcessSuccess(
+            marketsProcessList: event.marketList));
+   
     }
   }
 }
