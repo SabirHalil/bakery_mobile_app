@@ -35,7 +35,6 @@ class _AdminPageState extends State<AdminPage> {
   static DateTime? selectedDate = DateTime.now();
   static String date = "Bugün";
   static bool todayDate = true;
-  String remotePDFpath = "";
   @override
   void initState() {
     super.initState();
@@ -50,12 +49,15 @@ class _AdminPageState extends State<AdminPage> {
         listener: (context, state) {
           if (state is PdfSuccess) {
             state.byteList != null
-                ? _navigateToPage(PdfViewPage.routeName,
-                    {0:state.fileName,1: state.pageTitle, 2: state.byteList,})
+                ? _navigateToPage(PdfViewPage.routeName, {
+                    0: state.fileName,
+                    1: state.pageTitle,
+                    2: state.byteList,
+                  })
                 : showToastMessage('Rapor şuan hazır değil');
           }
 
-             if (state is PdfFailure) {
+          if (state is PdfFailure) {
             showSnackBar(context, state.error!);
           }
         },
@@ -69,7 +71,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _buildBody() {
+  Widget _buildBody() {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -85,13 +87,13 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _buildAppbar() {
+  PreferredSize _buildAppbar() {
     return PreferredSize(
       preferredSize: const Size.fromHeight(70),
       child: CustomAppBarWithDate(
         title: "Yönetim",
         date: date,
-        //  onTap: _selectDate,
+        onTap: _selectDate,
         additionalMenuItems: const [
           PopupMenuItem<String>(
             value: 'system-open-close-time',
@@ -107,7 +109,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _reports() {
+  Widget _reports() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -125,7 +127,8 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Günsonu'),
             trailing: IconButton(
               onPressed: () => context.read<PdfBloc>().add(
-                  PdfGetEndOfTheDayRequested(date: selectedDate!, pageTitle: "Gün Sonu Raporu")),
+                  PdfGetEndOfTheDayRequested(
+                      date: selectedDate!, pageTitle: "Gün Sonu Raporu")),
               icon: const Icon(Icons.remove_red_eye),
               color: GlobalVariables.secondaryColor,
             ),
@@ -139,7 +142,6 @@ class _AdminPageState extends State<AdminPage> {
           ListTile(
             title: const Text('Servis'),
             trailing: IconButton(
-              
               onPressed: () => context.read<PdfBloc>().add(
                   PdfGetServiceRequested(
                       date: selectedDate!, pageTitle: "Servis Raporu")),
@@ -184,7 +186,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _cashProcess() {
+  Widget _cashProcess() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -229,7 +231,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _production() {
+  Widget _production() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -326,7 +328,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _storeCounting() {
+  Widget _storeCounting() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -404,23 +406,12 @@ class _AdminPageState extends State<AdminPage> {
             indent: 10,
             endIndent: 10,
           ),
-          // -------NEED TO BE DONE--------
-          // CustomSellListTile(
-          //     title: 'Kasa',
-          //     onShowDetails: () {
-          //  //     _updateCashCountingDialog("Kasa Sayımı Güncelleme");
-          //     },
-          //     onAdd: todayDate
-          //         ? () {
-          //            // _addCashCountingDialog("Kasa Sayımı");
-          //           }
-          //         : null),
         ],
       ),
     );
   }
 
-  _employeesProcess() {
+  Widget _employeesProcess() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -465,7 +456,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _productsProcess() {
+  Widget _productsProcess() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -494,7 +485,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _marketProcess() {
+  Widget _marketProcess() {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -523,7 +514,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _navigateToPage(String routeName, dynamic args) {
+  void _navigateToPage(String routeName, dynamic args) {
     args == null
         ? Navigator.pushNamed(
             context,
@@ -536,7 +527,7 @@ class _AdminPageState extends State<AdminPage> {
           );
   }
 
-  _showSystemtimeDialog() {
+  void _showSystemtimeDialog() {
     context.read<SystemTimeBloc>().add(GetSystemTimeRequested());
     TextEditingController startController = TextEditingController();
     TextEditingController closeController = TextEditingController();
@@ -620,5 +611,29 @@ class _AdminPageState extends State<AdminPage> {
             };
           }));
         });
+  }
+
+  Future<void> _selectDate() async {
+    var newDate = await showDatePicker(
+        context: context,
+        initialDate: selectedDate!,
+        firstDate: DateTime(2023),
+        lastDate: DateTime.now());
+
+    if (selectedDate != null && newDate != null && !checkDate(newDate)) {
+      selectedDate = newDate;
+      setState(() {
+        todayDate = isToday(selectedDate!);
+        todayDate
+            ? date = 'Bugün'
+            : date = selectedDate.toString().split(" ")[0];
+      });
+    }
+  }
+
+  bool checkDate(DateTime newDate) {
+    return newDate.year == selectedDate!.year &&
+        newDate.month == selectedDate!.month &&
+        newDate.day == selectedDate!.day;
   }
 }
