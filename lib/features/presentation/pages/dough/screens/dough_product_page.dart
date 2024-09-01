@@ -107,7 +107,6 @@ class DoughProductPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      
                       itemCount: state.doughAddedProducts!.length,
                       itemBuilder: (context, index) {
                         return AddedProduct(
@@ -241,10 +240,8 @@ class DoughProductPage extends StatelessWidget {
 
   _saveNewProducts(BuildContext context) {
     if (listToPost.isNotEmpty) {
-        context.read<DoughAddedProductsBloc>().add(
-            DoughPostAddedProductRequested(
-                products: listToPost, userId: userId, date: date));
-      
+      context.read<DoughAddedProductsBloc>().add(DoughPostAddedProductRequested(
+          products: listToPost, userId: userId, date: date));
     } else {
       showToastMessage("Yeni ürün eklemelisiniz!");
     }

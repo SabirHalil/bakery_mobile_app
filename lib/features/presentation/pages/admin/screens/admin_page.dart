@@ -82,6 +82,7 @@ class _AdminPageState extends State<AdminPage> {
           _storeCounting(),
           _productsProcess(),
           _marketProcess(),
+          _centerProcess(),
         ],
       ),
     );
@@ -509,6 +510,51 @@ class _AdminPageState extends State<AdminPage> {
               color: GlobalVariables.secondaryColor,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _centerProcess() {
+    return Container(
+      margin: const EdgeInsets.all(5.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: GlobalVariables.secondaryColorLight,
+      ),
+      child: ExpansionTile(
+        collapsedIconColor: GlobalVariables.secondaryColor,
+        iconColor: GlobalVariables.secondaryColor,
+        title: const Text(
+          'Merkez',
+        ),
+        children: [
+          CustomSellListTile(
+              title: 'Para teslimatı',
+              onShowDetails: () {
+                // _updateBreadCounting(selectedDate!);
+              },
+              onAdd: todayDate
+                  ? () {
+                      //   _addBreadCountingDialog(selectedDate!);
+                    }
+                  : null),
+          const Divider(
+            height: 1,
+            color: Colors.white,
+            indent: 10,
+            endIndent: 10,
+          ),
+          CustomSellListTile(
+              title: 'Kredi kart devir et',
+              onShowDetails: () {
+                // _showAddedProductCountingList(1);
+              },
+              onAdd: todayDate
+                  ? () {
+                      //      _showProductCountingNotAddedList(1);
+                    }
+                  : null),
         ],
       ),
     );

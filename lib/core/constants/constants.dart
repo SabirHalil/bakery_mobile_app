@@ -2,7 +2,7 @@
 
 import 'package:intl/intl.dart';
 
-const String  baseUrl= "https://10.80.15.178:7207";
+const String  baseUrl= "https://192.168.1.8:7207";
 
 String getFormattedDateTime(DateTime dateTime){
   return DateFormat('yyyy-MM-dd HH:mm').format(dateTime);
