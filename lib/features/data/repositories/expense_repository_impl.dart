@@ -58,7 +58,10 @@ class ExpenseRepositoryImpl extends ExpenseRepository{
    try {
       final httpResponse = await _expenseService.getExpenseListByDate( date);
       if (httpResponse.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+            List<ExpenseEntity>? list = (httpResponse.data as List<dynamic>)
+          .map((dynamic item) => ExpenseModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+        return DataSuccess(list);
       } else {
         return DataFailed(
            Failure(httpResponse.statusMessage!),
